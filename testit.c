@@ -6,7 +6,7 @@
 
 struct value_st {
 	int array[VALUE_MAX_STR_LEN];
-}
+};
 
 int ifelse(int a, int b);
 
