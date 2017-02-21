@@ -15,7 +15,7 @@ add.o : add.s
 	as -o add.o add.s
 
 testit : testit.c add.o ifelse.s
-	gcc -o testit add_test.c add.o ifelse.o
+	gcc -o testit testit.c add.o ifelse.o
 
 clean :
 	rm -rf ${PROGS} ${OBJS}
