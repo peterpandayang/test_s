@@ -7,7 +7,7 @@ int ifelse(int a, int b);
 int main(int argc, char **argv){
     int r;
 
-    r = add(10,3);
+    r = add(3,3);
 
     printf("r = %d\n", r);
 
