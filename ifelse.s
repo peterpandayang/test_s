@@ -1,6 +1,6 @@
 /* -- ifelse.s */
-.global main
-.func main
+.global ifelse
+.func ifelse
 
 /* C code
 x = 99;
@@ -14,7 +14,7 @@ if (x == y) {
 
 */
 	
-main:
+ifelse:
 	
 	cmp r0, r1
 	bne else
