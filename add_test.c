@@ -5,7 +5,7 @@ int add(int a);
 int main(int argc, char **argv){
     int r;
 
-    r = add(3);
+    r = add(100);
 
     printf("r = %d\n", r);
 
