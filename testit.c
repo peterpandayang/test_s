@@ -39,7 +39,7 @@ int main(int argc, char **argv){
     int r;
 
     struct value_st v_st;
-    init_array(&v_st.array, 10);
+    init_array(&(v_st.array), 10);
 
     // int rst = ifelse(3,3);
     // printf("rst is: %d\n", rst);
