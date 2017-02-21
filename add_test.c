@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-int add(int a, int b);
+int add(int a);
 
 int main(int argc, char **argv){
     int r;
 
-    r = add(1,3);
+    r = add(3);
 
     printf("r = %d\n", r);
 

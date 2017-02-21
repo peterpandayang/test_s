@@ -15,7 +15,8 @@ if (x == y) {
 */
 	
 main:
-
+	
+	add r1, r1, #3
 	cmp r0, r1
 	bne else
 	add r0, r0, #1
@@ -25,3 +26,5 @@ else:
 	add r0, r1, #0
 endif:
 	bx lr      /* Return from main */
+
+
