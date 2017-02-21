@@ -1,4 +1,4 @@
-PROGS = add_test
+PROGS = testit
 OBJS = add.o ifelse.o add
 CFLAGS = -g
 
@@ -14,8 +14,8 @@ ifelse.o : ifelse.s
 add.o : add.s
 	as -o add.o add.s
 
-add_test : add_test.c add.o ifelse.s
-	gcc -o add_test add_test.c ifelse.o add.o 
+testit : add_test.c add.o ifelse.s
+	gcc -o testit add_test.c add.o ifelse.o
 
 clean :
 	rm -rf ${PROGS} ${OBJS}
