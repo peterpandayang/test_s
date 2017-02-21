@@ -16,7 +16,6 @@ if (x == y) {
 	
 main:
 	
-	mov r1, #3
 	cmp r0, r1
 	bne else
 	add r0, r0, #1

@@ -1,5 +1,5 @@
 PROGS = add_test
-OBJS = add.o add
+OBJS = add.o ifelse.o add
 CFLAGS = -g
 
 all : ${PROGS}
@@ -7,6 +7,9 @@ all : ${PROGS}
 # first_a : first_a.s
 # 	as -o first_a.o first_a.s
 # 	gcc -o first_a first_a.o
+
+ifelse.o : ifelse.s
+	as -o ifelse.o ifelse.s
 
 add.o : add.s
 	as -o add.o add.s
