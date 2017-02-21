@@ -11,7 +11,7 @@ int main(int argc, char **argv){
 
     // printf("r = %d\n", r);
 
-    int rst = ifelse(1,3);
+    int rst = ifelse(3,3);
     printf("rst is: %d\n", rst);
 
     return 0;
