@@ -16,14 +16,14 @@ if (x == y) {
 	
 main:
 	
-	add r1, r1, #3
+	mov r1, #3
 	cmp r0, r1
 	bne else
 	add r0, r0, #1
 	b endif
 else:	
 	add r1, r1, #3
-	add r0, r1, #0
+	mov r0, r1
 endif:
 	bx lr      /* Return from main */
 
