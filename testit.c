@@ -12,7 +12,7 @@ int ifelse(int a, int b);
 
 // func for sum array
 
-void init_array(int p, int n){
+void init_array(int *p, int n){
 	int i = 0;
 	for(i = 0; i < n ; i++){
 		p[i] = i;
