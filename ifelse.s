@@ -16,7 +16,7 @@ if (x == y) {
 	
 main:
 	
-	cmp r0, #1
+	cmp r0, r1
 	bne else
 	add r0, r0, #1
 	b endif
