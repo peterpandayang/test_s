@@ -2,8 +2,7 @@
 
 int add(int a, int b);
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv){
     int r;
 
     r = add(1,3);

@@ -15,8 +15,6 @@ if (x == y) {
 */
 	
 main:
-	mov r0, #99
-	mov r1, #99
 
 	cmp r0, r1
 	bne else
@@ -24,5 +22,6 @@ main:
 	b endif
 else:	
 	add r1, r1, #2
+	add r0, r1, #0
 endif:
 	bx lr      /* Return from main */
