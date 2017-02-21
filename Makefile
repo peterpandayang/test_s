@@ -14,7 +14,7 @@ ifelse.o : ifelse.s
 add.o : add.s
 	as -o add.o add.s
 
-testit : add_test.c add.o ifelse.s
+testit : testit.c add.o ifelse.s
 	gcc -o testit add_test.c add.o ifelse.o
 
 clean :
