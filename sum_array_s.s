@@ -1,4 +1,3 @@
-/* -- ifelse.s */
 .global sum_array_s
 .func sum_array_s
 
@@ -12,7 +11,7 @@ loop:
 	ldr r4, [r0]
 	add r3, r3, r4
 	add r0, r0, #4
-	add, r2, r2, #1
+	add r2, r2, #1
 
 done:
 	mov r0, r3
