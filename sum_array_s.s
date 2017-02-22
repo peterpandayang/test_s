@@ -15,6 +15,6 @@ loop:
 	b loop
 
 done:
-	mov r0, #55
+	mov r0, r3
 	bx lr
 

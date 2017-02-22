@@ -17,7 +17,7 @@ add.o : add.s
 sum_array_s.o : sum_array_s.s
 	as -o sum_array_s.o sum_array_s.s
 
-testit : testit.c add.o ifelse.s
+testit : testit.c add.o ifelse.o sum_array_s.o
 	gcc -o testit testit.c add.o ifelse.o sum_array_s.o
 
 clean :
