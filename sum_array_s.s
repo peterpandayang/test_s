@@ -12,6 +12,7 @@ loop:
 	add r3, r3, r4
 	add r0, r0, #4
 	add r2, r2, #1
+	b loop
 
 done:
 	mov r0, r3

@@ -45,7 +45,6 @@ int main(int argc, char **argv){
     // int rst = ifelse(3,3);
     // printf("rst is: %d\n", rst);
     int sum = sum_array_s(&(v_st.array), 10);
-    printf("v_st.array is: %d\n", v_st.array);
     printf("sum is: %d\n", sum);
 
     return 0;
