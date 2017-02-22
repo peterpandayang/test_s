@@ -1,5 +1,5 @@
 PROGS = testit
-OBJS = add.o ifelse.o add
+OBJS = add.o ifelse.o sum_array_s.o add
 CFLAGS = -g
 
 all : ${PROGS}
