@@ -18,6 +18,7 @@ void init_array(int *p, int n){
 		p[i] = i;
 		printf("this elem is: %d\n", p[i]);
 	}
+    p[i] = '\0';
 }
 
 int sum_array(int *array, int n){
@@ -43,8 +44,9 @@ int main(int argc, char **argv){
 
     // int rst = ifelse(3,3);
     // printf("rst is: %d\n", rst);
+    int sum = sum_array_s(&(v_st.array), 10);
 
-
+    printf("sum is: %d\n", sum);
 
     return 0;
 }
