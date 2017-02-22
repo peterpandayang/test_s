@@ -34,6 +34,7 @@ int sum_array(int *array, int n){
 
 int sum_array_s(int *p, int n);
 
+int find_max_s(int *p, int n);
 
 
 int main(int argc, char **argv){
@@ -46,6 +47,9 @@ int main(int argc, char **argv){
     // printf("rst is: %d\n", rst);
     int sum = sum_array_s(&(v_st.array), 10);
     printf("sum is: %d\n", sum);
+
+    int max = find_max_s(&(v_st.array), 10);
+    printf("max is: %d\n", max);
 
     return 0;
 }

@@ -1,5 +1,5 @@
 PROGS = testit
-OBJS = add.o ifelse.o sum_array_s.o add
+OBJS = add.o ifelse.o sum_array_s.o find_max_s.o add
 CFLAGS = -g
 
 all : ${PROGS}
@@ -17,8 +17,11 @@ add.o : add.s
 sum_array_s.o : sum_array_s.s
 	as -o sum_array_s.o sum_array_s.s
 
-testit : testit.c add.o ifelse.o sum_array_s.o
-	gcc -o testit testit.c add.o ifelse.o sum_array_s.o
+find_max_s.o : find_max_s.s
+	as -o find_max_s.o find_max_s.s
+
+testit : testit.c add.o ifelse.o sum_array_s.o find_max_s.o
+	gcc -o testit testit.c add.o ifelse.o sum_array_s.o find_max_s.o
 
 clean :
 	rm -rf ${PROGS} ${OBJS}
