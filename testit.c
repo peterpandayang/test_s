@@ -52,7 +52,7 @@ int main(int argc, char **argv){
     int max = find_max_s(&(v_st.array), 10);
     printf("max is: %d\n", max);
 
-    int fibo = fibo_rec_s(2);
+    int fibo = fibo_rec_s(3);
     printf("fibo is %d\n", fibo);
 
     return 0;
