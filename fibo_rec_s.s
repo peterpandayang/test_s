@@ -17,12 +17,12 @@ not_0:
 rec:
 	str r0, [sp, #4]
 	sub r0, r0, #1
-	bl fibo_s
+	bl fibo_rec_s
 	mov r1, r0
 	ldr r0, [sp, #4]
 	sub r0, r0, #2
 	sub sp, sp, #8
-	bl fibo_s
+	bl fibo_rec_s
 	add sp, sp, #8
 	mov r2, r0
 	add r0, r1, r2
