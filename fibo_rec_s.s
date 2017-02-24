@@ -1,5 +1,5 @@
 .globl fibo_rec_s
-.fibo_rec_s
+.func fibo_rec_s
 
 fibo_rec_s:
 	sub sp, sp, #8
