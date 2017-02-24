@@ -23,8 +23,8 @@ find_max_s.o : find_max_s.s
 fibo_rec_s.o : fibo_rec_s.s
 	as -o fibo_rec_s.o fibo_rec_s.s
 
-testit : testit.c add.o ifelse.o sum_array_s.o find_max_s.o fibo_rec_s.o
-	gcc -o testit testit.c add.o ifelse.o sum_array_s.o find_max_s.o fibo_rec_s.o
+testit : testit.c ${OBJS}
+	gcc -o testit testit.c ${OBJS}
 
 clean :
 	rm -rf ${PROGS} ${OBJS}
