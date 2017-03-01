@@ -8,8 +8,6 @@ struct value_st {
 	int array[VALUE_MAX_STR_LEN];
 };
 
-int ifelse(int a, int b);
-
 // func for sum array
 
 void init_array(int *p, int n){
@@ -21,7 +19,7 @@ void init_array(int *p, int n){
     p[i] = '\0';
 }
 
-int sum_array(int *array, int n){
+int sum_array_c(int *array, int n){
     int i;
     int sum = 0;
 
