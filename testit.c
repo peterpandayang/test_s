@@ -134,19 +134,19 @@ int main(int argc, char **argv){
 
     int pos;
     pos = find_sub_in_s_c(p_s, p_sub);
-    if(pos != -1){
+    if(pos == 0){
         printf("find sub in s starting from position: %d for c\n", pos);
     }
-    else{
+    if(pos == -1){
         printf("can't find sub in s for c");
     }
 
     pos = 0;
     pos = find_sub_in_s_s(p_s, p_sub);
-    if(pos != -1){
+    if(pos == -1){
         printf("find sub in s starting from position: %d for assembly\n", pos);
     }
-    else{
+    if(pos == 0){
         printf("can't find sub in s for assembly");
     }
 
