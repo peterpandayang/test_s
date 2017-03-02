@@ -3,14 +3,15 @@
 
 find_sub_in_s_s:
 	mov r2, #0
-	sub sp, sp, #56
+	sub sp, sp, #64
 	str r0, [sp]
 	str r1, [sp, #8]
 	str r2, [sp, #16]
-
+	str lr, [sp, #64]
 
 	bl get_len
 
+	ldr lr, [sp, #64]
 	cmp r0, #1
 	beq out
 
