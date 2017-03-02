@@ -1,20 +1,21 @@
 #include <stdio.h>
 #include <string.h>
+
 #define VALUE_MAX_STR_LEN 64
 
 struct value_st {
-    char s[55];
+    int array[VALUE_MAX_STR_LEN];
+    char s[50];
     char sub[10];
-	int array[VALUE_MAX_STR_LEN];
 };
 
 
-void init_array(int *p, int n){
-	int i = 0;
-	for(i = 0; i < n ; i++){
-		p[i] = i;
-		printf("this elem is: %d\n", p[i]);
-	}
+void init_array_c(int *p, int n){
+    int i = 0;
+    for(i = 0; i < n ; i++){
+	p[i] = i;
+        printf("this elem is: %d\n", p[i]);
+    }
     p[i] = '\0';
 }
 
@@ -40,7 +41,8 @@ int find_max_c(int *array, int n){
 
 int fibo_iter_c(int n) {
     int prev = 0, curr = 1, next = 1;
-    for (int i = 0; i < n; i++) {
+    int i;
+    for (i = 0; i < n; i++) {
         prev = curr;
         curr = next;
         next = prev + curr;
@@ -48,38 +50,19 @@ int fibo_iter_c(int n) {
     return prev;
 }
 
-int fib_rec_c(int n){
+int fibo_rec_c(int n){
     if (n == 0) {
         return 0;
     } else if (n == 1) {
         return 1;
     } else {
-        return fib_rec_c(n - 1) + fib_rec_c(n - 2);
+        return fibo_rec_c(n - 1) + fibo_rec_c(n - 2);
     }
 }
-
-// int find_str(char *s, char *sub){
-//     char *p, *q;
-//     int i, len = strlen(s) - strlen(sub);
-
-//     for (i = 0; i <= len; i++) {
-//         p = s + i;
-//         q = sub;
-//         while (*q && *p == *q) {
-//             p += 1;
-//             q += 1;
-//         }
-//         if (*q == 0)
-//             return i;
-//         printf("%s\n", q);
-//     }
-//     return -1;
-// }
 
 int find_sub_in_s(char *s, char *sub){
     char *p, *q;
     int i, len = strlen(s) - strlen(sub);
-
     for (i = 0; i <= len; i++) {
         p = s + i;
         q = sub;
@@ -106,8 +89,6 @@ int check_commom(char *s, char *sub){
     return 0;
 }
 
-
-
 int sum_array_s(int *p, int n);
 
 int find_max_s(int *p, int n);
@@ -116,37 +97,46 @@ int fibo_rec_s(int n);
 
 
 int main(int argc, char **argv){
-    int r;
-
     struct value_st v_st;
+    int *p_array = v_st.array;
     strcpy(v_st.s, "This is a test string for testing");
     strcpy(v_st.sub, "test");
     char *p_s = v_st.s;
     char *p_sub = v_st.sub;
-    init_array(&(v_st.array), 10);
-
-    // int sum = sum_array_s(&(v_st.array), 10);
-    // printf("sum is: %d\n", sum);
-
-    // int max = find_max_s(&(v_st.array), 10);
-    // printf("max is: %d\n", max);
-
-    // int fibo = fibo_rec_s(5);
-    // printf("fibo is %d\n", fibo);
-
     
+    init_array_c(p_array, 10);
 
-    // int *p1 = &s;
-    // int *p2 = &sub;
-    int p;
-    p = find_sub_in_s(p_s, p_sub);
-    printf("%d\n", p);
-    // if(p)
-    // {
-    //     printf("string found\n" );
-    //     printf ("First occurrence of string \"test\" in \"%s\" is"\" \"%s\"",string, p);
-    // }
-    // else {printf("string not found\n" );}
+    int sum_s = sum_array_s(p_array, 10);
+    printf("sum of assemly is: %d\n", sum_s);
+
+    int sum_c = sum_array_c(p_array, 10);
+    printf("sum of c is: %d\n", sum_c);
+
+    int max_s = find_max_s(p_array, 10);
+    printf("max of assembly is: %d\n", max_s);
+
+    int max_c = find_max_c(p_array, 10);
+    printf("max of c is: %d\n", max_c);
+
+    int fibo_input = 5;
+
+    int iter_c = fibo_iter_c(fibo_input);
+    printf("iteration fibo with input %d for c is: %d\n", fibo_input, iter_c);
+
+    int rec_s = fibo_rec_s(fibo_input);
+    printf("recursion fibo with input %d for assembly is: %d\n", fibo_input, rec_s);
+
+    int rec_c = fibo_rec_c(fibo_input);
+    printf("recursion fibo with input %d for c is: %d\n", fibo_input, rec_c);
+
+    int pos;
+    pos = find_sub_in_s(p_s, p_sub);
+    if(pos != -1){
+        printf("find sub in s starting from position: %d for c\n", pos);
+    }
+    else{
+        printf("can't find sub in s for c");
+    }
 
     return 0;
 }
