@@ -122,8 +122,9 @@ get_len:
 get_len_loop:
 	add r3, r0, r2
 	ldr r1, [r0]
+	mov r1, #0
 	cmp r1, #0
-	bne done
+	beq done
 	add r2, r2, #1
 	b get_len_loop
 
