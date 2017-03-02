@@ -142,7 +142,7 @@ int main(int argc, char **argv){
     }
 
     pos = 0;
-    pos = find_sub_in_s_s(p_s, p_sub);
+    // pos = find_sub_in_s_s(p_s, p_sub);
     if(pos == -1){
         printf("find sub in s starting from position: %d for assembly\n", pos);
     }
