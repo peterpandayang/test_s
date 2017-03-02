@@ -125,7 +125,7 @@ get_len_loop:
 	b get_len_loop
 
 done:
-	mov r0, #1
+	mov r0, r2
 	bx lr
 	
 .endfunc
