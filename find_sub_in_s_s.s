@@ -19,8 +19,6 @@ find_sub_in_s_s:
 	ldr r1, [sp, #48]
 	sub r2, r1, r0
 	str r2, [sp, #48]
-	cmp r2, #29
-	beq out
 
 loop:
 	ldr r1, [sp, #48]
@@ -36,7 +34,9 @@ loop:
 	mov r0, r3
 	mov r1, r12
 	cmp r3, r12
+	ldr lr, [sp, #64]
 	bl check_common
+	ldr lr, [sp, #64]
 	cmp r0, #0
 	beq found
 	ldr r2, [sp, #16]
