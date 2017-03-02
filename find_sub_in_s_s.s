@@ -23,7 +23,7 @@ loop:
 	cmp r2, r1
 	beq not_found
 	ldr r3, [sp]
-	sub r2, r2, #1
+	add r2, r2, #1
 	add r3, r3, r2
 	ldr r12, [sp, #8]
 	cmp r3, r12
