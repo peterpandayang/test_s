@@ -9,14 +9,10 @@ find_sub_in_s_s:
 	str r2, [sp, #16]
 	bl get_len
 
-	cmp r0, #31
-	b out
 
 	cmp r0, #32
 	b out
 
-	cmp r0, #33
-	b out
 
 	str r0, [sp, #48]
 	ldr r0, [sp, #8]
