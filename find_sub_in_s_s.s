@@ -8,6 +8,16 @@ find_sub_in_s_s:
 	str r1, [sp, #8]
 	str r2, [sp, #16]
 	bl get_len
+
+	cmp r0, #31
+	b out
+
+	cmp r0, #32
+	b out
+
+	cmp r0, #33
+	b out
+
 	str r0, [sp, #48]
 	ldr r0, [sp, #8]
 	bl get_len
@@ -44,6 +54,10 @@ found:
 
 not_found:
 	mov lr, #-1
+	bx lr
+
+out:
+	mov lr, r0
 	bx lr
 
 .endfunc

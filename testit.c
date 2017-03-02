@@ -147,6 +147,7 @@ int main(int argc, char **argv){
         printf("find sub in s starting from position: %d for assembly\n", pos);
     }
     else{
+        printf("len is: %d\n", pos);
         printf("can't find sub in s for assembly\n");
     }
 
