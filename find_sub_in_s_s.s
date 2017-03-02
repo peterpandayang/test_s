@@ -4,10 +4,6 @@
 find_sub_in_s_s:
 	mov r2, #0
 	sub sp, sp, #56
-
-	cmp r2, #0
-	beq out
-
 	str r0, [sp]
 	str r1, [sp, #8]
 	str r2, [sp, #16]
@@ -131,6 +127,8 @@ get_len:
 
 get_len_loop:
 	add r3, r0, r2
+	cmp r2, #0
+	beq done
 	/*ldr r1, [r0]*/
 	mov r1, #0
 	cmp r1, #0
