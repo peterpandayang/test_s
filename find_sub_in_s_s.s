@@ -3,23 +3,12 @@
 
 find_sub_in_s_s:
 	mov r2, #0
-
-	cmp r2, #0
-	beq out
-
 	sub sp, sp, #56
 	str r0, [sp]
 	str r1, [sp, #8]
 	str r2, [sp, #16]
 
-
-	
-
-
-	bl get_len
-
-
-	cmp r0, #8
+	cmp r0, #1
 	beq out
 
 
@@ -62,7 +51,6 @@ not_found:
 	bx lr
 
 out:
-	mov r0, #10
 	bx lr
 
 .endfunc
@@ -111,11 +99,11 @@ get_len_loop:
 	add r1, r0, r2
 	cmp r1, #0
 	bne done
-	add r2, r2, #8
+	add r2, r2, #1
 	b get_len_loop
 
 done:
-	mov lr, r2
+	mov r0, r2
 	bx lr
 	
 .endfunc
