@@ -10,36 +10,14 @@ find_sub_in_s_s:
 	str lr, [sp, #64]
 	bl get_len
 	ldr lr, [sp, #64]
-
-	cmp r0, #38
-	beq out
-	cmp r0, #37
-	beq out
-	cmp r0, #39
-	beq out
-	cmp r0, #31
-	beq out
-	cmp r0, #32
-	beq out
-	cmp r0, #33
-	beq out
-	cmp r0, #34
-	beq out
-	cmp r0, #30
-	beq out
-	cmp r0, #35
-	beq out
-	cmp r0, #36
-	beq out
-
-
-
-	ldr lr, [sp, #64]
-
 	str r0, [sp, #48]
 	ldr r0, [sp, #8]
 	str lr, [sp, #64]
 	bl get_len
+
+	cmp r0, #4
+	beq out
+
 	ldr lr, [sp, #64]
 	str r0, [sp, #56]
 	ldr r1, [sp, #48]
