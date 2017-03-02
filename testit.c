@@ -95,6 +95,8 @@ int sum_array_s(int *p, int n);
 
 int find_max_s(int *p, int n);
 
+int fibo_iter_s(int *p, int n);
+
 int fibo_rec_s(int n);
 
 int find_sub_in_s_s(char *s, char *sub);
@@ -123,6 +125,9 @@ int main(int argc, char **argv){
     printf("max of c is: %d\n", max_c);
 
     int fibo_input = 5;
+
+    int iter_s = fibo_iter_s(fibo_input);
+    printf("iteration fibo with input %d for assembly is: %d\n", fibo_input, iter_s);
 
     int iter_c = fibo_iter_c(fibo_input);
     printf("iteration fibo with input %d for c is: %d\n", fibo_input, iter_c);
