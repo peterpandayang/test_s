@@ -103,14 +103,15 @@ get_len:
 	mov r2, #0
 
 get_len_loop:
-	add r1, r0, r2
-	cmp r1, 0x00
+	/*add r1, r0, r2*/
+	cmp r1, #0
 	beq done
 	add r2, r2, #1
+	add r1, #8
 	b get_len_loop
 
 done:
-	mov lr, #32
+	mov lr, r2
 	bx lr
 	
 .endfunc
