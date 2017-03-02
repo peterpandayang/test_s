@@ -30,8 +30,8 @@ loop:
 	add r2, r2, #1
 	add r0, r0, r2
 	ldr r1, [sp, #8]
-	mov r3, [r0]
-	mov r12, [r1]
+	ldrb r3, [r0]
+	ldrb r12, [r1]
 	ldr lr, [sp, #64]
 	cmp r3, r12
 	bleq check_common
