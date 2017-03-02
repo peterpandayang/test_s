@@ -14,7 +14,7 @@ find_sub_in_s_s:
 	bl get_len
 
 	cmp r0, #1
-	b out
+	beq out
 
 
 
