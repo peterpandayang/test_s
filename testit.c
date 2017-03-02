@@ -66,7 +66,7 @@ int find_sub_in_s_c(char *s, char *sub){
     for (i = 0; i <= len; i++) {
         p = s + i;
         q = sub;
-        if (*q && *p == *q) {
+        if (*q == *p) {
             if(check_commom(p, q) == 0){
                 return i;
             }
