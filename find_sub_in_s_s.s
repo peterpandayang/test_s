@@ -26,16 +26,15 @@ loop:
 	sub r2, r2, #1
 	cmp r2, r1
 	beq not_found
-	ldr r3, [sp]
+	ldr r0, [sp]
 	add r2, r2, #1
-	add r3, r3, r2
-	ldr r12, [sp, #8]
-	cmp r3, r12
-	mov r0, r3
-	mov r1, r12
-	cmp r3, r12
+	add r0, r0, r2
+	ldr r1, [sp, #8]
+	mov r3, [r0]
+	mov r12, [r1]
 	ldr lr, [sp, #64]
-	bl check_common
+	cmp r3, r12
+	bleq check_common
 	ldr lr, [sp, #64]
 	cmp r0, #0
 	beq found
@@ -71,10 +70,12 @@ check_common_loop:
 	ldr r2, [sp, #40]
 	cmp r2, r1
 	beq has_common
-	ldr r3, [sp, #24]
-	add r3, r3, r2
-	ldr r12, [sp, #32]
-	add r12, r12, r2
+	ldr r0, [sp, #24]
+	add r0, r0, r2
+	ldr r1, [sp, #32]
+	add r1, r1, r2
+	ldrb r3, [r0]
+	ldrb r12, [r1]
 	cmp r3, r12
 	bne no_common
 	add r2, r2, #1
