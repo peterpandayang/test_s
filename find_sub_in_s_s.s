@@ -11,7 +11,7 @@ find_sub_in_s_s:
 
 
 	cmp r0, #8
-	b out
+	beq out
 
 
 	str r0, [sp, #48]
@@ -106,6 +106,7 @@ get_len_loop:
 	b get_len_loop
 
 done:
+	mov lr, r2
 	bx lr
 	
 .endfunc
