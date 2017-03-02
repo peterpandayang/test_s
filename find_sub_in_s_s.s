@@ -101,7 +101,7 @@ has_common:
 get_len:
 	/*mov r2, #0 */
 	cmp r2, #0
-	beq done
+	bne done
 
 get_len_loop:
 	add r3, r0, r2
