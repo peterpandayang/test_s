@@ -85,6 +85,8 @@ int check_commom(char *s, char *sub){
         if(*q != *p){
             return -1;
         }
+        p = p + i;
+        q = q + i;
     }
     return 0;
 }
