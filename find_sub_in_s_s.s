@@ -62,7 +62,7 @@ not_found:
 	bx lr
 
 out:
-	mov lr, #10
+	mov r0, #10
 	bx lr
 
 .endfunc
