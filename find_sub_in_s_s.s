@@ -10,6 +10,25 @@ find_sub_in_s_s:
 
 	cmp r0, #1
 	beq out
+	cmp r0, #2
+	beq out
+	cmp r0, #3
+	beq out
+	cmp r0, #4
+	beq out
+	cmp r0, #5
+	beq out
+	cmp r0, #6
+	beq out
+	cmp r0, #6
+	beq out
+	cmp r0, #7
+	beq out
+	cmp r0, #8
+	beq out
+	cmp r0, #9
+	beq out
+
 
 
 	str r0, [sp, #48]
@@ -43,14 +62,15 @@ loop:
 	b loop
 
 found:
-	ldr lr, [sp, #16]
+	ldr r0, [sp, #16]
 	bx lr
 
 not_found:
-	mov lr, #-1
+	mov r0, #-1
 	bx lr
 
 out:
+	mov r0, #10
 	bx lr
 
 .endfunc
@@ -80,11 +100,11 @@ check_common_loop:
 	b check_common_loop
 
 no_common:
-	mov lr, #-1
+	mov r0, #-1
 	bx lr
 
 has_common:
-	mov lr, #0
+	mov r0, #0
 	bx lr
 
 .endfunc
@@ -98,7 +118,7 @@ get_len:
 get_len_loop:
 	add r1, r0, r2
 	cmp r1, #0
-	bne done
+	beq done
 	add r2, r2, #1
 	b get_len_loop
 
