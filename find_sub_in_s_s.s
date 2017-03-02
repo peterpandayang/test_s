@@ -73,11 +73,11 @@ check_common_loop:
 	b check_common_loop
 
 no_common:
-	ldr lr, #-1
+	mov lr, #-1
 	bx lr
 
 has_common:
-	ldr lr, #0
+	mov lr, #0
 	bx lr
 
 .endfunc
@@ -96,7 +96,7 @@ get_len_loop:
 	b get_len_loop
 
 done:
-	ldr lr, r2
+	mov lr, r2
 	bx lr
 	
 .endfunc
