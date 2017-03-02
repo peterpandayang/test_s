@@ -99,15 +99,10 @@ has_common:
 
 get_len:
 	mov r2, #0
-	cmp r2, #0
-	beq done
 
 get_len_loop:
 	add r3, r0, r2
-	cmp r2, #0
-	beq done
-	/*ldr r1, [r0]*/
-	mov r1, #0
+	ldr r1, [r0]
 	cmp r1, #0
 	beq done
 	add r2, r2, #1
