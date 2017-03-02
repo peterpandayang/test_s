@@ -60,7 +60,7 @@ int fibo_rec_c(int n){
     }
 }
 
-int find_sub_in_s(char *s, char *sub){
+int find_sub_in_s_c(char *s, char *sub){
     char *p, *q;
     int i, len = strlen(s) - strlen(sub);
     for (i = 0; i <= len; i++) {
@@ -95,6 +95,7 @@ int find_max_s(int *p, int n);
 
 int fibo_rec_s(int n);
 
+int find_sub_in_s_s(char *s, char *sub);
 
 int main(int argc, char **argv){
     struct value_st v_st;
@@ -130,12 +131,21 @@ int main(int argc, char **argv){
     printf("recursion fibo with input %d for c is: %d\n", fibo_input, rec_c);
 
     int pos;
-    pos = find_sub_in_s(p_s, p_sub);
+    pos = find_sub_in_s_c(p_s, p_sub);
     if(pos != -1){
         printf("find sub in s starting from position: %d for c\n", pos);
     }
     else{
         printf("can't find sub in s for c");
+    }
+
+    pos = 0;
+    // pos = find_sub_in_s_s(p_s, p_sub);
+    if(pos != -1){
+        printf("find sub in s starting from position: %d for assembly\n", pos);
+    }
+    else{
+        printf("can't find sub in s for assembly");
     }
 
     return 0;
