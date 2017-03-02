@@ -102,7 +102,8 @@ int find_sub_in_s_s(char *s, char *sub);
 int main(int argc, char **argv){
     struct value_st v_st;
     int *p_array = v_st.array;
-    strcpy(v_st.s, "This is a test string for testing");
+    strcpy(v_st.s, "T");
+    // strcpy(v_st.s, "This is a test string for testing");
     strcpy(v_st.sub, "tst");
     char *p_s = v_st.s;
     char *p_sub = v_st.sub;

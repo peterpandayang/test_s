@@ -10,7 +10,13 @@ find_sub_in_s_s:
 	bl get_len
 
 
-	cmp r0, #32
+	cmp r0, #0
+	b out
+
+	cmp r0, #8
+	b out
+
+	cmp r0, #16
 	b out
 
 
@@ -99,15 +105,14 @@ get_len:
 	mov r2, #0
 
 get_len_loop:
-	/*add r1, r0, r2*/
-	cmp r1, #0
-	bne done
-	add r2, r2, #1
-	add r1, #8
+	add r1, r0, r2
+	cmp [r1], #0
+	beq done
+	add r2, r2, #8
 	b get_len_loop
 
 done:
-	mov lr, #32
+	mov lr, r2
 	bx lr
 	
 .endfunc
