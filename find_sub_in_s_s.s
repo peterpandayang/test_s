@@ -10,6 +10,12 @@ find_sub_in_s_s:
 
 	bl get_len
 
+	cmp r2, #0
+	beq out
+
+	cmp r2, #1
+	beq out
+
 	cmp r0, #0
 	b out
 	cmp r0, #1
