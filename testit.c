@@ -103,7 +103,7 @@ int main(int argc, char **argv){
     struct value_st v_st;
     int *p_array = v_st.array;
     strcpy(v_st.s, "This is a test string for testing");
-    strcpy(v_st.sub, "tet");
+    strcpy(v_st.sub, "test");
     char *p_s = v_st.s;
     char *p_sub = v_st.sub;
     
@@ -138,7 +138,7 @@ int main(int argc, char **argv){
         printf("find sub in s starting from position: %d for c\n", pos);
     }
     if(pos == -1){
-        printf("can't find sub in s for c");
+        printf("can't find sub in s for c\n");
     }
 
     pos = 0;
@@ -147,7 +147,7 @@ int main(int argc, char **argv){
         printf("find sub in s starting from position: %d for assembly\n", pos);
     }
     if(pos == 0){
-        printf("can't find sub in s for assembly");
+        printf("can't find sub in s for assembly\n");
     }
 
     return 0;
