@@ -15,14 +15,12 @@ find_sub_in_s_s:
 	str lr, [sp, #64]
 	bl get_len
 	ldr lr, [sp, #64]
-
-	cmp r0, #4
-	beq out
-
 	str r0, [sp, #56]
 	ldr r1, [sp, #48]
 	sub r2, r1, r0
 	str r2, [sp, #48]
+	cmp r2, #29
+	beq out
 
 loop:
 	ldr r1, [sp, #48]
