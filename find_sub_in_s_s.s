@@ -49,7 +49,7 @@ not_found:
 .endfunc
 
 
-.func check_common:
+.func check_common
 
 check_common:
 	 mov r2, #0
@@ -83,7 +83,7 @@ has_common:
 .endfunc
 
 
-.func get_len:
+.func get_len
 
 get_len:
 	mov r2, #0
