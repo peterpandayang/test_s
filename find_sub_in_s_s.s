@@ -50,6 +50,8 @@ not_found:
 
 
 .func check_common:
+
+check_common:
 	 mov r2, #0
 	 str r0, [sp, #24]
 	 str r1, [sp, #32]
@@ -82,6 +84,8 @@ has_common:
 
 
 .func get_len:
+
+get_len:
 	mov r2, #0
 
 get_len_loop:
