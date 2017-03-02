@@ -17,6 +17,21 @@ find_sub_in_s_s:
 	beq out
 	cmp r0, #39
 	beq out
+	cmp r0, #31
+	beq out
+	cmp r0, #32
+	beq out
+	cmp r0, #33
+	beq out
+	cmp r0, #34
+	beq out
+	cmp r0, #30
+	beq out
+	cmp r0, #35
+	beq out
+	cmp r0, #36
+	beq out
+
 
 
 	ldr lr, [sp, #64]
