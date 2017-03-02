@@ -116,7 +116,8 @@ get_len:
 	mov r2, #0
 
 get_len_loop:
-	add r1, r0, r2
+	add r3, r0, r2
+	ldr r1, [r3]
 	cmp r1, #0
 	beq done
 	add r2, r2, #1
