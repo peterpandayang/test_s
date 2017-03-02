@@ -8,8 +8,6 @@ find_sub_in_s_s:
 	str r1, [sp, #8]
 	str r2, [sp, #16]
 
-	cmp r2, #0
-	beq out
 
 	bl get_len
 
