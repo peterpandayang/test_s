@@ -10,7 +10,7 @@ find_sub_in_s_s:
 	str lr, [sp, #64]
 	bl get_len
 
-	cmp r0, #32
+	cmp r0, #2
 	beq out
 
 	ldr lr, [sp, #64]
