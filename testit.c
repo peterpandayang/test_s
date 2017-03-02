@@ -103,7 +103,7 @@ int main(int argc, char **argv){
     struct value_st v_st;
     int *p_array = v_st.array;
     strcpy(v_st.s, "This is a test string for testing");
-    strcpy(v_st.sub, "test");
+    strcpy(v_st.sub, "tst");
     char *p_s = v_st.s;
     char *p_sub = v_st.sub;
     
@@ -142,7 +142,7 @@ int main(int argc, char **argv){
     }
 
     pos = 0;
-    // pos = find_sub_in_s_s(p_s, p_sub);
+    pos = find_sub_in_s_s(p_s, p_sub);
     if(pos != -1){
         printf("find sub in s starting from position: %d for assembly\n", pos);
     }
