@@ -14,6 +14,22 @@ find_sub_in_s_s:
 	ldr lr, [sp, #64]
 	cmp r0, #1
 	beq out
+	cmp r0, #2
+	beq out
+	cmp r0, #3
+	beq out
+	cmp r0, #4
+	beq out
+	cmp r0, #5
+	beq out
+	cmp r0, #6
+	beq out
+	cmp r0, #7
+	beq out
+	cmp r0, #8
+	beq out
+	cmp r0, #9
+	beq out
 
 
 
@@ -102,7 +118,7 @@ get_len:
 
 get_len_loop:
 	add r3, r0, r2
-	ldr r1, [r0]
+	ldr r1, [r3]
 	cmp r1, #0
 	beq done
 	add r2, r2, #1
