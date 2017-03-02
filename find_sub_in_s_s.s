@@ -7,6 +7,12 @@ find_sub_in_s_s:
 	str r0, [sp]
 	str r1, [sp, #8]
 	str r2, [sp, #16]
+
+
+	cmp r2, #0
+	beq out
+
+
 	bl get_len
 
 
@@ -101,7 +107,7 @@ get_len:
 get_len_loop:
 	add r1, r0, r2
 	cmp r1, #0
-	beq done
+	bne done
 	add r2, r2, #8
 	b get_len_loop
 
