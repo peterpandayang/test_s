@@ -82,7 +82,7 @@ int check_commom(char *s, char *sub){
     p = s;
     q = sub;
     for(i = 0; i < len; i++){
-        if(*q && *p != *q){
+        if(*q != *p){
             return -1;
         }
     }
@@ -140,7 +140,7 @@ int main(int argc, char **argv){
     }
 
     pos = 0;
-    // pos = find_sub_in_s_s(p_s, p_sub);
+    pos = find_sub_in_s_s(p_s, p_sub);
     if(pos != -1){
         printf("find sub in s starting from position: %d for assembly\n", pos);
     }
