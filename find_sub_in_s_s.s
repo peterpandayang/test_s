@@ -118,7 +118,7 @@ get_len:
 
 get_len_loop:
 	add r3, r0, r2
-	ldr r1, [r3]
+	ldrb r1, [r3]
 	cmp r1, #0
 	beq done
 	add r2, r2, #1
