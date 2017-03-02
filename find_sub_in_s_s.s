@@ -8,7 +8,8 @@ find_sub_in_s_s:
 	str r1, [sp, #8]
 	str r2, [sp, #16]
 
-
+	cmp r2, #0
+	beq out
 
 	bl get_len
 
@@ -99,9 +100,9 @@ has_common:
 .func get_len
 
 get_len:
-	/*mov r2, #0 */
+	mov r2, #0
 	cmp r2, #0
-	bne done
+	beq done
 
 get_len_loop:
 	add r3, r0, r2
