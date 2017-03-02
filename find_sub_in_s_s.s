@@ -101,7 +101,7 @@ get_len:
 get_len_loop:
 	add r1, r0, r2
 	cmp r1, #0
-	bne done
+	beq done
 	add r2, r2, #8
 	b get_len_loop
 
