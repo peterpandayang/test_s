@@ -95,7 +95,7 @@ int sum_array_s(int *p, int n);
 
 int find_max_s(int *p, int n);
 
-int fibo_iter_s(int *p, int n);
+int fibo_iter_s(int n);
 
 int fibo_rec_s(int n);
 
