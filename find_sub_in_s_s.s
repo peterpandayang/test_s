@@ -11,9 +11,9 @@ find_sub_in_s_s:
 	bl get_len
 
 	cmp r0, #0
-	beq out
+	b out
 	cmp r0, #1
-	beq out
+	b out
 	cmp r0, #2
 	beq out
 	cmp r0, #3
@@ -121,7 +121,7 @@ get_len:
 
 get_len_loop:
 	add r3, r0, r2
-	ldr r1, [r0]
+	/*ldr r1, [r0]*/
 	mov r1, #0
 	cmp r1, #0
 	beq done
