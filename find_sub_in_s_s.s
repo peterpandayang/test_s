@@ -23,14 +23,15 @@ loop:
 	cmp r2, r1
 	beq not_found
 	ldr r3, [sp]
-	add r3, r3, [sp, #16]
+	sub r2, r2, #1
+	add r3, r3, r2
 	ldr r12, [sp, #8]
 	cmp r3, r12
 	mov r0, r3
 	mov r1, r12
 	cmp r3, r12
 	bl check_common
-	cmp r0 #0
+	cmp r0, #0
 	beq found
 	ldr r2, [sp, #16]
 	add r2, r2, #1
@@ -48,15 +49,16 @@ not_found:
 .endfunc
 
 
-check_common:
+.func check_common:
 	 mov r2, #0
 	 str r0, [sp, #24]
 	 str r1, [sp, #32]
 	 str r2, [sp, #40]
 
-loop:
+check_common_loop:
+	ldr r1, [sp, #56]
 	ldr r2, [sp, #40]
-	cmp r2, [sp, #56]
+	cmp r2, r1
 	beq has_common
 	ldr r3, [sp, #24]
 	add r3, r3, r2
@@ -66,32 +68,32 @@ loop:
 	bne no_common
 	add r2, r2, #1
 	str r2, [sp, #40]
-	loop
+	b check_common_loop
 
 no_common:
 	ldr lr, #-1
-	bx, lr
+	bx lr
 
 has_common:
 	ldr lr, #0
-	bx, lr
+	bx lr
 
 .endfunc
 
 
-get_len:
+.func get_len:
 	mov r2, #0
 
-loop:
+get_len_loop:
 	add r1, r0, r2
 	cmp r1, #0
 	beq done
 	add r2, r2, #1
-	b loop
+	b get_len_loop
 
 done:
 	ldr lr, r2
-	bx, lr
+	bx lr
 	
 .endfunc
 
