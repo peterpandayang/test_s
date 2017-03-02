@@ -11,9 +11,9 @@ find_sub_in_s_s:
 	bl get_len
 	ldr lr, [sp, #64]
 
-	cmp r0, #31
+	cmp r0, #6
 	beq out
-	cmp r0, #32
+	cmp r0, #7
 	beq out
 	cmp r0, #31
 	beq out
