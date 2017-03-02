@@ -8,34 +8,13 @@ find_sub_in_s_s:
 	str r1, [sp, #8]
 	str r2, [sp, #16]
 	str lr, [sp, #64]
-
 	bl get_len
-
 	ldr lr, [sp, #64]
-	cmp r0, #1
-	beq out
-	cmp r0, #2
-	beq out
-	cmp r0, #3
-	beq out
-	cmp r0, #4
-	beq out
-	cmp r0, #5
-	beq out
-	cmp r0, #6
-	beq out
-	cmp r0, #7
-	beq out
-	cmp r0, #8
-	beq out
-	cmp r0, #9
-	beq out
-
-
-
 	str r0, [sp, #48]
 	ldr r0, [sp, #8]
+	str lr, [sp, #64]
 	bl get_len
+	ldr lr, [sp, #64]
 	str r0, [sp, #56]
 	ldr r1, [sp, #48]
 	sub r2, r1, r0
