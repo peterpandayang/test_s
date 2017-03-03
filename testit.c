@@ -159,26 +159,26 @@ int fibo_test(int size){
     printf("Test for fibonacci sequence with iteration with size %d: \n", size);
     for(i = 0; i < size; i++){
         int iter_s = fibo_iter_s(i);
-        printf("%d ", i);
+        printf("%d ", iter_s);
     }
     printf("(Assembly)\n");
 
     for(i = 0; i < size; i++){
         int iter_c = fibo_iter_c(i);
-        printf("%d ", i);
+        printf("%d ", iter_c);
     }
     printf("(C)\n");
 
     printf("Test for fibonacci sequence with recursion with size %d: \n", size);
     for(i = 0; i < size; i++){
         int rec_s = fibo_rec_s(i);
-        printf("%d ", i);
+        printf("%d ", rec_s);
     }
     printf("(Assembly)\n");
 
     for(i = 0; i < size; i++){
         int rec_c = fibo_rec_c(i);
-        printf("%d ", i);
+        printf("%d ", rec_c);
     }
     printf("(C)\n");
 }
