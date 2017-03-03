@@ -123,7 +123,7 @@ int main(int argc, char **argv){
     int max_c = find_max_c(p_array, 10);
     printf("max of c is: %d\n", max_c);
 
-    int fibo_input = 6;
+    int fibo_input = 20;
 
     int iter_s = fibo_iter_s(fibo_input);
     printf("iteration fibo with input %d for assembly is: %d\n", fibo_input, iter_s);
