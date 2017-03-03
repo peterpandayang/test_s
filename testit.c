@@ -139,6 +139,8 @@ int main(int argc, char **argv){
     // int max_c = find_max_c(p_array, 10);
     // printf("max of c is: %d\n", max_c);
 
+    positive_test(p_array);
+
     int fibo_input = 6;
 
     int iter_s = fibo_iter_s(fibo_input);
