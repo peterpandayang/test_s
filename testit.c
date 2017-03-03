@@ -183,7 +183,7 @@ int fibo_test(int size){
     printf("(C)\n");
 }
 
-int strstr_test(char *s, char *sub){
+int strstr_test(char *p_s, char *p_sub){
     int pos;
     pos = find_sub_in_s_c(p_s, p_sub);
     if(pos != -1){
