@@ -160,9 +160,9 @@ int fibo_test(int size){
 
 int strstr_test(char *p_s, char *p_sub){
     int pos; 
-    printf("Larger string: \n");
+    printf("Larger string: ");
     print_str(p_s);
-    printf("Smaller string: \n");
+    printf("Smaller string: ");
     print_str(p_sub);
     printf("Test for strstr in C: \n");
 
