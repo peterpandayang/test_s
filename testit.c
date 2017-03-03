@@ -12,9 +12,10 @@ struct value_st {
 
 void init_array_c(int *p, int n){
     int i = 0;
+    printf("Array with positive input: \n");
     for(i = 0; i < n ; i++){
-	p[i] = i;
-        printf("this elem is: %d\n", p[i]);
+	    p[i] = i;
+        printf(" %d\n", p[i]);
     }
     p[i] = '\0';
 }
@@ -101,19 +102,19 @@ int fibo_rec_s(int n);
 
 int find_sub_in_s_s(char *s, char *sub);
 
-int positive_test(int *p_array){
-    init_array_c(p_array, 10);
+int positive_test(int *p_array, int size){
+    init_array_c(p_array, size);
 
-    int sum_s = sum_array_s(p_array, 10);
+    int sum_s = sum_array_s(p_array, size);
     printf("sum of assemly is: %d\n", sum_s);
 
-    int sum_c = sum_array_c(p_array, 10);
+    int sum_c = sum_array_c(p_array, size);
     printf("sum of c is: %d\n", sum_c);
 
-    int max_s = find_max_s(p_array, 10);
+    int max_s = find_max_s(p_array, size);
     printf("max of assembly is: %d\n", max_s);
 
-    int max_c = find_max_c(p_array, 10);
+    int max_c = find_max_c(p_array, size);
     printf("max of c is: %d\n", max_c);
 }
 
@@ -139,7 +140,7 @@ int main(int argc, char **argv){
     // int max_c = find_max_c(p_array, 10);
     // printf("max of c is: %d\n", max_c);
 
-    positive_test(p_array);
+    positive_test(p_array, 19);
 
     int fibo_input = 6;
 
