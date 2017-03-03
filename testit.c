@@ -4,9 +4,7 @@
 #define VALUE_MAX_STR_LEN 64
 
 struct value_st {
-    int array_positive[VALUE_MAX_STR_LEN];
-    int array_positive_negative[VALUE_MAX_STR_LEN];
-    int array_mixed[VALUE_MAX_STR_LEN];
+    int array[VALUE_MAX_STR_LEN];
     char s[50];
     char sub[10];
 };
@@ -20,8 +18,6 @@ void init_array_c(int *p, int n){
     }
     p[i] = '\0';
 }
-
-
 
 int sum_array_c(int *array, int n){
     int i;
@@ -107,13 +103,13 @@ int find_sub_in_s_s(char *s, char *sub);
 
 int main(int argc, char **argv){
     struct value_st v_st;
-    int *p_array_positive = v_st.array_positive;
+    int *p_array = v_st.array;
     strcpy(v_st.s, "This is a test string for testing");
     strcpy(v_st.sub, "test");
     char *p_s = v_st.s;
     char *p_sub = v_st.sub;
     
-    init_array_c(p_array_positive, 10);
+    init_array_c(p_array, 10);
 
     int sum_s = sum_array_s(p_array, 10);
     printf("sum of assemly is: %d\n", sum_s);
