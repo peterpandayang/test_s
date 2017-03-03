@@ -109,20 +109,20 @@ int positive_test(int *p_array, int size){
     printf("Test for array with positive values: \n");
 
     int sum_s = sum_array_s(p_array, size);
-    printf("Sum of Assembly is: %d\n", sum_s);
+    printf("Sum result are: %d (Assembly) ", sum_s);
 
     int sum_c = sum_array_c(p_array, size);
-    printf("Sum of C is: %d\n", sum_c);
+    printf(", %d (C)\n", sum_c);
 
     int max_s = find_max_s(p_array, size);
-    printf("Max of Assembly is: %d\n", max_s);
+    printf("Max result are: %d (Assembly)\n", max_s);
 
     int max_c = find_max_c(p_array, size);
-    printf("Max of C is: %d\n", max_c);
+    printf(", %d (C)\n", max_c);
 }
 
 int fibo_test(){
-    
+
 }
 
 int main(int argc, char **argv){
