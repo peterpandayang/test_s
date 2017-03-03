@@ -101,14 +101,8 @@ int fibo_rec_s(int n);
 
 int find_sub_in_s_s(char *s, char *sub);
 
-int main(int argc, char **argv){
-    struct value_st v_st;
-    int *p_array = v_st.array;
-    strcpy(v_st.s, "This is a test string for testing");
-    strcpy(v_st.sub, "test");
-    char *p_s = v_st.s;
-    char *p_sub = v_st.sub;
-    
+
+int positive_array_test(){
     init_array_c(p_array, 10);
 
     int sum_s = sum_array_s(p_array, 10);
@@ -122,8 +116,10 @@ int main(int argc, char **argv){
 
     int max_c = find_max_c(p_array, 10);
     printf("max of c is: %d\n", max_c);
+}
 
-    int fibo_input = 20;
+int fibo_test(){
+    int fibo_input = 19;
 
     int iter_s = fibo_iter_s(fibo_input);
     printf("iteration fibo with input %d for assembly is: %d\n", fibo_input, iter_s);
@@ -154,6 +150,65 @@ int main(int argc, char **argv){
     else{
         printf("can't find sub in s for assembly\n");
     }
+}
+
+int main(int argc, char **argv){
+    struct value_st v_st;
+    int *p_array = v_st.array;
+    char *p_s = v_st.s;
+    char *p_sub = v_st.sub;
+    strcpy(v_st.s, "This is a test string for testing");
+    strcpy(v_st.sub, "test");
+    
+    // init_array_c(p_array, 10);
+
+    positive_array_test(p_array, 10);
+
+    // int sum_s = sum_array_s(p_array, 10);
+    // printf("sum of assemly is: %d\n", sum_s);
+
+    // int sum_c = sum_array_c(p_array, 10);
+    // printf("sum of c is: %d\n", sum_c);
+
+    // int max_s = find_max_s(p_array, 10);
+    // printf("max of assembly is: %d\n", max_s);
+
+    // int max_c = find_max_c(p_array, 10);
+    // printf("max of c is: %d\n", max_c);
+
+    fibo_test();
+
+    // int fibo_input = 19;
+
+    // int iter_s = fibo_iter_s(fibo_input);
+    // printf("iteration fibo with input %d for assembly is: %d\n", fibo_input, iter_s);
+
+    // int iter_c = fibo_iter_c(fibo_input);
+    // printf("iteration fibo with input %d for c is: %d\n", fibo_input, iter_c);
+
+    // int rec_s = fibo_rec_s(fibo_input);
+    // printf("recursion fibo with input %d for assembly is: %d\n", fibo_input, rec_s);
+
+    // int rec_c = fibo_rec_c(fibo_input);
+    // printf("recursion fibo with input %d for c is: %d\n", fibo_input, rec_c);
+
+    // int pos;
+    // pos = find_sub_in_s_c(p_s, p_sub);
+    // if(pos != -1){
+    //     printf("find sub in s starting from position: %d for c\n", pos);
+    // }
+    // else{
+    //     printf("can't find sub in s for c\n");
+    // }
+
+    // pos = 0;
+    // pos = find_sub_in_s_s(p_s, p_sub);
+    // if(pos != -1){
+    //     printf("find sub in s starting from position: %d for assembly\n", pos);
+    // }
+    // else{
+    //     printf("can't find sub in s for assembly\n");
+    // }
 
     return 0;
 }
