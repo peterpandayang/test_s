@@ -118,7 +118,7 @@ int positive_array_test(int p_array, int size){
     printf("max of c is: %d\n", max_c);
 }
 
-int fibo_test(){
+int fibo_test(int p_s, int p_sub){
     int fibo_input = 19;
 
     int iter_s = fibo_iter_s(fibo_input);
@@ -162,7 +162,7 @@ int main(int argc, char **argv){
     
     // init_array_c(p_array, 10);
 
-    positive_array_test(*p_array, 10);
+    positive_array_test(p_array, 10);
 
     // int sum_s = sum_array_s(p_array, 10);
     // printf("sum of assemly is: %d\n", sum_s);
@@ -176,7 +176,7 @@ int main(int argc, char **argv){
     // int max_c = find_max_c(p_array, 10);
     // printf("max of c is: %d\n", max_c);
 
-    fibo_test();
+    fibo_test(p_s, p_sub);
 
     // int fibo_input = 19;
 
