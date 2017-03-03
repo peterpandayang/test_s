@@ -15,8 +15,9 @@ void init_array_c(int *p, int n){
     printf("Array with positive input: \n");
     for(i = 0; i < n ; i++){
 	    p[i] = i;
-        printf("%d, ", p[i]);
+        printf("%d ", p[i]);
     }
+    printf("\n");
     p[i] = '\0';
 }
 
