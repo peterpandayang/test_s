@@ -15,7 +15,7 @@ void init_array_c(int *p, int n){
     printf("Array with positive input: \n");
     for(i = 0; i < n ; i++){
 	    p[i] = i;
-        printf(" %d\n", p[i]);
+        printf("%d, ", p[i]);
     }
     p[i] = '\0';
 }
@@ -140,7 +140,7 @@ int main(int argc, char **argv){
     // int max_c = find_max_c(p_array, 10);
     // printf("max of c is: %d\n", max_c);
 
-    positive_test(p_array, 19);
+    positive_test(p_array, 20);
 
     int fibo_input = 6;
 
