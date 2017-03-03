@@ -190,7 +190,7 @@ int print_str(char *p){
     int len = strlen(p);
     int i;
     for(i = 0; i < len; i++){
-        // printf("%s\n", *p);
+        printf("%s\n", *p);
         p += 1;
     }
 }
