@@ -121,34 +121,6 @@ int positive_test(int *p_array, int size){
     printf(", %d (C)\n", max_c);
 }
 
-// int print_iter_fibo(int fibo_input){
-//     int iter_s = fibo_iter_s(fibo_input);
-//     printf("iteration fibo with input %d for assembly is: %d\n", fibo_input, iter_s);
-
-//     int iter_c = fibo_iter_c(fibo_input);
-//     printf("iteration fibo with input %d for c is: %d\n", fibo_input, iter_c);
-
-//     int rec_s = fibo_rec_s(fibo_input);
-//     printf("recursion fibo with input %d for assembly is: %d\n", fibo_input, rec_s);
-
-//     int rec_c = fibo_rec_c(fibo_input);
-//     printf("recursion fibo with input %d for c is: %d\n", fibo_input, rec_c);
-// }
-
-// int print_rec_fibo(int fibo_input){
-//     int iter_s = fibo_iter_s(fibo_input);
-//     printf("iteration fibo with input %d for assembly is: %d\n", fibo_input, iter_s);
-
-//     int iter_c = fibo_iter_c(fibo_input);
-//     printf("iteration fibo with input %d for c is: %d\n", fibo_input, iter_c);
-
-//     int rec_s = fibo_rec_s(fibo_input);
-//     printf("recursion fibo with input %d for assembly is: %d\n", fibo_input, rec_s);
-
-//     int rec_c = fibo_rec_c(fibo_input);
-//     printf("recursion fibo with input %d for c is: %d\n", fibo_input, rec_c);
-// }
-
 int fibo_test(int size){
     int i;
     int iter_s;
@@ -156,7 +128,7 @@ int fibo_test(int size){
     int rec_s;
     int rec_c;
 
-    printf("Test for fibonacci sequence of iteration with size %d+1: \n", size + 1);
+    printf("Test for fibonacci sequence of iteration with size %d: \n", size + 1);
     for(i = 0; i < size; i++){
         int iter_s = fibo_iter_s(i);
         printf("%d ", iter_s);
@@ -185,21 +157,29 @@ int fibo_test(int size){
 
 int strstr_test(char *p_s, char *p_sub){
     int pos;
+    
+    printf("Larger string: \n");
+    print_str(p_s);
+    printf("Smaller string: \n");
+    print_str(p_sub);
+    printf("Test for strstr in C: \n");
+
     pos = find_sub_in_s_c(p_s, p_sub);
     if(pos != -1){
-        printf("find sub in s starting from position: %d for c\n", pos);
+        printf("Find substring at:\n");
     }
     else{
-        printf("can't find sub in s for c\n");
+        printf("Can't find substring\n");
     }
 
+    printf("Test for strstr in Assembly: \n");
     pos = 0;
     pos = find_sub_in_s_s(p_s, p_sub);
     if(pos != -1){
-        printf("find sub in s starting from position: %d for assembly\n", pos);
+        printf("Find substring at:\n");
     }
     else{
-        printf("can't find sub in s for assembly\n");
+        printf("Can't find substring\n");
     }
 }
 
@@ -211,57 +191,11 @@ int main(int argc, char **argv){
     char *p_s = v_st.s;
     char *p_sub = v_st.sub;
     
-    // init_array_c(p_array, 10);
-
-    // int sum_s = sum_array_s(p_array, 10);
-    // printf("sum of assemly is: %d\n", sum_s);
-
-    // int sum_c = sum_array_c(p_array, 10);
-    // printf("sum of c is: %d\n", sum_c);
-
-    // int max_s = find_max_s(p_array, 10);
-    // printf("max of assembly is: %d\n", max_s);
-
-    // int max_c = find_max_c(p_array, 10);
-    // printf("max of c is: %d\n", max_c);
-
     positive_test(p_array, 20);
 
     fibo_test(19);
 
     strstr_test(p_s, p_sub);
-
-    // int fibo_input = 6;
-
-    // int iter_s = fibo_iter_s(fibo_input);
-    // printf("iteration fibo with input %d for assembly is: %d\n", fibo_input, iter_s);
-
-    // int iter_c = fibo_iter_c(fibo_input);
-    // printf("iteration fibo with input %d for c is: %d\n", fibo_input, iter_c);
-
-    // int rec_s = fibo_rec_s(fibo_input);
-    // printf("recursion fibo with input %d for assembly is: %d\n", fibo_input, rec_s);
-
-    // int rec_c = fibo_rec_c(fibo_input);
-    // printf("recursion fibo with input %d for c is: %d\n", fibo_input, rec_c);
-
-    // int pos;
-    // pos = find_sub_in_s_c(p_s, p_sub);
-    // if(pos != -1){
-    //     printf("find sub in s starting from position: %d for c\n", pos);
-    // }
-    // else{
-    //     printf("can't find sub in s for c\n");
-    // }
-
-    // pos = 0;
-    // pos = find_sub_in_s_s(p_s, p_sub);
-    // if(pos != -1){
-    //     printf("find sub in s starting from position: %d for assembly\n", pos);
-    // }
-    // else{
-    //     printf("can't find sub in s for assembly\n");
-    // }
 
     return 0;
 }
