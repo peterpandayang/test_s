@@ -4,7 +4,6 @@
 #define VALUE_MAX_STR_LEN 64
 
 struct value_st {
-    int fibo_array[VALUE_MAX_STR_LEN];
     int array[VALUE_MAX_STR_LEN];
     char s[50];
     char sub[10];
@@ -150,8 +149,7 @@ int positive_test(int *p_array, int size){
 //     printf("recursion fibo with input %d for c is: %d\n", fibo_input, rec_c);
 // }
 
-int fibo_test(int p_fibo_array, int size){
-    init_array_c(p_fibo_array, size);
+int fibo_test(int size){
     int i;
     int iter_s;
     int iter_c;
@@ -188,7 +186,6 @@ int fibo_test(int p_fibo_array, int size){
 int main(int argc, char **argv){
     struct value_st v_st;
     int *p_array = v_st.array;
-    int *p_fibo_array = v_st.fibo_array;
     strcpy(v_st.s, "This is a test string for testing");
     strcpy(v_st.sub, "test");
     char *p_s = v_st.s;
@@ -210,7 +207,7 @@ int main(int argc, char **argv){
 
     positive_test(p_array, 20);
 
-    fibo_test(*p_fibo_array, 19);
+    fibo_test(19);
 
     // int fibo_input = 6;
 
