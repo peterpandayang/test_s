@@ -188,7 +188,7 @@ int strstr_test(char *p_s, char *p_sub){
 
 int print_str(char *p){
     while(*p){
-        printf("%c", *p);
+        printf("%s", *p);
         *p += 1;
     }
 }
