@@ -187,7 +187,7 @@ int strstr_test(char *p_s, char *p_sub){
 }
 
 int print_str(char *p){
-    while(*p != '\0'){
+    while(p != NULL && *p != '\0'){
         printf("%s", *p);
         p += 1;
     }
