@@ -102,19 +102,19 @@ int fibo_rec_s(int n);
 int find_sub_in_s_s(char *s, char *sub);
 
 
-int positive_array_test(){
-    init_array_c(p_array, 10);
+int positive_array_test(int p_array, int size){
+    init_array_c(p_array, size);
 
-    int sum_s = sum_array_s(p_array, 10);
+    int sum_s = sum_array_s(p_array, size);
     printf("sum of assemly is: %d\n", sum_s);
 
-    int sum_c = sum_array_c(p_array, 10);
+    int sum_c = sum_array_c(p_array, size);
     printf("sum of c is: %d\n", sum_c);
 
-    int max_s = find_max_s(p_array, 10);
+    int max_s = find_max_s(p_array, size);
     printf("max of assembly is: %d\n", max_s);
 
-    int max_c = find_max_c(p_array, 10);
+    int max_c = find_max_c(p_array, size);
     printf("max of c is: %d\n", max_c);
 }
 
@@ -162,7 +162,7 @@ int main(int argc, char **argv){
     
     // init_array_c(p_array, 10);
 
-    positive_array_test(p_array, 10);
+    positive_array_test(*p_array, 10);
 
     // int sum_s = sum_array_s(p_array, 10);
     // printf("sum of assemly is: %d\n", sum_s);
