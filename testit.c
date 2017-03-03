@@ -193,10 +193,12 @@ int strstr_test(char *p_s, char *p_sub){
 int print_str(char *p){
     int len = strlen(p);
     int i;
+    printf("\"");
     for(i = 0; i < len; i++){
         printf("%c", *p);
         p += 1;
     }
+    printf("\"");
     printf("\n");
     return 0;
 }
