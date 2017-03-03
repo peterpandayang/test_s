@@ -119,6 +119,8 @@ int positive_test(int *p_array, int size){
 
     int max_c = find_max_c(p_array, size);
     printf(", %d (C)\n", max_c);
+
+    return 0;
 }
 
 int fibo_test(int size){
@@ -153,15 +155,15 @@ int fibo_test(int size){
         printf("%d ", rec_c);
     }
     printf("(C)\n");
+    return 0;
 }
 
 int strstr_test(char *p_s, char *p_sub){
-    int pos;
-    
+    int pos; 
     printf("Larger string: \n");
-    // print_str(p_s);
+    print_str(p_s);
     printf("Smaller string: \n");
-    // print_str(p_sub);
+    print_str(p_sub);
     printf("Test for strstr in C: \n");
 
     pos = find_sub_in_s_c(p_s, p_sub);
@@ -180,6 +182,13 @@ int strstr_test(char *p_s, char *p_sub){
     }
     else{
         printf("Can't find substring\n");
+    }
+    return 0;
+}
+
+int print_str(char *p){
+    while(*p){
+        printf("%c", *p);
     }
 }
 
