@@ -4,6 +4,7 @@
 #define VALUE_MAX_STR_LEN 64
 
 struct value_st {
+    int fibo_array[VALUE_MAX_STR_LEN];
     int array[VALUE_MAX_STR_LEN];
     char s[50];
     char sub[10];
@@ -121,25 +122,73 @@ int positive_test(int *p_array, int size){
     printf(", %d (C)\n", max_c);
 }
 
-int fibo_test(int fibo_input){
-    printf("Test for fibonacci sequence: \n");
+// int print_iter_fibo(int fibo_input){
+//     int iter_s = fibo_iter_s(fibo_input);
+//     printf("iteration fibo with input %d for assembly is: %d\n", fibo_input, iter_s);
 
-    int iter_s = fibo_iter_s(fibo_input);
-    printf("iteration fibo with input %d for assembly is: %d\n", fibo_input, iter_s);
+//     int iter_c = fibo_iter_c(fibo_input);
+//     printf("iteration fibo with input %d for c is: %d\n", fibo_input, iter_c);
 
-    int iter_c = fibo_iter_c(fibo_input);
-    printf("iteration fibo with input %d for c is: %d\n", fibo_input, iter_c);
+//     int rec_s = fibo_rec_s(fibo_input);
+//     printf("recursion fibo with input %d for assembly is: %d\n", fibo_input, rec_s);
 
-    int rec_s = fibo_rec_s(fibo_input);
-    printf("recursion fibo with input %d for assembly is: %d\n", fibo_input, rec_s);
+//     int rec_c = fibo_rec_c(fibo_input);
+//     printf("recursion fibo with input %d for c is: %d\n", fibo_input, rec_c);
+// }
 
-    int rec_c = fibo_rec_c(fibo_input);
-    printf("recursion fibo with input %d for c is: %d\n", fibo_input, rec_c);
+// int print_rec_fibo(int fibo_input){
+//     int iter_s = fibo_iter_s(fibo_input);
+//     printf("iteration fibo with input %d for assembly is: %d\n", fibo_input, iter_s);
+
+//     int iter_c = fibo_iter_c(fibo_input);
+//     printf("iteration fibo with input %d for c is: %d\n", fibo_input, iter_c);
+
+//     int rec_s = fibo_rec_s(fibo_input);
+//     printf("recursion fibo with input %d for assembly is: %d\n", fibo_input, rec_s);
+
+//     int rec_c = fibo_rec_c(fibo_input);
+//     printf("recursion fibo with input %d for c is: %d\n", fibo_input, rec_c);
+// }
+
+int fibo_test(int p_fibo_array, int size){
+    init_array_c(p_fibo_array, size);
+    int i;
+    int iter_s;
+    int iter_c;
+    int rec_s;
+    int rec_c;
+
+    printf("Test for fibonacci sequence with iteration with size %d: \n", size);
+    for(i = 0; i < size; i++){
+        int iter_s = fibo_iter_s(i);
+        printf("%d ", i);
+    }
+    printf("(Assembly)\n");
+
+    for(i = 0; i < size; i++){
+        int iter_c = fibo_iter_c(i);
+        printf("%d ", i);
+    }
+    printf("(C)\n");
+
+    printf("Test for fibonacci sequence with recursion with size %d: \n", size);
+    for(i = 0; i < size; i++){
+        int rec_s = fibo_rec_s(i);
+        printf("%d ", i);
+    }
+    printf("(Assembly)\n");
+
+    for(i = 0; i < size; i++){
+        int rec_c = fibo_rec_c(i);
+        printf("%d ", i);
+    }
+    printf("(C)\n");
 }
 
 int main(int argc, char **argv){
     struct value_st v_st;
     int *p_array = v_st.array;
+    int *p_fibo_array = v_st.fibo_array;
     strcpy(v_st.s, "This is a test string for testing");
     strcpy(v_st.sub, "test");
     char *p_s = v_st.s;
@@ -161,7 +210,7 @@ int main(int argc, char **argv){
 
     positive_test(p_array, 20);
 
-    fibo_test(19);
+    fibo_test(*p_fibo_array, 19);
 
     // int fibo_input = 6;
 
