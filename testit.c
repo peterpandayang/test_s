@@ -159,9 +159,9 @@ int strstr_test(char *p_s, char *p_sub){
     int pos;
     
     printf("Larger string: \n");
-    print_str(p_s);
+    // print_str(p_s);
     printf("Smaller string: \n");
-    print_str(p_sub);
+    // print_str(p_sub);
     printf("Test for strstr in C: \n");
 
     pos = find_sub_in_s_c(p_s, p_sub);
