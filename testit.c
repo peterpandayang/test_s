@@ -169,6 +169,8 @@ int strstr_test(char *p_s, char *p_sub){
     pos = find_sub_in_s_c(p_s, p_sub);
     if(pos != -1){
         printf("Find substring at:\n");
+        print_str(p_s);
+        print_arrow(pos);
     }
     else{
         printf("Can't find substring\n");
@@ -179,6 +181,8 @@ int strstr_test(char *p_s, char *p_sub){
     pos = find_sub_in_s_s(p_s, p_sub);
     if(pos != -1){
         printf("Find substring at:\n");
+        print_str(p_s);
+        print_arrow(pos);
     }
     else{
         printf("Can't find substring\n");
@@ -190,10 +194,22 @@ int print_str(char *p){
     int len = strlen(p);
     int i;
     for(i = 0; i < len; i++){
-        printf("%c\n", *p);
+        printf("%c", *p);
         p += 1;
     }
+    printf("\n");
+    return 0;
 }
+
+int print_arrow(int pos){
+    int i;
+    for(i = 0; i < pos; i++){
+        printf(" ");
+    }
+    printf("^\n");
+    return 0;
+}
+
 
 int main(int argc, char **argv){
     struct value_st v_st;
