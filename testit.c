@@ -208,7 +208,7 @@ int print_arrow(int pos){
     for(i = 0; i < pos; i++){
         printf(" ");
     }
-    printf("^\n");
+    printf(" ^\n");
     return 0;
 }
 
