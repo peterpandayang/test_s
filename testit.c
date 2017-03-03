@@ -187,8 +187,10 @@ int strstr_test(char *p_s, char *p_sub){
 }
 
 int print_str(char *p){
-    while(p != NULL && *p != '\0'){
-        printf("%s", *p);
+    int len = strlen(p);
+    int i;
+    for(int i = 0; i < len; i++){
+        printf("%s\n", *p);
         p += 1;
     }
 }
