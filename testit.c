@@ -5,20 +5,30 @@
 
 struct value_st {
     int pos_array[VALUE_MAX_STR_LEN];
+    int neg_array[VALUE_MAX_STR_LEN];
     char s[50];
     char sub[10];
 };
 
 
-void init_array_c(int *p, int n){
+void init_array_c(int *p_pos, int *p_neg, int n){
     int i = 0;
     printf("Array with positive input: \n");
     for(i = 0; i < n ; i++){
-	    p[i] = i;
-        printf("%d ", p[i]);
+	    p_pos[i] = i;
+        printf("%d ", p_pos[i]);
     }
     printf("\n");
-    p[i] = '\0';
+    p_pos[i] = '\0';
+
+    i = 0;
+    printf("Array with negative input: \n");
+    for(i = 0; i < n ; i++){
+        p_neg[i] = -i;
+        printf("%d ", p_neg[i]);
+    }
+    printf("\n");
+    p_neg[i] = '\0';
 }
 
 int sum_array_c(int *array, int n){
@@ -128,7 +138,7 @@ int positive_test(int *p_array, int size){
 int negative_test(int *p_array, int size){
     init_array_c(p_array, size);
 
-    printf("Test for array with positive values: \n");
+    printf("Test for array with negative values: \n");
 
     int sum_s = sum_array_s(p_array, size);
     printf("Sum result are: %d (Assembly) ", sum_s);
@@ -240,6 +250,7 @@ int print_arrow(int pos){
 int main(int argc, char **argv){
     struct value_st v_st;
     int *p_pos_array = v_st.pos_array;
+    int *p_neg_array = v_st.neg_array;
     strcpy(v_st.s, "This is a test string for testing");
     strcpy(v_st.sub, "testing");
     char *p_s = v_st.s;
@@ -247,9 +258,11 @@ int main(int argc, char **argv){
     
     int size = 20;
 
-    init_array_c(p_pos_array, size);
+    init_array_c(p_pos_array, p_neg_array, size);
 
     positive_test(p_pos_array, size);
+
+    negative_test(p_neg_array, size);
 
     fibo_test(19);
 
