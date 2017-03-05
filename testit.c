@@ -7,12 +7,13 @@ struct value_st {
     int pos_array[VALUE_MAX_STR_LEN];
     int neg_array[VALUE_MAX_STR_LEN];
     int wig_array[VALUE_MAX_STR_LEN];
+    int zero_array[VALUE_MAX_STR_LEN];
     char s[50];
     char sub[10];
 };
 
 
-void init_array_c(int *p_pos, int *p_neg, int *p_wig, int n){
+void init_array_c(int *p_pos, int *p_neg, int *p_wig, int *p_zero, int n){
     int i = 0;
     for(i = 0; i < n ; i++){
 	    p_pos[i] = i;
@@ -30,6 +31,12 @@ void init_array_c(int *p_pos, int *p_neg, int *p_wig, int n){
         p_wig[i] = i % 2 == 0 ? i : -i;
     }
     p_wig[i] = '\0';
+
+    i = 0;
+    for(i = 0; i < n ; i++){
+        p_zero[i] = 0;
+    }
+    p_zero[i] = '\0';
 }
 
 void print_array_c(int *p_aray, int n){
@@ -192,6 +199,29 @@ int wiggle_test(int *p_array, int size){
     return 0;
 }
 
+int zero_test(int *p_array, int size){
+
+    printf("Test for array with zero values: \n");
+    printf("Array with zero input: \n");
+    print_array_c(p_array, size);
+
+    int sum_s = sum_array_s(p_array, size);
+    printf("Sum result are: %d (Assembly) ", sum_s);
+
+    int sum_c = sum_array_c(p_array, size);
+    printf(", %d (C)\n", sum_c);
+
+    int max_s = find_max_s(p_array, size);
+    printf("Max result are: %d (Assembly)", max_s);
+
+    int max_c = find_max_c(p_array, size);
+    printf(", %d (C)\n", max_c);
+
+    printf("\n");
+
+    return 0;
+}
+
 int fibo_test(int size){
     int i;
     int iter_s;
@@ -288,20 +318,20 @@ int main(int argc, char **argv){
     int *p_pos_array = v_st.pos_array;
     int *p_neg_array = v_st.neg_array;
     int *p_wig_array = v_st.wig_array;
+    int *p_zero_array = v_st.zero_array;
+    int fibo_input = 19;
     strcpy(v_st.s, "This is a test string for testing");
     strcpy(v_st.sub, "testing");
     char *p_s = v_st.s;
     char *p_sub = v_st.sub;
 
-    init_array_c(p_pos_array, p_neg_array, p_wig_array, size);
-
+    init_array_c(p_pos_array, p_neg_array, p_wig_array, p_zero_array, size);
     positive_test(p_pos_array, size);
-
     negative_test(p_neg_array, size);
-
     wiggle_test(p_wig_array, size);
+    zero_test(p_zero_array, size);
 
-    fibo_test(19);
+    fibo_test(fibo_input);
 
     strstr_test(p_s, p_sub);
 
