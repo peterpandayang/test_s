@@ -41,7 +41,7 @@ void init_array_c(int *p_pos, int *p_neg, int *p_wig, int *p_zero, int *p_large,
 
     i = 0;
     for(i = 0; i < large_size ; i++){
-        p_large[i] = 0;
+        p_large[i] = i;
     }
     p_large[i] = '\0';
 }
