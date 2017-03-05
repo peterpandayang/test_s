@@ -13,22 +13,24 @@ struct value_st {
 
 void init_array_c(int *p_pos, int *p_neg, int n){
     int i = 0;
-    printf("Array with positive input: \n");
     for(i = 0; i < n ; i++){
 	    p_pos[i] = i;
-        printf("%d ", p_pos[i]);
     }
-    printf("\n");
     p_pos[i] = '\0';
-
+    
     i = 0;
-    printf("Array with negative input: \n");
     for(i = 0; i < n ; i++){
         p_neg[i] = -i;
-        printf("%d ", p_neg[i]);
+    }
+    p_neg[i] = '\0';
+}
+
+void print_array_c(int *p_aray, int n){
+    int i = 0;
+    for(i = 0; i < n ; i++){
+        printf("%d ", p_aray[i]);
     }
     printf("\n");
-    p_neg[i] = '\0';
 }
 
 int sum_array_c(int *array, int n){
@@ -117,6 +119,8 @@ int find_sub_in_s_s(char *s, char *sub);
 int positive_test(int *p_array, int size){
 
     printf("Test for array with positive values: \n");
+    printf("Array with positive input: \n");
+    print_array_c(p_array);
 
     int sum_s = sum_array_s(p_array, size);
     printf("Sum result are: %d (Assembly) ", sum_s);
@@ -138,6 +142,8 @@ int positive_test(int *p_array, int size){
 int negative_test(int *p_array, int size){
 
     printf("Test for array with negative values: \n");
+    printf("Array with negative input: \n");
+    print_array_c(p_array);
 
     int sum_s = sum_array_s(p_array, size);
     printf("Sum result are: %d (Assembly) ", sum_s);
