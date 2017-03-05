@@ -10,7 +10,8 @@ struct value_st {
     int zero_array[VALUE_MAX_STR_LEN];
     int large_array[1024];
     char s[50];
-    char sub[10];
+    char sub1[10];
+    char sub2[10];
 };
 
 
@@ -356,9 +357,11 @@ int main(int argc, char **argv){
     int *p_large_array = v_st.large_array;
     int fibo_input = 20;
     strcpy(v_st.s, "This is a test string for testing");
-    strcpy(v_st.sub, "testing");
+    strcpy(v_st.sub1, "testing");
+    strcpy(v_st.sub2, "tsting");
     char *p_s = v_st.s;
-    char *p_sub = v_st.sub;
+    char *p_sub1 = v_st.sub1;
+    char *p_sub2 = v_st.sub2
 
     init_array_c(p_pos_array, p_neg_array, p_wig_array, p_zero_array, p_large_array, size, large_size);
     positive_test(p_pos_array, size);
@@ -369,7 +372,8 @@ int main(int argc, char **argv){
 
     fibo_test(fibo_input);
 
-    strstr_test(p_s, p_sub);
+    strstr_test(p_s, p_sub1);
+    strstr_test(p_s, p_sub2);
 
     return 0;
 }
