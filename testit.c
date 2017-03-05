@@ -17,7 +17,7 @@ void init_array_c(int *p_pos, int *p_neg, int n){
 	    p_pos[i] = i;
     }
     p_pos[i] = '\0';
-    
+
     i = 0;
     for(i = 0; i < n ; i++){
         p_neg[i] = -i;
@@ -120,7 +120,7 @@ int positive_test(int *p_array, int size){
 
     printf("Test for array with positive values: \n");
     printf("Array with positive input: \n");
-    print_array_c(p_array);
+    print_array_c(p_array, size);
 
     int sum_s = sum_array_s(p_array, size);
     printf("Sum result are: %d (Assembly) ", sum_s);
@@ -143,7 +143,7 @@ int negative_test(int *p_array, int size){
 
     printf("Test for array with negative values: \n");
     printf("Array with negative input: \n");
-    print_array_c(p_array);
+    print_array_c(p_array, size);
 
     int sum_s = sum_array_s(p_array, size);
     printf("Sum result are: %d (Assembly) ", sum_s);
