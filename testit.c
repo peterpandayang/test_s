@@ -361,7 +361,7 @@ int main(int argc, char **argv){
     strcpy(v_st.sub2, "tsting");
     char *p_s = v_st.s;
     char *p_sub1 = v_st.sub1;
-    char *p_sub2 = v_st.sub2
+    char *p_sub2 = v_st.sub2;
 
     init_array_c(p_pos_array, p_neg_array, p_wig_array, p_zero_array, p_large_array, size, large_size);
     positive_test(p_pos_array, size);
