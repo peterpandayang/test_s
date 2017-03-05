@@ -9,10 +9,8 @@ find_sub_in_s_s:
 	str r2, [sp, #16]
 	str lr, [sp, #64]
 	bl get_len
-	ldr lr, [sp, #64]
 	str r0, [sp, #48]
 	ldr r0, [sp, #8]
-	str lr, [sp, #64]
 	bl get_len
 	ldr lr, [sp, #64]
 	str r0, [sp, #56]
@@ -32,7 +30,6 @@ loop:
 	ldr r1, [sp, #8]
 	ldrb r3, [r0]
 	ldrb r12, [r1]
-	ldr lr, [sp, #64]
 	cmp r3, r12
 	bleq check_common
 	ldr lr, [sp, #64]
