@@ -321,6 +321,7 @@ int strstr_test(char *p_s, char *p_sub){
     else{
         printf("Can't find substring\n");
     }
+    printf("\n");
     return 0;
 }
 
@@ -359,7 +360,7 @@ int main(int argc, char **argv){
     int fibo_input = 20;
     strcpy(v_st.s, "This is a test string for testing");
     strcpy(v_st.sub1, "testing");
-    strcpy(v_st.sub2, "tsting");
+    strcpy(v_st.sub2, "ting");
     char *p_s = v_st.s;
     char *p_sub1 = v_st.sub1;
     char *p_sub2 = v_st.sub2;
