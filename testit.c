@@ -136,7 +136,6 @@ int positive_test(int *p_array, int size){
 }
 
 int negative_test(int *p_array, int size){
-    init_array_c(p_array, size);
 
     printf("Test for array with negative values: \n");
 
