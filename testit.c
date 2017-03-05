@@ -354,7 +354,7 @@ int main(int argc, char **argv){
     int *p_wig_array = v_st.wig_array;
     int *p_zero_array = v_st.zero_array;
     int *p_large_array = v_st.large_array;
-    int fibo_input = 19;
+    int fibo_input = 20;
     strcpy(v_st.s, "This is a test string for testing");
     strcpy(v_st.sub, "testing");
     char *p_s = v_st.s;
