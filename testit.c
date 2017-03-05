@@ -12,7 +12,7 @@ struct value_st {
 };
 
 
-void init_array_c(int *p_pos, int *p_neg, int p_wig, int n){
+void init_array_c(int *p_pos, int *p_neg, int *p_wig, int n){
     int i = 0;
     for(i = 0; i < n ; i++){
 	    p_pos[i] = i;
