@@ -8,12 +8,13 @@ struct value_st {
     int neg_array[VALUE_MAX_STR_LEN];
     int wig_array[VALUE_MAX_STR_LEN];
     int zero_array[VALUE_MAX_STR_LEN];
+    int large_array[1024];
     char s[50];
     char sub[10];
 };
 
 
-void init_array_c(int *p_pos, int *p_neg, int *p_wig, int *p_zero, int n){
+void init_array_c(int *p_pos, int *p_neg, int *p_wig, int *p_zero, int *p_large, int n, int large_size){
     int i = 0;
     for(i = 0; i < n ; i++){
 	    p_pos[i] = i;
@@ -37,6 +38,12 @@ void init_array_c(int *p_pos, int *p_neg, int *p_wig, int *p_zero, int n){
         p_zero[i] = 0;
     }
     p_zero[i] = '\0';
+
+    i = 0;
+    for(i = 0; i < large_size ; i++){
+        p_large[i] = 0;
+    }
+    p_large[i] = '\0';
 }
 
 void print_array_c(int *p_aray, int n){
@@ -241,6 +248,7 @@ int fibo_test(int size){
         printf("%d ", iter_c);
     }
     printf("(C)\n");
+    printf("\n");
 
     printf("Test for fibonacci sequence of recursion with size %d: \n", size + 1);
     for(i = 0; i < size; i++){
@@ -254,6 +262,7 @@ int fibo_test(int size){
         printf("%d ", rec_c);
     }
     printf("(C)\n");
+    printf("\n");
     return 0;
 }
 
@@ -315,17 +324,19 @@ int print_arrow(int pos){
 int main(int argc, char **argv){
     struct value_st v_st;
     int size = 20;
+    int large_size = 1000;
     int *p_pos_array = v_st.pos_array;
     int *p_neg_array = v_st.neg_array;
     int *p_wig_array = v_st.wig_array;
     int *p_zero_array = v_st.zero_array;
+    int *p_large_array = v_st.large_array;
     int fibo_input = 19;
     strcpy(v_st.s, "This is a test string for testing");
     strcpy(v_st.sub, "testing");
     char *p_s = v_st.s;
     char *p_sub = v_st.sub;
 
-    init_array_c(p_pos_array, p_neg_array, p_wig_array, p_zero_array, size);
+    init_array_c(p_pos_array, p_neg_array, p_wig_array, p_zero_array, p_large_array, size, large_size);
     positive_test(p_pos_array, size);
     negative_test(p_neg_array, size);
     wiggle_test(p_wig_array, size);
