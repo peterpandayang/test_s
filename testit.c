@@ -292,6 +292,7 @@ int fibo_test(int size){
 }
 
 int strstr_test(char *p_s, char *p_sub){
+    printf("Test for strstr: \n");
     int pos; 
     printf("Larger string: ");
     print_str(p_s);
