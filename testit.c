@@ -261,7 +261,7 @@ int fibo_test(int size){
     int rec_s;
     int rec_c;
 
-    printf("Test for fibonacci sequence of iteration with size %d: \n", size + 1);
+    printf("Test for fibonacci sequence of iteration with size %d: \n", size);
     for(i = 0; i < size; i++){
         int iter_s = fibo_iter_s(i);
         printf("%d ", iter_s);
@@ -275,7 +275,7 @@ int fibo_test(int size){
     printf("(C)\n");
     printf("\n");
 
-    printf("Test for fibonacci sequence of recursion with size %d: \n", size + 1);
+    printf("Test for fibonacci sequence of recursion with size %d: \n", size);
     for(i = 0; i < size; i++){
         int rec_s = fibo_rec_s(i);
         printf("%d ", rec_s);
@@ -360,7 +360,7 @@ int main(int argc, char **argv){
     int fibo_input = 20;
     strcpy(v_st.s, "This is a test string for testing");
     strcpy(v_st.sub1, "testing");
-    strcpy(v_st.sub2, "ting");
+    strcpy(v_st.sub2, "tsting");
     char *p_s = v_st.s;
     char *p_sub1 = v_st.sub1;
     char *p_sub2 = v_st.sub2;
