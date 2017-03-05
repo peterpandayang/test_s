@@ -229,6 +229,30 @@ int zero_test(int *p_array, int size){
     return 0;
 }
 
+int large_array_test(int *p_array, int size){
+
+    printf("Test for array with large size: \n");
+    int start = p_array[0];
+    int end = p_array[size - 1];
+    printf("Array with input from: %d to %d\n", start, end);
+
+    int sum_s = sum_array_s(p_array, size);
+    printf("Sum result are: %d (Assembly) ", sum_s);
+
+    int sum_c = sum_array_c(p_array, size);
+    printf(", %d (C)\n", sum_c);
+
+    int max_s = find_max_s(p_array, size);
+    printf("Max result are: %d (Assembly)", max_s);
+
+    int max_c = find_max_c(p_array, size);
+    printf(", %d (C)\n", max_c);
+
+    printf("\n");
+
+    return 0;
+}
+
 int fibo_test(int size){
     int i;
     int iter_s;
@@ -341,6 +365,7 @@ int main(int argc, char **argv){
     negative_test(p_neg_array, size);
     wiggle_test(p_wig_array, size);
     zero_test(p_zero_array, size);
+    large_array_test(p_large_array, large_size);
 
     fibo_test(fibo_input);
 
