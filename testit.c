@@ -4,7 +4,7 @@
 #define VALUE_MAX_STR_LEN 64
 
 struct value_st {
-    int array[VALUE_MAX_STR_LEN];
+    int pos_array[VALUE_MAX_STR_LEN];
     char s[50];
     char sub[10];
 };
@@ -103,7 +103,29 @@ int fibo_rec_s(int n);
 
 int find_sub_in_s_s(char *s, char *sub);
 
+
 int positive_test(int *p_array, int size){
+
+    printf("Test for array with positive values: \n");
+
+    int sum_s = sum_array_s(p_array, size);
+    printf("Sum result are: %d (Assembly) ", sum_s);
+
+    int sum_c = sum_array_c(p_array, size);
+    printf(", %d (C)\n", sum_c);
+
+    int max_s = find_max_s(p_array, size);
+    printf("Max result are: %d (Assembly)", max_s);
+
+    int max_c = find_max_c(p_array, size);
+    printf(", %d (C)\n", max_c);
+
+    printf("\n");
+
+    return 0;
+}
+
+int negative_test(int *p_array, int size){
     init_array_c(p_array, size);
 
     printf("Test for array with positive values: \n");
@@ -119,6 +141,8 @@ int positive_test(int *p_array, int size){
 
     int max_c = find_max_c(p_array, size);
     printf(", %d (C)\n", max_c);
+
+    printf("\n");
 
     return 0;
 }
@@ -215,13 +239,17 @@ int print_arrow(int pos){
 
 int main(int argc, char **argv){
     struct value_st v_st;
-    int *p_array = v_st.array;
+    int *p_pos_array = v_st.pos_array;
     strcpy(v_st.s, "This is a test string for testing");
     strcpy(v_st.sub, "testing");
     char *p_s = v_st.s;
     char *p_sub = v_st.sub;
     
-    positive_test(p_array, 20);
+    int size = 20;
+
+    init_array_c(p_pos_array, size);
+
+    positive_test(p_pos_array, size);
 
     fibo_test(19);
 
