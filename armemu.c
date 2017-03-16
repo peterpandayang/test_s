@@ -122,6 +122,7 @@ void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int 
     init_arm_state(as, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     int max;
     max = armemu(as);
+    printf("max is: %d\n", max);
 }                  
     
 int main(int argc, char **argv)
