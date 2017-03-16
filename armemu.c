@@ -116,7 +116,7 @@ void armemu_one(struct arm_state *state){
         armemu_data_pro(iw, state);
     }
 
-    else if (is_bx_inst(iw)) {
+    if (is_bx_inst(iw)) {
         armemu_bx(state);
     } 
 }
