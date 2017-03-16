@@ -28,9 +28,7 @@ struct value_st {
     char sub1[10];
 };
 
-void init_arm_state(struct arm_state *as, unsigned int *func,
-                   unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3)
-{
+void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3){
     int i;
 
     /* zero out all arm state */
@@ -54,8 +52,7 @@ void init_arm_state(struct arm_state *as, unsigned int *func,
     as->regs[3] = arg3;
 }
 
-bool is_add_inst(unsigned int iw)
-{
+bool is_add_inst(unsigned int iw){
     unsigned int op;
     unsigned int opcode;
 
@@ -65,8 +62,7 @@ bool is_add_inst(unsigned int iw)
     return (op == 0) && (opcode == 0b0100);
 }
 
-void armemu_add(struct arm_state *state)
-{
+void armemu_add(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, rm;
 
@@ -82,8 +78,7 @@ void armemu_add(struct arm_state *state)
     }
 }
 
-bool is_bx_inst(unsigned int iw)
-{
+bool is_bx_inst(unsigned int iw){
     unsigned int bx_code;
 
     bx_code = (iw >> 4) & 0x00FFFFFF;
@@ -91,8 +86,7 @@ bool is_bx_inst(unsigned int iw)
     return (bx_code == 0b000100101111111111110001);
 }
 
-void armemu_bx(struct arm_state *state)
-{
+void armemu_bx(struct arm_state *state){
     unsigned int iw;
     unsigned int rn;
 
@@ -102,8 +96,7 @@ void armemu_bx(struct arm_state *state)
     state->regs[PC] = state->regs[rn];
 }
 
-void armemu_one(struct arm_state *state)
-{
+void armemu_one(struct arm_state *state){
     unsigned int iw;
     
     iw = *((unsigned int *) state->regs[PC]);
@@ -116,8 +109,7 @@ void armemu_one(struct arm_state *state)
 }
 
 
-unsigned int armemu(struct arm_state *state)
-{
+unsigned int armemu(struct arm_state *state){
 
     while (state->regs[PC] != 0) {
         armemu_one(state);
@@ -125,21 +117,22 @@ unsigned int armemu(struct arm_state *state)
 
     return state->regs[0];
 }
-                  
+
+void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int size){
+    
+}                  
     
 int main(int argc, char **argv)
 {
     struct arm_state state;
     unsigned int r;
     struct value_st v_st;
-    int size = 20;
-    int *p_pos_array = v_st.pos_array;
     
     init_arm_state(&state, (unsigned int *) add, 1, 2, 0, 0);
     r = armemu(&state);
     printf("r = %d\n", r);
 
-    // sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
+    sum_array_test(&state, (unsigned int *) sum_array_s, &v_st.pos_array, 20);
   
     return 0;
 }
