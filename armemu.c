@@ -139,7 +139,7 @@ int main(int argc, char **argv)
     r = armemu(&state);
     printf("r = %d\n", r);
 
-    sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
+    // sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
   
     return 0;
 }
