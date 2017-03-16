@@ -52,6 +52,18 @@ void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0,
     as->regs[3] = arg3;
 }
 
+bool is_data_pro_inst(unsigned int iw){
+    unsigned int op;
+    op = (iw >> 26) & 0b11;
+    return op == 0;
+}
+
+void armemu_data_pro(unsigned int iw, struct arm_state *state){
+    if (is_add_inst(iw)) {
+        armemu_add(state);
+    }
+}
+
 bool is_add_inst(unsigned int iw){
     unsigned int op;
     unsigned int opcode;
@@ -101,11 +113,16 @@ void armemu_one(struct arm_state *state){
     
     iw = *((unsigned int *) state->regs[PC]);
 
+    if(is_data_pro_inst(iw)){
+        armemu_data_pro(iw, state);
+    }
+
     if (is_bx_inst(iw)) {
         armemu_bx(state);
-    } else if (is_add_inst(iw)) {
-        armemu_add(state);
-    }
+    } 
+    // else if (is_add_inst(iw)) {
+    //     armemu_add(state);
+    // }
 }
 
 
