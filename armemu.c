@@ -1,5 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
+
 
 
 #define NREGS 16
@@ -7,13 +9,23 @@
 #define SP 13
 #define LR 14
 #define PC 15
+#define VALUE_MAX_STR_LEN 64
+
 
 int add(int a, int b);
+
+int sum_array_s(int *p, int n);
 
 struct arm_state {
     unsigned int regs[NREGS];
     unsigned int cpsr;
     unsigned char stack[STACK_SIZE];
+};
+
+struct value_st {
+    int pos_array[VALUE_MAX_STR_LEN];
+    char s[50];
+    char sub1[10];
 };
 
 void init_arm_state(struct arm_state *as, unsigned int *func,
@@ -119,10 +131,15 @@ int main(int argc, char **argv)
 {
     struct arm_state state;
     unsigned int r;
+    struct value_st v_st;
+    int size = 20;
+    int *p_pos_array = v_st.pos_array;
     
     init_arm_state(&state, (unsigned int *) add, 1, 2, 0, 0);
     r = armemu(&state);
     printf("r = %d\n", r);
+
+    sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
   
     return 0;
 }
