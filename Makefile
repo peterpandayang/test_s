@@ -11,7 +11,7 @@ sum_array_s.o : sum_array_s.s
 	as -o sum_array_s.o sum_array_s.s
 
 armemu : armemu.c add.o
-	gcc -o armemu armemu.c add.o
+	gcc -o armemu armemu.c add.o sum_array_s.o
 
 clean:
 	rm -rf ${PROGS} ${OBJS}
