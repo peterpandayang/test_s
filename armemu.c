@@ -52,6 +52,7 @@ void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0,
     as->regs[3] = arg3;
 }
 
+/* data processing part*/
 bool is_data_pro_inst(unsigned int iw){
     unsigned int op;
     op = (iw >> 26) & 0b11;
@@ -90,6 +91,7 @@ void armemu_add(struct arm_state *state){
     }
 }
 
+/* branch part*/
 bool is_bx_inst(unsigned int iw){
     unsigned int bx_code;
 
@@ -108,6 +110,7 @@ void armemu_bx(struct arm_state *state){
     state->regs[PC] = state->regs[rn];
 }
 
+/*armemu part*/
 void armemu_one(struct arm_state *state){
     unsigned int iw;
     
@@ -135,6 +138,7 @@ unsigned int armemu(struct arm_state *state){
     return state->regs[0];
 }
 
+/*test part*/
 void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int size){
     init_arm_state(as, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     int max;
