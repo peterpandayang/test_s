@@ -65,9 +65,18 @@ void armemu_add(struct arm_state *state){
 
     iw = *((unsigned int *) state->regs[PC]);
     
-    rd = (iw >> 12) & 0xF;
-    rn = (iw >> 16) & 0xF;
-    rm = iw & 0xF;
+    if(((iw >> 25) & 0b1) == 0b1){
+
+    }
+    else{
+        rd = (iw >> 12) & 0xF;
+        rn = (iw >> 16) & 0xF;
+        rm = iw & 0xF;
+    }
+
+    // rd = (iw >> 12) & 0xF;
+    // rn = (iw >> 16) & 0xF;
+    // rm = iw & 0xF;
 
     state->regs[rd] = state->regs[rn] + state->regs[rm];
     if (rd != PC) {
