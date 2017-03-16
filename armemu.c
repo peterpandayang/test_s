@@ -12,7 +12,7 @@
 #define VALUE_MAX_STR_LEN 64
 
 
-// int add(int a, int b);
+int add(int a, int b);
 
 int sum_array_s(int *p, int n);
 
