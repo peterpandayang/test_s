@@ -112,13 +112,14 @@ void armemu_one(struct arm_state *state){
     
     iw = *((unsigned int *) state->regs[PC]);
 
-    if(is_data_pro_inst(iw)){
-        armemu_data_pro(iw, state);
-    }
-
     if (is_bx_inst(iw)) {
         armemu_bx(state);
     } 
+    else if(is_data_pro_inst(iw)){
+        armemu_data_pro(iw, state);
+    }
+
+    
 }
 
 
