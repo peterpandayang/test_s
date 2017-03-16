@@ -119,7 +119,7 @@ unsigned int armemu(struct arm_state *state){
 }
 
 void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int size){
-    init_arm_state(&as, (unsigned int *) func, p_array, size, 0, 0);
+    init_arm_state(as, (unsigned int *) func, p_array, size, 0, 0);
 }                  
     
 int main(int argc, char **argv)
