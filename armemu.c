@@ -54,13 +54,9 @@ void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0,
 
 /* data processing part*/
 bool is_add_inst(unsigned int iw){
-    unsigned int op;
     unsigned int opcode;
-
-    op = (iw >> 26) & 0b11;
     opcode = (iw >> 21) & 0b1111;
-
-    return (op == 0) && (opcode == 0b0100);
+    return (opcode == 0b0100);
 }
 
 void armemu_add(struct arm_state *state){
@@ -120,12 +116,9 @@ void armemu_one(struct arm_state *state){
         armemu_data_pro(iw, state);
     }
 
-    if (is_bx_inst(iw)) {
+    else if (is_bx_inst(iw)) {
         armemu_bx(state);
     } 
-    // else if (is_add_inst(iw)) {
-    //     armemu_add(state);
-    // }
 }
 
 
