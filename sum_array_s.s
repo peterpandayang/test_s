@@ -10,11 +10,9 @@ sum_array_s:
 	mov r0, #1
 	cmp r0, #2
 	# beq end
-	add r1, #1
 	b end2
 
 end:
-	mov r0, #3
 	bx lr
 
 end2:
