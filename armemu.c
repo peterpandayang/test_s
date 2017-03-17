@@ -133,6 +133,7 @@ void armemu_mov(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, imme;
 
+    printf("move inst\n");
     iw = *((unsigned int *) state->regs[PC]);
     rd = (iw >> 12) & 0xF;
 
