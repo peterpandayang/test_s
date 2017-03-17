@@ -12,8 +12,6 @@
 #define VALUE_MAX_STR_LEN 64
 
 
-int add(int a, int b);
-
 int sum_array_s(int *p, int n);
 
 struct arm_state {
@@ -61,17 +59,14 @@ bool is_add_inst(unsigned int iw){
 
 void armemu_add(struct arm_state *state){
     unsigned int iw;
-    unsigned int rd, rn, rm;
-    printf("add inst\n");
+    unsigned int rd, rn, rm, imme;
 
-    iw = *((unsigned int *) state->regs[PC]);
-    printf("%d\n", (iw >> 25) & 0b1);
-    
+    iw = *((unsigned int *) state->regs[PC]);    
     rd = (iw >> 12) & 0xF;
     rn = (iw >> 16) & 0xF;
 
     if(((iw >> 25) & 0b1) == 0b1){
-        unsigned int imme = iw & 0xFF;
+        imme = iw & 0xFF;
         state->regs[rd] = state->regs[rn] + imme;
     }
     else{
@@ -84,6 +79,46 @@ void armemu_add(struct arm_state *state){
     }
 }
 
+
+bool is_cmp_inst(unsigned int iw){
+    unsigned int opcode;
+    opcode = (iw >> 21) & 0b1111;
+    return (opcode == 0b1010);
+}
+
+void armemu_cmp(struct arm_state *state){
+    unsigned int iw;
+    unsigned int rn, rm, imme;
+
+    iw = *((unsigned int *) state->regs[PC]);    
+    rn = (iw >> 16) & 0xF;
+    state->cpsr = 0;
+
+    if(((iw >> 25) & 0b1) == 0b1){
+        imme = iw & 0xFF;
+        if(state->regs[rn] - imme < 0){
+            state->cpsr = (state->cpsr | 0x80000000);
+        }
+        if(state->regs[rn] - imme == 0){
+            state->cpsr = (state->cpsr | 0x40000000);
+        }
+    }
+    else{
+        rm = iw & 0xF;
+        if(state->regs[rn] - state->regs[rm] < 0){
+            state->cpsr = (state->cpsr | 0x80000000);
+        }
+        if(state->regs[rn] - state->regs[rm] == 0){
+            state->cpsr = (state->cpsr | 0x40000000);
+        }
+    }
+
+    if (rd != PC) {
+        state->regs[PC] = state->regs[PC] + 4;
+    }
+}
+
+
 bool is_mov_inst(unsigned int iw){
     unsigned int opcode;
     opcode = (iw >> 21) & 0b1111;
@@ -95,17 +130,14 @@ void armemu_mov(struct arm_state *state){
     unsigned int rd, rn, imme;
 
     iw = *((unsigned int *) state->regs[PC]);
-    
     rd = (iw >> 12) & 0xF;
-    printf("%d\n", (iw >> 25) & 0b1);
+
     if(((iw >> 25) & 0b1) == 0b1){
         unsigned int imme = iw & 0xFF;
-        printf("imed is: %d\n", imme);
         state->regs[rd] = imme;
     }
     else{
         rn = iw & 0b1111;
-        printf("rn is: %d\n", rn);
         state->regs[rd] = state->regs[rn];
     }
 
@@ -113,6 +145,7 @@ void armemu_mov(struct arm_state *state){
         state->regs[PC] = state->regs[PC] + 4;
     }
 }
+
 
 bool is_data_pro_inst(unsigned int iw){
     unsigned int op;
@@ -124,12 +157,16 @@ void armemu_data_pro(struct arm_state *state){
     unsigned int iw;
 
     iw = *((unsigned int *) state->regs[PC]);
+
     if(is_mov_inst(iw)){
         armemu_mov(state);
     }
-    else if (is_add_inst(iw)) {
+    else if(is_add_inst(iw)){
         armemu_add(state);
     }  
+    else if(is_cmp_inst(iw)){
+        armemu_cmp(state);
+    }
 }
 
 /*memory part*/
@@ -181,7 +218,6 @@ void armemu_one(struct arm_state *state){
     
 }
 
-
 unsigned int armemu(struct arm_state *state){
 
     while (state->regs[PC] != 0) {
@@ -199,16 +235,12 @@ void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int 
     printf("max is: %d\n", max);
 }                  
     
+/*main part*/
 int main(int argc, char **argv)
 {
     struct arm_state state;
-    // unsigned int r;
     struct value_st v_st;
     int *p_pos_array = v_st.pos_array;
-    
-    // init_arm_state(&state, (unsigned int *) add, 1, 2, 0, 0);
-    // r = armemu(&state);
-    // printf("r = %d\n", r);
 
     sum_array_test(&state, (unsigned int *) sum_array_s, v_st.pos_array, 20);
   
