@@ -298,6 +298,7 @@ void armemu_b(struct arm_state *state){
     }
     else if(is_b_default_inst(iw)){
         printf("enter b default\n");
+        printf("offset is: %d\n", offset);
         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
     }
     state->cpsr = 0;
