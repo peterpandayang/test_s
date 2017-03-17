@@ -223,6 +223,7 @@ void armemu_b(struct arm_state *state){
         }
     }
     else if((iw >> 28 & 0b0000) == 0b1110){
+        printf("hehehe\n");
         state->regs[PC] = state->regs[PC] + 8 + imme * 4;
     }
     state->regs[PC] = 0;
