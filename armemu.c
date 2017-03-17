@@ -282,7 +282,8 @@ void armemu_b(struct arm_state *state){
 
     iw = *((unsigned int *) state->regs[PC]);
     if(is_neg_offset(iw)){
-        offset = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
+        offset = 0xFFFFFF - (iw & 0xFFFFFF) + 1;
+        offset = -offset;
         printf("neg offset is: %d\n", offset);
     }
     else{
