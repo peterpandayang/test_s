@@ -214,13 +214,14 @@ bool is_b_inst(unsigned int iw){
 void armemu_b(struct arm_state *state){
     printf("there is b\n");
     unsigned int iw, imme;
+    printf("b's pc1 is: %d\n", state->regs[PC]);
     iw = *((unsigned int *) state->regs[PC]);
     imme = iw & 0xFFFFFF;
 
     if((iw >> 28 & 0b0000) == 0b0000 && (state->cpsr == 0x40000000)){
         state->regs[PC] = state->regs[PC] + 8 + imme * 4;
     }
-    printf("b's pc is: %d\n", state->regs[PC]);
+    printf("b's pc2 is: %d\n", state->regs[PC]);
 }
 
 
