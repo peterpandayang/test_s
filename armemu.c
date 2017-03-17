@@ -189,7 +189,7 @@ void armemu_mem(struct arm_state *state){
     iw = *((unsigned int *) state->regs[PC]);
 
     if(is_ldr_inst(iw)){
-        armemu_ldr(state);
+        // armemu_ldr(state);
     }
 }
 
