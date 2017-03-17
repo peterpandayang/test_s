@@ -200,6 +200,7 @@ void armemu_ldr(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, offset, i;
 
+    printf("enter load\n");
     rn = (iw >> 16) & 0xF;
     rd = (iw >> 12) & 0xF;
     if(is_off_addr(iw)){
