@@ -201,6 +201,7 @@ void armemu_bx(struct arm_state *state){
     rn = iw & 0b1111;
 
     state->regs[PC] = state->regs[rn];
+    printf("%d\n", state->regs[PC]);
 }
 
 
@@ -219,7 +220,7 @@ void armemu_b(struct arm_state *state){
     if((iw >> 28 & 0b0000) == 0b0000 && (state->cpsr == 0x40000000)){
         state->regs[PC] = state->regs[PC] + 8 + imme * 4;
     }
-    printf("there is b\n");
+    // printf("%d\n", state->regs[PC]);
 }
 
 
