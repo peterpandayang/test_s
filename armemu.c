@@ -79,6 +79,7 @@ void armemu_add(struct arm_state *state){
     else{
         rm = iw & 0xF;
         printf("rm is %d\n", rm);
+        printf("r12 is: %d\n", state->regs[12]);
         state->regs[rd] = state->regs[rn] + state->regs[rm];
         printf("rd is %d\n", rd);
         printf("rn is %d\n", rn);

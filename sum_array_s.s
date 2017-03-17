@@ -25,8 +25,8 @@ sum_array_s:
 loop:
 	cmp r2, r1
 	beq done
-	ldr r4, [r0]
-	add r3, r3, r4
+	ldr r12, [r0]
+	add r3, r3, r12
 	add r0, r0, #4
 	add r2, r2, #1
 	b loop
