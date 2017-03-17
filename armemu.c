@@ -199,8 +199,9 @@ void armemu_bx(struct arm_state *state){
     iw = *((unsigned int *) state->regs[PC]);
     rn = iw & 0b1111;
 
+    printf("pc1 is: %d\n", state->regs[PC]);
     state->regs[PC] = state->regs[rn];
-    printf("pc is: %d\n", state->regs[PC]);
+    printf("pc2 is: %d\n", state->regs[PC]);
 }
 
 
@@ -215,7 +216,7 @@ void armemu_b(struct arm_state *state){
     unsigned int iw, imme;
     iw = *((unsigned int *) state->regs[PC]);
     imme = iw & 0xFFFFFF;
-    
+
     if((iw >> 28 & 0b0000) == 0b0000 && (state->cpsr == 0x40000000)){
         state->regs[PC] = state->regs[PC] + 8 + imme * 4;
     }
