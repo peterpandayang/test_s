@@ -283,9 +283,11 @@ void armemu_b(struct arm_state *state){
     iw = *((unsigned int *) state->regs[PC]);
     if(is_neg_offset(iw)){
         offset = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
+        printf("neg offset is: %d\n", offset);
     }
     else{
         offset = iw & 0xFFFFFF;
+        printf("pos offset is: %d\n", offset);
     }
 
     if(is_beq_inst(iw)){
