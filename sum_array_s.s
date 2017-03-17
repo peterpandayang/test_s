@@ -7,12 +7,13 @@ sum_array_s:
 
 
 	# add r0, r1, #1
-	mov r0, #1
+	mov r0, #2
 	cmp r0, #2
 	beq end
 	b end2
 
-
+end:
+	bx lr
 
 end2:
 	mov r0, #3
