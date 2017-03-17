@@ -222,7 +222,7 @@ void armemu_b(struct arm_state *state){
             state->regs[PC] = state->regs[PC] + 4;
         }
     }
-    else{
+    else if((iw >> 28 & 0b0000) == 0b1110){
         state->regs[PC] = state->regs[PC] + 8 + imme * 4;
     }
 }
