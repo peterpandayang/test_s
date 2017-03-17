@@ -219,14 +219,26 @@ bool is_b_default_inst(unsigned int iw){
     return cond == 0b1110;
 }
 
+bool is_neg_offset(unsigned int iw){
+    unsigned int sign;
+    sign = iw >> 23 & 0b1;
+    return sign == 0b1;
+}
+
 void armemu_b(struct arm_state *state){
     unsigned int iw, offset;
 
     iw = *((unsigned int *) state->regs[PC]);
+    if(is_neg_offset(iw)){
+        offset = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
+    }
+    else{
+        offset = iw & 0xFFFFFF;
+    }
 
     printf("curr pc is: %d\n", state->regs[PC]);
     if(is_beq_inst(iw)){
-        offset = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
+        // offset = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
         printf("offset is: %d\n", offset);
         if(state->cpsr == 0x40000000){
             state->regs[PC] = state->regs[PC] + 8 + offset * 4;
@@ -238,7 +250,7 @@ void armemu_b(struct arm_state *state){
     }
     else if(is_b_default_inst(iw)){
         printf("hehehe\n");
-        offset = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
+        // offset = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
         printf("iw is: %u\n", iw);
         printf("offset is: %d\n", offset);
         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
