@@ -88,7 +88,7 @@ bool is_cmp_inst(unsigned int iw){
 
 void armemu_cmp(struct arm_state *state){
     unsigned int iw;
-    unsigned int rn, rm, imme;
+    unsigned int rd, rn, rm, imme;
 
     iw = *((unsigned int *) state->regs[PC]);    
     rn = (iw >> 16) & 0xF;
