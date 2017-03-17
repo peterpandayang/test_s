@@ -13,6 +13,7 @@ sum_array_s:
 	b end2
 
 end:
+	mov r0, #3
 	bx lr
 
 end2:
