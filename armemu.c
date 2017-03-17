@@ -227,6 +227,7 @@ void armemu_b(struct arm_state *state){
     printf("curr pc is: %d\n", state->regs[PC]);
     if(is_beq_inst(iw)){
         offset = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
+        printf("offset is: %d\n", offset);
         if(state->cpsr == 0x40000000){
             state->regs[PC] = state->regs[PC] + 8 + offset * 4;
         }
