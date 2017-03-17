@@ -207,7 +207,7 @@ void armemu_bx(struct arm_state *state){
 bool is_b_inst(unsigned int iw){
     unsigned int op;
     op = (iw >> 26) & 0b10;
-    return op == 0b01;
+    return op == 0b10;
 }
 
 void armemu_b(struct arm_state *state){
