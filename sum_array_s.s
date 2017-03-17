@@ -11,6 +11,7 @@ sum_array_s:
 	cmp r0, #2
 	# beq end
 	b end2
+	add r1, r1, #1
 
 
 end2:
