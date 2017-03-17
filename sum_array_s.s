@@ -10,11 +10,14 @@ sum_array_s:
 	mov r0, #1
 	cmp r0, #2
 	beq end
-	bx lr
+	b end2
 
 end:
 	bx lr
 
+end2:
+	mov r0, #2
+	bx lr
 
 # loop:
 # 	cmp r2, r1

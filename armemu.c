@@ -220,6 +220,9 @@ void armemu_b(struct arm_state *state){
             state->regs[PC] = state->regs[PC] + 4;
         }
     }
+    else{
+        state->regs[PC] = state->regs[PC] + 4;
+    }
 }
 
 
