@@ -99,8 +99,8 @@ void armemu_mov(struct arm_state *state){
         state->regs[rd] = imme;
     }
     else{
-        rn = (iw >> 16) & 0xF;
-        printf("rd is: %d\n", rd);
+        rn = iw & 0b1111;
+        printf("rn is: %d\n", rn);
         state->regs[rd] = state->regs[rn];
     }
 
