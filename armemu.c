@@ -188,14 +188,26 @@ bool is_ldr_inst(unsigned int iw){
     return L == 0b1 && B == 0b0;
 }
 
+bool is_off_addr(unsigned int iw){
+    unsigned int P, W;
+    P = (iw >> 24) & 0b1;
+    W = (iw >> 21) & 0b1;
+    printf("P is: %d\n", P);
+    printf("W is: %d\n", W);
+    return P == 0b1 && W == 0b0;
+}
+
 void armemu_ldr(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, offset, i;
 
     rn = (iw >> 16) & 0xF;
     rd = (iw >> 12) & 0xF;
-    offset = iw & 0xFFF;
-    i = iw >> 25;
+    if(is_off_addr(iw)){
+        offset = iw & 0xFFF;
+        i = iw >> 25;
+    }
+    
 
     printf("rn is: %u\n", rn);
     printf("offset is: %u\n", offset);
