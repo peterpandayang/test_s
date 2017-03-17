@@ -99,25 +99,26 @@ void armemu_cmp(struct arm_state *state){
         printf("compare with imme\n");
         imme = iw & 0xFF;
         if(state->regs[rn] - imme < 0){
-            state->cpsr = (state->cpsr | 0x80000000);
+            state->cpsr = 0x80000000;
         }
         if(state->regs[rn] - imme == 0){
-            state->cpsr = (state->cpsr | 0x40000000);
+            state->cpsr = 0x40000000;
         }
+        if()
     }
     else{
         rm = iw & 0xF;
         if(state->regs[rn] - state->regs[rm] < 0){
-            state->cpsr = (state->cpsr | 0x80000000);
+            state->cpsr = 0x80000000;
         }
         if(state->regs[rn] - state->regs[rm] == 0){
-            state->cpsr = (state->cpsr | 0x40000000);
+            state->cpsr = 0x40000000;
         }
     }
 
-    if (rd != PC) {
+    // if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
-    }
+    // }
 }
 
 
