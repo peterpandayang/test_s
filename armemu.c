@@ -96,7 +96,6 @@ void armemu_cmp(struct arm_state *state){
     state->cpsr = 0;
 
     if(((iw >> 25) & 0b1) == 0b1){
-        printf("compare with imme\n");
         imme = iw & 0xFF;
         if(state->regs[rn] - imme < 0){
             state->cpsr = 0x80000000;
@@ -114,9 +113,7 @@ void armemu_cmp(struct arm_state *state){
             state->cpsr = 0x40000000;
         }
     }
-    // if (rd != PC) {
-        state->regs[PC] = state->regs[PC] + 4;
-    // }
+    state->regs[PC] = state->regs[PC] + 4;
 }
 
 
@@ -215,8 +212,13 @@ void armemu_b(struct arm_state *state){
     iw = *((unsigned int *) state->regs[PC]);
     imme = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
 
-    if((iw >> 28 & 0b0000) == 0b0000 && (state->cpsr == 0x40000000)){
-        state->regs[PC] = state->regs[PC] + 8 + imme * 4;
+    if((iw >> 28 & 0b0000) == 0b0000){
+        if(state->cpsr == 0x40000000){
+            state->regs[PC] = state->regs[PC] + 8 + imme * 4;
+        }
+        else{
+            state->regs[PC] = state->regs[PC] + 4;
+        }
     }
 }
 
