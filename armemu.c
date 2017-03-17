@@ -121,12 +121,12 @@ void armemu_data_pro(struct arm_state *state){
     unsigned int iw;
 
     iw = *((unsigned int *) state->regs[PC]);
-
-    if (is_add_inst(iw)) {
-        armemu_add(state);
-    } else if(is_mov_inst(iw)){
+    if(is_mov_inst(iw)){
         armemu_mov(state);
     }
+    else if (is_add_inst(iw)) {
+        armemu_add(state);
+    }  
 }
 
 /*memory part*/
