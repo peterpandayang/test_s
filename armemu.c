@@ -197,6 +197,9 @@ void armemu_ldr(struct arm_state *state){
     offset = iw & 0xFFF;
     printf("offset is: %u\n", offset);
 
+    if (rd != PC) {
+        state->regs[PC] = state->regs[PC] + 4;
+    }
 }
 
 void armemu_mem(struct arm_state *state){
