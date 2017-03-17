@@ -221,7 +221,7 @@ void armemu_b(struct arm_state *state){
         }
     }
     else{
-        state->regs[PC] = state->regs[PC] + 4;
+        state->regs[PC] = state->regs[PC] + 8 + imme * 4;
     }
 }
 
