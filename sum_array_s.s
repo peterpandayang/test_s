@@ -12,8 +12,6 @@ sum_array_s:
 	# beq end
 	b end2
 
-end:
-	bx lr
 
 end2:
 	mov r0, #2
