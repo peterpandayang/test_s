@@ -63,8 +63,9 @@ void armemu_add(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, rm;
     printf("add inst\n");
-    printf("%d\n", (iw >> 25) & 0b1);
+
     iw = *((unsigned int *) state->regs[PC]);
+    printf("%d\n", (iw >> 25) & 0b1);
     
     rd = (iw >> 12) & 0xF;
     rn = (iw >> 16) & 0xF;
@@ -93,6 +94,8 @@ void armemu_mov(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, imme;
 
+    iw = *((unsigned int *) state->regs[PC]);
+    
     rd = (iw >> 12) & 0xF;
     printf("%d\n", (iw >> 25) & 0b1);
     if(((iw >> 25) & 0b1) == 0b1){
