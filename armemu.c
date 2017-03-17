@@ -63,7 +63,7 @@ void armemu_add(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, rm;
     printf("add inst\n");
-
+    printf("%d\n", (iw >> 25) & 0b1);
     iw = *((unsigned int *) state->regs[PC]);
     
     rd = (iw >> 12) & 0xF;
