@@ -101,7 +101,7 @@ void armemu_cmp(struct arm_state *state){
     rn = (iw >> 16) & 0xF;
     state->cpsr = 0;
 
-    if(((iw >> 25) & 0b1) == 0b1){
+    if(is_imme_dp(iw)){
         imme = iw & 0xFF;
         if(state->regs[rn] - imme < 0){
             state->cpsr = 0x80000000;
@@ -136,7 +136,7 @@ void armemu_mov(struct arm_state *state){
     iw = *((unsigned int *) state->regs[PC]);
     rd = (iw >> 12) & 0xF;
 
-    if(((iw >> 25) & 0b1) == 0b1){
+    if(is_imme_dp(iw)){
         unsigned int imme = iw & 0xFF;
         state->regs[rd] = imme;
     }
