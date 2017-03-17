@@ -171,7 +171,7 @@ void armemu_data_pro(struct arm_state *state){
 /*memory part*/
 bool is_mem_inst(unsigned int iw){
     unsigned int op;
-    op = (iw >> 26) & 0b01;
+    op = (iw >> 26) & 0b11;
     return op == 0b01;
 }
 
@@ -202,7 +202,7 @@ void armemu_bx(struct arm_state *state){
 
 bool is_b_inst(unsigned int iw){
     unsigned int op;
-    op = (iw >> 26) & 0b10;
+    op = (iw >> 26) & 0b11;
     return op == 0b10;
 }
 
@@ -212,9 +212,8 @@ void armemu_b(struct arm_state *state){
     iw = *((unsigned int *) state->regs[PC]);
     imme = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
     printf("immd is: %d\n", imme);
-    printf("iw is: %u\n", iw);
 
-    if((iw >> 28 & 0b0000) == 0b0000){
+    if((iw >> 28 & 0b1111) == 0b0000){
         if(state->cpsr == 0x40000000){
             state->regs[PC] = state->regs[PC] + 8 + imme * 4;
         }
@@ -223,7 +222,7 @@ void armemu_b(struct arm_state *state){
             state->regs[PC] = state->regs[PC] + 4;
         }
     }
-    else if((iw >> 28 & 0b0000) == 0b1110){
+    else if((iw >> 28 & 0b1111) == 0b1110){
         state->regs[PC] = state->regs[PC] + 8 + imme * 4;
     }
 }
