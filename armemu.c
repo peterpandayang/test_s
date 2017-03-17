@@ -220,15 +220,15 @@ bool is_b_default_inst(unsigned int iw){
 }
 
 void armemu_b(struct arm_state *state){
-    unsigned int iw, imme;
+    unsigned int iw, offset;
 
     iw = *((unsigned int *) state->regs[PC]);
 
     printf("curr pc is: %d\n", state->regs[PC]);
     if(is_beq_inst(iw)){
-        imme = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
+        offset = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
         if(state->cpsr == 0x40000000){
-            state->regs[PC] = state->regs[PC] + 8 + imme * 4;
+            state->regs[PC] = state->regs[PC] + 8 + offset * 4;
         }
         else{
             printf("lalala\n");
@@ -237,10 +237,10 @@ void armemu_b(struct arm_state *state){
     }
     else if(is_b_default_inst(iw)){
         printf("hehehe\n");
-        imme = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
+        offset = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
         printf("iw is: %u\n", iw);
-        printf("immd is: %d\n", imme);
-        state->regs[PC] = state->regs[PC] + 8 + imme * 4;
+        printf("offset is: %d\n", offset);
+        state->regs[PC] = state->regs[PC] + 8 + offset * 4;
         // state->regs[PC] = state->regs[PC] + 4;
     }
     printf("later pc is: %d\n", state->regs[PC]);
