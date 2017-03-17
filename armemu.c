@@ -104,7 +104,6 @@ void armemu_cmp(struct arm_state *state){
         if(state->regs[rn] - imme == 0){
             state->cpsr = 0x40000000;
         }
-        if()
     }
     else{
         rm = iw & 0xF;
