@@ -199,13 +199,13 @@ void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int 
 int main(int argc, char **argv)
 {
     struct arm_state state;
-    unsigned int r;
+    // unsigned int r;
     struct value_st v_st;
     int *p_pos_array = v_st.pos_array;
     
-    init_arm_state(&state, (unsigned int *) add, 1, 2, 0, 0);
-    r = armemu(&state);
-    printf("r = %d\n", r);
+    // init_arm_state(&state, (unsigned int *) add, 1, 2, 0, 0);
+    // r = armemu(&state);
+    // printf("r = %d\n", r);
 
     sum_array_test(&state, (unsigned int *) sum_array_s, v_st.pos_array, 20);
   
