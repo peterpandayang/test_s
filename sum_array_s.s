@@ -13,7 +13,7 @@ sum_array_s:
 	b end
 
 end:
-	mov r0, #2
+	add r0, r0, #2
 	bx lr
 
 # loop:
