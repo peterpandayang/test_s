@@ -114,7 +114,7 @@ void armemu_cmp(struct arm_state *state){
             state->cpsr = 0x40000000;
         }
     }
-    printf("%d\n", state->cpsr);
+    printf("%d\n", (state->cpsr - 0x40000000));
     // if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
     // }
