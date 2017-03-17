@@ -132,6 +132,7 @@ void armemu_mov(struct arm_state *state){
 
     if(((iw >> 25) & 0b1) == 0b1){
         unsigned int imme = iw & 0xFF;
+        printf("move: %d\n", imme);
         state->regs[rd] = imme;
     }
     else{
