@@ -190,12 +190,15 @@ bool is_ldr_inst(unsigned int iw){
 
 void armemu_ldr(struct arm_state *state){
     unsigned int iw;
-    unsigned int rd, rn, offset;
+    unsigned int rd, rn, offset, i;
 
     rn = (iw >> 16) & 0xF;
     rd = (iw >> 12) & 0xF;
     offset = iw & 0xFFF;
+    i = iw >> 25;
+
     printf("offset is: %u\n", offset);
+    printf("i is: %u\n", i ^ 1);
 
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
