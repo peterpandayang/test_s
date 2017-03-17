@@ -213,9 +213,6 @@ void armemu_b(struct arm_state *state){
     unsigned int iw, imme;
 
     iw = *((unsigned int *) state->regs[PC]);
-    if (is_bx_inst(iw)) {
-        armemu_bx(state);
-    } 
     imme = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
 
     if((iw >> 28 & 0b0000) == 0b0000 && (state->cpsr == 0x40000000)){
