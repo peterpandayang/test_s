@@ -211,6 +211,7 @@ bool is_b_inst(unsigned int iw){
 }
 
 void armemu_b(struct arm_state *state){
+    printf("there is b\n");
     unsigned int iw, imme;
     iw = *((unsigned int *) state->regs[PC]);
     imme = iw & 0xFFFFFF;
