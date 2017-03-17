@@ -100,6 +100,7 @@ void armemu_mov(struct arm_state *state){
     }
     else{
         rn = iw & 0xF;
+        printf("r1 is: %d\n", rn);
         state->regs[rd] = state->regs[rn];
     }
 
