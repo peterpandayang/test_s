@@ -99,7 +99,7 @@ void armemu_mov(struct arm_state *state){
         state->regs[rd] = imme;
     }
     else{
-        rn = (iw >> 16) & 0xF;
+        rn = iw & 0xF;
         state->regs[rd] = state->regs[rn];
     }
 
