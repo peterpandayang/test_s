@@ -6,21 +6,21 @@ sum_array_s:
 	mov r3, #0
 
 
-	# add r0, r1, #1
-	ldr r4, [r0]
-	mov r2, #3
-	mov r0, #2
+# 	# add r0, r1, #1
+# 	ldr r4, [r0]
+# 	mov r2, #3
+# 	mov r0, #2
 
-	cmp r0, r2
-	beq end
-	b end2
+# 	cmp r0, r2
+# 	beq end
+# 	b end2
 
-end:
-	bx lr
+# end:
+# 	bx lr
 
-end2:
-	mov r0, #3
-	bx lr
+# end2:
+# 	mov r0, #3
+# 	bx lr
 
 loop:
 	cmp r2, r1
