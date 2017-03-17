@@ -73,8 +73,6 @@ void armemu_add(struct arm_state *state){
     rn = (iw >> 16) & 0xF;
 
     if(is_imme_dp(iw)){
-        printf("imme rn is %d\n", rn);
-        printf("imme rd is %d\n", rn);
         imme = iw & 0xFF;
         state->regs[rd] = state->regs[rn] + imme;
     }
