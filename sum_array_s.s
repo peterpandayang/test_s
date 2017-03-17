@@ -7,7 +7,7 @@ sum_array_s:
 
 
 	# add r0, r1, #1
-	mov r0, #1
+	mov r0, r1
 	bx lr
 
 
