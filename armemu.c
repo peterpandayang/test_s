@@ -224,7 +224,7 @@ void armemu_b(struct arm_state *state){
 
     iw = *((unsigned int *) state->regs[PC]);
 
-    printf("prev pc is: %d\n", state->regs[PC]);
+    printf("curr pc is: %d\n", state->regs[PC]);
     if(is_beq_inst(iw)){
         imme = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
         if(state->cpsr == 0x40000000){
@@ -241,7 +241,7 @@ void armemu_b(struct arm_state *state){
         printf("iw is: %u\n", iw);
         printf("immd is: %d\n", imme);
         // state->regs[PC] = state->regs[PC] + 8 + imme * 4;
-        state->regs[PC] = state->regs[PC] + 4;
+        state->regs[PC] = state->regs[PC] + 8;
     }
     printf("later pc is: %d\n", state->regs[PC]);
     state->cpsr = 0;
