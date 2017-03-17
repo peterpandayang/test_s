@@ -55,7 +55,6 @@ void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0,
 /* data processing part*/
 bool is_add_inst(unsigned int iw){
     unsigned int opcode;
-    printf("add inst\n");
     opcode = (iw >> 21) & 0b1111;
     return (opcode == 0b0100);
 }
@@ -63,6 +62,7 @@ bool is_add_inst(unsigned int iw){
 void armemu_add(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, rm;
+    printf("add inst\n");
 
     iw = *((unsigned int *) state->regs[PC]);
     
