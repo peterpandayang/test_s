@@ -215,12 +215,7 @@ void armemu_b(struct arm_state *state){
     unsigned int iw, imme;
     iw = *((unsigned int *) state->regs[PC]);
     imme = iw & 0xFFFFFF;
-
-    if (is_bx_inst(iw)) {
-        armemu_bx(state);
-        return;
-    } 
-
+    
     if((iw >> 28 & 0b0000) == 0b0000 && (state->cpsr == 0x40000000)){
         state->regs[PC] = state->regs[PC] + 8 + imme * 4;
     }
@@ -234,7 +229,10 @@ void armemu_one(struct arm_state *state){
     
     iw = *((unsigned int *) state->regs[PC]);
 
-    if (is_b_inst(iw)) {
+    if (is_bx_inst(iw)) {
+        armemu_bx(state);
+    } 
+    else if (is_b_inst(iw)) {
         armemu_b(state);
     } 
     else if(is_data_pro_inst(iw)){
