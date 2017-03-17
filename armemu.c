@@ -96,6 +96,7 @@ void armemu_cmp(struct arm_state *state){
     state->cpsr = 0;
 
     if(((iw >> 25) & 0b1) == 0b1){
+        printf("compare with imme\n");
         imme = iw & 0xFF;
         if(state->regs[rn] - imme < 0){
             state->cpsr = (state->cpsr | 0x80000000);
