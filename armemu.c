@@ -211,7 +211,8 @@ void armemu_b(struct arm_state *state){
     unsigned int iw, imme;
 
     iw = *((unsigned int *) state->regs[PC]);
-    imme = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
+    // imme = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
+    imme = iw & 0xFFFFFF;
     printf("immd is: %d\n", imme);
 
     if((iw >> 28 & 0b1111) == 0b0000){
