@@ -7,8 +7,10 @@ sum_array_s:
 
 
 	# add r0, r1, #1
+	ldr r4, [r0]
 	mov r2, #3
 	mov r0, #2
+
 	cmp r0, r2
 	beq end
 	b end2

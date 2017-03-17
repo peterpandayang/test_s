@@ -188,14 +188,24 @@ bool is_ldr_inst(unsigned int iw){
     return L == 0b1 && B == 0b0;
 }
 
+void armemu_ldr(struct arm_state *state){
+    unsigned int iw;
+    unsigned int rd, rn, offset;
+
+    rn = (iw >> 16) & 0xF;
+    rd = (iw >> 12) & 0xF;
+    offset = iw & 0xFFF;
+    printf("offset is: %u\n", offset);
+
+}
+
 void armemu_mem(struct arm_state *state){
     unsigned int iw;
-    unsigned int rd, rn, imme;
 
     iw = *((unsigned int *) state->regs[PC]);
 
     if(is_ldr_inst(iw)){
-        // armemu_ldr(state);
+        armemu_ldr(state);
     }
 }
 
