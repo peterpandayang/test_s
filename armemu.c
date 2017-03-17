@@ -201,7 +201,7 @@ void armemu_bx(struct arm_state *state){
     rn = iw & 0b1111;
 
     state->regs[PC] = state->regs[rn];
-    printf("%d\n", state->regs[PC]);
+    printf("pc is: %d\n", state->regs[PC]);
 }
 
 
