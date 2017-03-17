@@ -77,11 +77,32 @@ void armemu_add(struct arm_state *state){
         state->regs[rd] = state->regs[rn] + state->regs[rm];
     }
 
-    // rd = (iw >> 12) & 0xF;
-    // rn = (iw >> 16) & 0xF;
-    // rm = iw & 0xF;
+    if (rd != PC) {
+        state->regs[PC] = state->regs[PC] + 4;
+    }
+}
 
-    // state->regs[rd] = state->regs[rn] + state->regs[rm];
+bool is_mov_inst(unsigned int iw){
+    unsigned int opcode;
+    opcode = (iw >> 21) & 0b1111;
+    return (opcode == 0b1101);
+}
+
+void armemu_mov(struct arm_state *state){
+    unsigned int iw;
+    unsigned int rd, rn, imme;
+
+    rd = (iw >> 12) & 0xF;
+
+    if(((iw >> 25) & 0b1) == 0b1){
+        unsigned int imme = iw & 0xFF;
+        state->regs[rd] = imme;
+    }
+    else{
+        rn = (iw >> 16) & 0xF;
+        state->regs[rd] = state->regs[rn];
+    }
+
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
     }
@@ -93,10 +114,27 @@ bool is_data_pro_inst(unsigned int iw){
     return op == 0;
 }
 
-void armemu_data_pro(unsigned int iw, struct arm_state *state){
+void armemu_data_pro(struct arm_state *state){
+    unsigned int iw;
+
+    iw = *((unsigned int *) state->regs[PC]);
+
     if (is_add_inst(iw)) {
         armemu_add(state);
+    } else if(is_mov_inst(iw)){
+        armemu_mov(state);
     }
+}
+
+/*memory part*/
+bool is_mem_inst(unsigned int iw){
+    unsigned int op;
+    op = (iw >> 26) & 0b01;
+    return op == 0b01;
+}
+
+void armemu_mem(struct arm_state *state){
+
 }
 
 /* branch part*/
@@ -128,7 +166,10 @@ void armemu_one(struct arm_state *state){
         armemu_bx(state);
     } 
     else if(is_data_pro_inst(iw)){
-        armemu_data_pro(iw, state);
+        armemu_data_pro(state);
+    }
+    else if(is_mem_inst(iw)){
+        armemu_mem(state);
     }
 
     
