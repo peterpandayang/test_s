@@ -199,9 +199,7 @@ void armemu_bx(struct arm_state *state){
     iw = *((unsigned int *) state->regs[PC]);
     rn = iw & 0b1111;
 
-    printf("pc1 is: %d\n", state->regs[PC]);
     state->regs[PC] = state->regs[rn];
-    printf("pc2 is: %d\n", state->regs[PC]);
 }
 
 
@@ -212,17 +210,17 @@ bool is_b_inst(unsigned int iw){
 }
 
 void armemu_b(struct arm_state *state){
-    printf("there is b\n");
     unsigned int iw, imme;
-    printf("b's pc1 is: %d\n", state->regs[PC]);
+
     iw = *((unsigned int *) state->regs[PC]);
+    if (is_bx_inst(iw)) {
+        armemu_bx(state);
+    } 
     imme = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
-    printf("imme is: %d %d\n", imme, 0xFFFFFF);
 
     if((iw >> 28 & 0b0000) == 0b0000 && (state->cpsr == 0x40000000)){
         state->regs[PC] = state->regs[PC] + 8 + imme * 4;
     }
-    printf("b's pc2 is: %d\n", state->regs[PC]);
 }
 
 
@@ -232,10 +230,10 @@ void armemu_one(struct arm_state *state){
     
     iw = *((unsigned int *) state->regs[PC]);
 
-    if (is_bx_inst(iw)) {
-        armemu_bx(state);
-    } 
-    else if (is_b_inst(iw)) {
+    // if (is_bx_inst(iw)) {
+    //     armemu_bx(state);
+    // } 
+    if (is_b_inst(iw)) {
         armemu_b(state);
     } 
     else if(is_data_pro_inst(iw)){
