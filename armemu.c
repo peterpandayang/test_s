@@ -211,6 +211,7 @@ void armemu_b(struct arm_state *state){
 
     iw = *((unsigned int *) state->regs[PC]);
     imme = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
+    printf("immd is: %d\n", imme);
 
     if((iw >> 28 & 0b0000) == 0b0000){
         if(state->cpsr == 0x40000000){
