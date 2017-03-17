@@ -55,6 +55,7 @@ void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0,
 /* data processing part*/
 bool is_add_inst(unsigned int iw){
     unsigned int opcode;
+    printf("add inst\n");
     opcode = (iw >> 21) & 0b1111;
     return (opcode == 0b0100);
 }
