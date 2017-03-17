@@ -171,7 +171,7 @@ void armemu_data_pro(struct arm_state *state){
 /*memory part*/
 bool is_mem_inst(unsigned int iw){
     unsigned int op;
-    op = (iw >> 26) & 0b01;
+    op = (iw >> 26) & 0b11;
     return op == 0b01;
 }
 
