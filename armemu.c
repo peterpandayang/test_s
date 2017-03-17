@@ -197,6 +197,7 @@ void armemu_ldr(struct arm_state *state){
     offset = iw & 0xFFF;
     i = iw >> 25;
 
+    printf("rn is: %u\n", rn);
     printf("offset is: %u\n", offset);
     printf("i is: %u\n", i ^ 1);
 
