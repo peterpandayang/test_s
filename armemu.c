@@ -132,7 +132,6 @@ void armemu_mov(struct arm_state *state){
 
     if(((iw >> 25) & 0b1) == 0b1){
         unsigned int imme = iw & 0xFF;
-        printf("move: %d\n", imme);
         state->regs[rd] = imme;
     }
     else{
@@ -176,8 +175,22 @@ bool is_mem_inst(unsigned int iw){
     return op == 0b01;
 }
 
-void armemu_mem(struct arm_state *state){
+bool is_ldr_inst(unsigned int iw){
+    unsigned int L, B;
+    L = (iw >> 20) & 0b1;
+    B = (iw >> 22) & 0b1;
+    return L == 0b1 && B == 0b0;
+}
 
+void armemu_mem(struct arm_state *state){
+    unsigned int iw;
+    unsigned int rd, rn, imme;
+
+    iw = *((unsigned int *) state->regs[PC]);
+
+    if(is_ldr_inst(iw)){
+        armemu_ldr(state);
+    }
 }
 
 
@@ -236,27 +249,17 @@ void armemu_b(struct arm_state *state){
         offset = iw & 0xFFFFFF;
     }
 
-    printf("curr pc is: %d\n", state->regs[PC]);
     if(is_beq_inst(iw)){
-        // offset = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
-        printf("offset is: %d\n", offset);
         if(state->cpsr == 0x40000000){
             state->regs[PC] = state->regs[PC] + 8 + offset * 4;
         }
         else{
-            printf("lalala\n");
             state->regs[PC] = state->regs[PC] + 4;
         }
     }
     else if(is_b_default_inst(iw)){
-        printf("hehehe\n");
-        // offset = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
-        printf("iw is: %u\n", iw);
-        printf("offset is: %d\n", offset);
         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
-        // state->regs[PC] = state->regs[PC] + 4;
     }
-    printf("later pc is: %d\n", state->regs[PC]);
     state->cpsr = 0;
 }
 
