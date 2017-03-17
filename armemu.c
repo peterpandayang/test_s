@@ -207,12 +207,24 @@ bool is_b_inst(unsigned int iw){
     return op == 0b10;
 }
 
+bool is_beq_inst(unsigned int iw){
+    unsigned int cond;
+    cond = iw >> 28 & 0b1111;
+    return cond == 0b0000;
+}
+
+bool is_b_default_inst(unsigned int iw){
+    unsigned int cond;
+    cond = iw >> 28 & 0b1111;
+    return cond == 0b1110;
+}
+
 void armemu_b(struct arm_state *state){
     unsigned int iw, imme;
 
     iw = *((unsigned int *) state->regs[PC]);
 
-    if((iw >> 28 & 0b1111) == 0b0000){
+    if(is_beq_inst(iw)){
         imme = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
         if(state->cpsr == 0x40000000){
             state->regs[PC] = state->regs[PC] + 8 + imme * 4;
@@ -222,7 +234,7 @@ void armemu_b(struct arm_state *state){
             state->regs[PC] = state->regs[PC] + 4;
         }
     }
-    else if((iw >> 28 & 0b1111) == 0b1110){
+    else if(is_b_default_inst(iw)){
         printf("hehehe\n");
         imme = iw & 0xFFFFFF - 1;
         printf("immd is: %d\n", imme);
