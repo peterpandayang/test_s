@@ -125,6 +125,7 @@ void armemu_cmp(struct arm_state *state){
             state->cpsr = 0x40000000;
         }
     }
+    printf("r3 is: %d\n", state->regs[3]);
     state->regs[PC] = state->regs[PC] + 4;
 }
 
@@ -139,7 +140,6 @@ void armemu_mov(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, imme;
 
-    printf("move inst\n");
     iw = *((unsigned int *) state->regs[PC]);
     rd = (iw >> 12) & 0xF;
 
@@ -206,7 +206,6 @@ void armemu_ldr(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, offset, i;
 
-    printf("enter load\n");
     rn = (iw >> 16) & 0xF;
     rd = (iw >> 12) & 0xF;
     if(is_off_addr(iw)){
@@ -284,11 +283,9 @@ void armemu_b(struct arm_state *state){
     if(is_neg_offset(iw)){
         offset = 0xFFFFFF - (iw & 0xFFFFFF) + 1;
         offset = -offset;
-        printf("neg offset is: %d\n", offset);
     }
     else{
         offset = iw & 0xFFFFFF;
-        printf("pos offset is: %d\n", offset);
     }
 
     if(is_beq_inst(iw)){
@@ -300,8 +297,6 @@ void armemu_b(struct arm_state *state){
         }
     }
     else if(is_b_default_inst(iw)){
-        printf("enter b default\n");
-        printf("offset is: %d\n", offset);
         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
     }
     state->cpsr = 0;
