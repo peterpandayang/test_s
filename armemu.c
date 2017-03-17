@@ -237,6 +237,7 @@ void armemu_b(struct arm_state *state){
     else if(is_b_default_inst(iw)){
         printf("hehehe\n");
         imme = iw & 0xFFFFFF;
+        printf("iw is: %d\n", iw);
         printf("immd is: %d\n", imme);
         state->regs[PC] = state->regs[PC] + 8 + imme * 4;
     }
