@@ -94,7 +94,7 @@ void armemu_mov(struct arm_state *state){
     unsigned int rd, rn, imme;
 
     rd = (iw >> 12) & 0xF;
-
+    printf("%d\n", (iw >> 25) & 0b1);
     if(((iw >> 25) & 0b1) == 0b1){
         unsigned int imme = iw & 0xFF;
         printf("imed is: %d\n", imme);
