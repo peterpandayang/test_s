@@ -9,11 +9,14 @@ sum_array_s:
 	# add r0, r1, #1
 	mov r0, #1
 	cmp r0, #2
-	# beq end
-	b end
+	beq end
+	b end2
 
 end:
-	add r0, r0, #2
+	bx lr
+
+end2:
+	mov r0, #3
 	bx lr
 
 # loop:

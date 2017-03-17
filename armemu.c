@@ -240,8 +240,7 @@ void armemu_b(struct arm_state *state){
         imme = 0xFFFFFF - (iw & 0xFFFFFF) - 1;
         printf("iw is: %u\n", iw);
         printf("immd is: %d\n", imme);
-        // state->regs[PC] = state->regs[PC] + 8 + imme * 4;
-        state->regs[PC] = state->regs[PC] + 4;
+        state->regs[PC] = state->regs[PC] + 8 + imme * 4;
     }
     state->cpsr = 0;
 }
