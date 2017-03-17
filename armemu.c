@@ -58,6 +58,12 @@ bool is_add_inst(unsigned int iw){
     return (opcode == 0b0100);
 }
 
+bool is_imme_dp(unsigned int iw){
+    unsigned int i;
+    i = (iw >> 25) & 0b1;
+    return i == 0b1;
+}
+
 void armemu_add(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, rm, imme;
@@ -66,7 +72,7 @@ void armemu_add(struct arm_state *state){
     rd = (iw >> 12) & 0xF;
     rn = (iw >> 16) & 0xF;
 
-    if(((iw >> 25) & 0b1) == 0b1){
+    if(is_imme_dp(iw)){
         imme = iw & 0xFF;
         state->regs[rd] = state->regs[rn] + imme;
     }
