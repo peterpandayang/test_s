@@ -198,6 +198,8 @@ bool is_off_addr(unsigned int iw){
     unsigned int P, W;
     P = (iw >> 24) & 0b1;
     W = (iw >> 21) & 0b1;
+    printf("P is: %d\n", P);
+    printf("W is: %d\n", W);
     return P == 0b1 && W == 0b0;
 }
 
@@ -208,7 +210,6 @@ void armemu_ldr(struct arm_state *state){
     rn = (iw >> 16) & 0xF;
     rd = (iw >> 12) & 0xF;
     if(is_off_addr(iw)){
-        printf("state->regs[rn] %d\n", state->regs[rn]);
         i = iw >> 25 & 0b1;
         if(i == 0b0){
             offset = iw & 0xFFF;
