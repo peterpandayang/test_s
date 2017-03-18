@@ -124,7 +124,6 @@ void armemu_cmp(struct arm_state *state){
             state->cpsr = 0x40000000;
         }
     }
-    printf("r3 is: %d\n", state->regs[3]);
     state->regs[PC] = state->regs[PC] + 4;
 }
 
@@ -201,6 +200,7 @@ void armemu_ldr(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, offset, i;
 
+    iw = *((unsigned int *) state->regs[PC]);
     rn = (iw >> 16) & 0xF;
     rd = (iw >> 12) & 0xF;
     if(is_off_addr(iw)){
