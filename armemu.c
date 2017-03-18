@@ -51,6 +51,13 @@ void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0,
     as->regs[3] = arg3;
 }
 
+void init_array_c(int *p_pos, int n){
+    int i = 0;
+    for(i = 0; i < n ; i++){
+        p_pos[i] = i;
+    }
+    p_pos[i] = '\0';
+}
 
 /* data processing part*/
 bool is_add_inst(unsigned int iw){
@@ -350,6 +357,8 @@ int main(int argc, char **argv)
     struct arm_state state;
     struct value_st v_st;
     int *p_pos_array = v_st.pos_array;
+
+    init_array_c(p_pos_array, 20);
 
     sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, 20);
     printf("yaya: %d\n", v_st.pos_array);
