@@ -45,6 +45,7 @@ void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0,
     as->regs[LR] = 0;
 
     as->regs[0] = arg0;
+    printf("first element is: %d\n", (unsigned int)as->regs[0]);
     as->regs[1] = arg1;
     as->regs[2] = arg2;
     as->regs[3] = arg3;
@@ -340,7 +341,7 @@ unsigned int armemu(struct arm_state *state){
 
 /*test part*/
 void sum_array_test(struct arm_state *as, unsigned int *func, unsigned int *p_array, int size){
-    init_arm_state(as, (unsigned int *) func, (unsigned int *) p_array, size, 0, 0);
+    init_arm_state(as, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     int sum;
     sum = armemu(as);
     printf("sum is: %d\n", sum);
@@ -357,6 +358,19 @@ int main(int argc, char **argv)
   
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
