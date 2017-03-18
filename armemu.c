@@ -78,7 +78,7 @@ void armemu_add(struct arm_state *state){
     }
     else{
         rm = iw & 0xF;
-        state->regs[rd] = state->regs[rn] + state->regs[rm];
+        state->regs[rd] = *(unsigned int *)state->regs[rn] + *(unsigned int *)state->regs[rm];
     }
 
     if (rd != PC) {
@@ -334,9 +334,9 @@ unsigned int armemu(struct arm_state *state){
 /*test part*/
 void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int size){
     init_arm_state(as, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
-    int max;
-    max = armemu(as);
-    printf("max is: %d\n", max);
+    int sum;
+    sum = armemu(as);
+    printf("sum is: %d\n", sum);
 }                  
     
 /*main part*/
