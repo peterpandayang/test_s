@@ -181,12 +181,6 @@ void armemu_data_pro(struct arm_state *state){
 
 
 /*memory part*/
-bool is_mem_inst(unsigned int iw){
-    unsigned int op;
-    op = (iw >> 26) & 0b11;
-    return op == 0b01;
-}
-
 bool is_ldr_inst(unsigned int iw){
     unsigned int L, B;
     L = (iw >> 20) & 0b1;
@@ -221,6 +215,12 @@ void armemu_ldr(struct arm_state *state){
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
     }
+}
+
+bool is_mem_inst(unsigned int iw){
+    unsigned int op;
+    op = (iw >> 26) & 0b11;
+    return op == 0b01;
 }
 
 void armemu_mem(struct arm_state *state){
