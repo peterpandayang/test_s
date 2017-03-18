@@ -208,6 +208,7 @@ void armemu_ldr(struct arm_state *state){
     rn = (iw >> 16) & 0xF;
     rd = (iw >> 12) & 0xF;
     if(is_off_addr(iw)){
+        printf("state->regs[rn] %d\n", state->regs[rn]);
         i = iw >> 25 & 0b1;
         if(i == 0b0){
             offset = iw & 0xFFF;
