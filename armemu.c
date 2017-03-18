@@ -78,8 +78,8 @@ void armemu_add(struct arm_state *state){
     }
     else{
         rm = iw & 0xF;
-        printf("base res: %d\n", *(unsigned int *)state->regs[rn]);
-        printf("move res: %d\n", *(unsigned int *)state->regs[rm]);
+        printf("base res: %d\n", state->regs[rn]);
+        printf("move res: %d\n", state->regs[rm]);
         state->regs[rd] = state->regs[rn] + state->regs[rm];
     }
 
@@ -208,6 +208,7 @@ void armemu_ldr(struct arm_state *state){
             state->regs[rd] = *(unsigned int *)state->regs[rn];
         }        
     }
+    printf("r12 is: %s\n", state->regs[rd]);
 
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
