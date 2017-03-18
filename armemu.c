@@ -45,9 +45,7 @@ void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0,
     as->regs[LR] = 0;
 
     as->regs[0] = arg0;
-    printf("r0 is: %d\n", as->regs[0]);
     as->regs[1] = arg1;
-    printf("r1 is: %d\n", as->regs[1]);
     as->regs[2] = arg2;
     as->regs[3] = arg3;
 }
@@ -77,8 +75,6 @@ void armemu_add(struct arm_state *state){
     if(is_imme_dp(iw)){
         imme = iw & 0xFF;
         state->regs[rd] = state->regs[rn] + imme;
-        printf("rn is: %d\n", rn);
-        printf("value is: %d\n", *(unsigned int *)state->regs[rn]);
     }
     else{
         rm = iw & 0xF;
@@ -193,7 +189,7 @@ bool is_off_addr(unsigned int iw){
     W = (iw >> 21) & 0b1;
     printf("P is: %d\n", P);
     printf("W is: %d\n", W);
-    return P == 0b0 && W == 0b0;
+    return P == 0b1 && W == 0b0;
 }
 
 void armemu_ldr(struct arm_state *state){
