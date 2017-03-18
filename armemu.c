@@ -208,7 +208,7 @@ void armemu_ldr(struct arm_state *state){
         if(i == 0b0){
             offset = iw & 0xFFF;
             printf("state->regs[rn] %d\n", *(unsigned int *)state->regs[rn]);
-            state->regs[rd] = *state->regs[rn];
+            state->regs[rd] = &state->regs[rn];
         }        
     }
 
