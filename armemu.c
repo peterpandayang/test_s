@@ -208,7 +208,7 @@ void armemu_ldr(struct arm_state *state){
             state->regs[rd] = *(unsigned int *)state->regs[rn];
         }        
     }
-    printf("r12 is: %s\n", state->regs[rd]);
+    // printf("r12 is: %s\n", state->regs[rd]);
 
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
