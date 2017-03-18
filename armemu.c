@@ -45,7 +45,6 @@ void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0,
     as->regs[LR] = 0;
 
     as->regs[0] = arg0;
-    printf("arg0: %d\n", *((unsigned int *)arg0));
     as->regs[1] = arg1;
     as->regs[2] = arg2;
     as->regs[3] = arg3;
@@ -86,8 +85,6 @@ void armemu_add(struct arm_state *state){
     }
     else{
         rm = iw & 0xF;
-        printf("rn res: %d\n", state->regs[rn]);
-        printf("rm res: %d\n", state->regs[rm]);
         state->regs[rd] = state->regs[rn] + state->regs[rm];
     }
 
@@ -111,7 +108,6 @@ void armemu_cmp(struct arm_state *state){
     rn = (iw >> 16) & 0xF;
     state->cpsr = 0;
 
-    printf("enter cmp\n");
     if(is_imme_dp(iw)){
         imme = iw & 0xFF;
         if(state->regs[rn] - imme < 0){
@@ -214,10 +210,6 @@ void armemu_ldr(struct arm_state *state){
             state->regs[rd] = *((unsigned int *)state->regs[rn]);
         }        
     }
-    printf("rn is: %d\n", *((unsigned int *)state->regs[rn]));
-    printf("rn is: %d\n", state->regs[rn]);
-
-    printf("r12 is: %d\n", state->regs[rd]);
 
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
@@ -233,7 +225,7 @@ bool is_mem_inst(unsigned int iw){
 void armemu_mem(struct arm_state *state){
     unsigned int iw;
 
-    iw = *((unsigned int *) state->regs[PC]);
+    iw = *((unsigned int *)state->regs[PC]);
 
     if(is_ldr_inst(iw)){
         armemu_ldr(state);
@@ -330,8 +322,6 @@ void armemu_one(struct arm_state *state){
     else if(is_mem_inst(iw)){
         armemu_mem(state);
     }
-
-    
 }
 
 unsigned int armemu(struct arm_state *state){
@@ -362,7 +352,6 @@ int main(int argc, char **argv)
     init_array_c(p_pos_array, size);
 
     sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
-    printf("yaya: %d\n", v_st.pos_array);
   
     return 0;
 }
