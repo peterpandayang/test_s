@@ -194,7 +194,7 @@ bool is_off_addr(unsigned int iw){
     W = (iw >> 21) & 0b1;
     printf("P is: %d\n", P);
     printf("W is: %d\n", W);
-    return P == 0b1 && W == 0b0;
+    return P == 0b0 && W == 0b0;
 }
 
 void armemu_ldr(struct arm_state *state){
