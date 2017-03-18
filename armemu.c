@@ -339,7 +339,7 @@ unsigned int armemu(struct arm_state *state){
 }
 
 /*test part*/
-void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int size){
+void sum_array_test(struct arm_state *as, unsigned int *func, unsigned int *p_array, int size){
     init_arm_state(as, (unsigned int *) func, (unsigned int *) p_array, size, 0, 0);
     int sum;
     sum = armemu(as);
@@ -351,7 +351,7 @@ int main(int argc, char **argv)
 {
     struct arm_state state;
     struct value_st v_st;
-    int *p_pos_array = v_st.pos_array;
+    unsigned int *p_pos_array = v_st.pos_array;
 
     sum_array_test(&state, (unsigned int *) sum_array_s, v_st.pos_array, 20);
   
