@@ -78,11 +78,7 @@ void armemu_add(struct arm_state *state){
     }
     else{
         rm = iw & 0xF;
-        printf("rm is %d\n", rm);
-        printf("r12 is: %d\n", state->regs[12]);
         state->regs[rd] = state->regs[rn] + state->regs[rm];
-        printf("rd is %d\n", rd);
-        printf("rn is %d\n", rn);
     }
 
     if (rd != PC) {
@@ -208,7 +204,8 @@ void armemu_ldr(struct arm_state *state){
         if(i == 0b0){
             offset = iw & 0xFFF;
             printf("state->regs[rn] %d\n", *(unsigned int *)state->regs[rn]);
-            printf("state->regs[rn] %d\n", rn);
+            printf("rn %d\n", rn);
+            printf("rd %d\n", rd);
             state->regs[rd] = &state->regs[rn];
         }        
     }
