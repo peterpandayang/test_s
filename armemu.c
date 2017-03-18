@@ -45,7 +45,9 @@ void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0,
     as->regs[LR] = 0;
 
     as->regs[0] = arg0;
+    printf("r0 is: %d\n", as->regs[0]);
     as->regs[1] = arg1;
+    printf("r1 is: %d\n", as->regs[1]);
     as->regs[2] = arg2;
     as->regs[3] = arg3;
 }
