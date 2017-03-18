@@ -351,7 +351,8 @@ int main(int argc, char **argv)
     struct value_st v_st;
     int *p_pos_array = v_st.pos_array;
 
-    sum_array_test(&state, (unsigned int *) sum_array_s, v_st.pos_array, 20);
+    sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, 20);
+    printf("yaya: %d\n", v_st.pos_array);
   
     return 0;
 }
