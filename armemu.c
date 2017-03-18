@@ -189,8 +189,6 @@ bool is_off_addr(unsigned int iw){
     unsigned int P, W;
     P = (iw >> 24) & 0b1;
     W = (iw >> 21) & 0b1;
-    printf("P is: %d\n", P);
-    printf("W is: %d\n", W);
     return P == 0b1 && W == 0b0;
 }
 
