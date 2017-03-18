@@ -207,10 +207,7 @@ void armemu_ldr(struct arm_state *state){
         }        
     }
     printf("rn is: %d\n", (unsigned int *)state->regs[rn]);
-    printf("rn is: %d\n", *((unsigned int *)state->regs[rn]));
     printf("rn is: %d\n", state->regs[rn]);
-    printf("rn is: %d\n", *state->regs[rn]);
-    printf("rn is: %d\n", *state->regs[rn]);
 
     printf("r12 is: %d\n", state->regs[rd]);
 
