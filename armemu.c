@@ -214,7 +214,7 @@ void armemu_ldr(struct arm_state *state){
             state->regs[rd] = ((unsigned int *)state->regs[rn]);
         }        
     }
-    printf("rn is: %d\n", (unsigned int *)state->regs[rn]);
+    printf("rn is: %d\n", *((unsigned int *)state->regs[rn]));
     printf("rn is: %d\n", state->regs[rn]);
 
     printf("r12 is: %d\n", state->regs[rd]);
@@ -357,10 +357,11 @@ int main(int argc, char **argv)
     struct arm_state state;
     struct value_st v_st;
     int *p_pos_array = v_st.pos_array;
+    int size = 20;
 
-    init_array_c(p_pos_array, 20);
+    init_array_c(p_pos_array, size);
 
-    sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, 20);
+    sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
     printf("yaya: %d\n", v_st.pos_array);
   
     return 0;
