@@ -15,6 +15,7 @@
 int sum_array_s(int *p, int n);
 int find_max_s(int *p, int n);
 int fibo_iter_s(int n);
+int fibo_rec_s(int n);
 
 struct arm_state {
     unsigned int regs[NREGS];
@@ -159,7 +160,6 @@ void armemu_cmp(struct arm_state *state){
     state->regs[PC] = state->regs[PC] + 4;
 }
 
-
 bool is_mov_inst(unsigned int iw){
     unsigned int opcode;
     opcode = (iw >> 21) & 0b1111;
@@ -186,7 +186,6 @@ void armemu_mov(struct arm_state *state){
         state->regs[PC] = state->regs[PC] + 4;
     }
 }
-
 
 bool is_data_pro_inst(unsigned int iw){
     unsigned int op;
@@ -327,6 +326,12 @@ bool is_beq_inst(unsigned int iw){
     return cond == 0b0000;
 }
 
+bool is_bne_inst(unsigned int iw){
+    unsigned int cond;
+    cond = iw >> 28 & 0b1111;
+    return cond == 0b0001;
+}
+
 bool is_b_default_inst(unsigned int iw){
     unsigned int cond;
     cond = iw >> 28 & 0b1111;
@@ -345,6 +350,12 @@ bool is_bge_inst(unsigned int iw){
     return bge == 0b1010;
 }
 
+bool is_bl_inst(unsigned int iw){
+    unsigned int bl;
+    bl = iw >> 24 & 0b1;
+    return bl == 0b1;
+}
+
 void armemu_b(struct arm_state *state){
     unsigned int iw, offset;
 
@@ -357,7 +368,10 @@ void armemu_b(struct arm_state *state){
         offset = iw & 0xFFFFFF;
     }
 
-    if(is_beq_inst(iw)){
+    if(is_bl_inst(iw)){
+        state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+    }
+    else if(is_beq_inst(iw)){
         if(state->cpsr == 0x40000000){
             state->regs[PC] = state->regs[PC] + 8 + offset * 4;
         }
@@ -367,6 +381,14 @@ void armemu_b(struct arm_state *state){
     }
     else if(is_bge_inst(iw)){
         if(state->cpsr >> 31 == 0b0){
+            state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+        }
+        else{
+            state->regs[PC] = state->regs[PC] + 4;
+        }
+    }
+    else if(is_bne_inst(iw)){
+        if(state->cpsr >> 30 == 0b0){
             state->regs[PC] = state->regs[PC] + 8 + offset * 4;
         }
         else{
@@ -429,7 +451,14 @@ void fibo_iter_test(struct arm_state *as, unsigned int *func, int size){
     init_arm_state(as, (unsigned int *) func, size, 0, 0, 0);
     int fibo_iter;
     fibo_iter = armemu(as);
-    printf("fibo iter result is: %d\n", fibo_iter);
+    printf("fibo iteration result is: %d\n", fibo_iter);
+}
+
+void fibo_rec_test(struct arm_state *as, unsigned int *func, int size){
+    init_arm_state(as, (unsigned int *) func, size, 0, 0, 0);
+    int fibo_rec;
+    fibo_rec = armemu(as);
+    printf("fibo recursion result is: %d\n", fibo_rec);
 }
 
 
@@ -446,6 +475,7 @@ int main(int argc, char **argv)
     sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
     find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
     fibo_iter_test(&state, (unsigned int *) fibo_iter_s, size);
+    fibo_rec_test(&state, (unsigned int *) fibo_rec_s, size);
   
     return 0;
 }

@@ -1,5 +1,5 @@
 PROGS = armemu
-OBJS = sum_array_s.o find_max_s.o fibo_iter_s.o
+OBJS = sum_array_s.o find_max_s.o fibo_iter_s.o fibo_rec_s.o
 CFLAGS = -g
 
 all : ${PROGS}
@@ -13,8 +13,11 @@ find_max_s.o : find_max_s.s
 fibo_iter_s.o : fibo_iter_s.s
 	as -o fibo_iter_s.o fibo_iter_s.s
 
-armemu : armemu.c sum_array_s.o find_max_s.o fibo_iter_s.o
-	gcc -o armemu armemu.c sum_array_s.o find_max_s.o fibo_iter_s.o
+fibo_rec_s.o : fibo_rec_s.s
+	as -o fibo_rec_s.o fibo_rec_s.s
+
+armemu : armemu.c sum_array_s.o find_max_s.o fibo_iter_s.o fibo_rec_s.o
+	gcc -o armemu armemu.c sum_array_s.o find_max_s.o fibo_iter_s.o fibo_rec_s.o
 
 clean:
 	rm -rf ${PROGS} ${OBJS}

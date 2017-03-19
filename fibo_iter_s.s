@@ -3,15 +3,6 @@
 
 fibo_iter_s:
 
-	# sub sp, sp, #16
-	# str r0, [sp, #16]
-	# mov r0, #2
-	# mov r1, #3
-	# str r1, [sp, #12]
-	# ldr r0, [sp, #12]
-	# bx lr
-
-
 	sub sp, sp, #16
 	str r0, [sp, #16]
 	mov r0, #0
