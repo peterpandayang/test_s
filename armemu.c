@@ -463,8 +463,7 @@ void fibo_rec_test(struct arm_state *as, unsigned int *func, int size){
 
 
 /*main part*/
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv){
     struct arm_state state;
     struct value_st v_st;
     int *p_pos_array = v_st.pos_array;
