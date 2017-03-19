@@ -369,6 +369,7 @@ void armemu_b(struct arm_state *state){
     }
 
     if(is_bl_inst(iw)){
+        printf("r0 is: %d\n", state->regs[0]);
         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
     }
     else if(is_beq_inst(iw)){
