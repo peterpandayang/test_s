@@ -13,6 +13,7 @@
 
 
 int sum_array_s(int *p, int n);
+int find_max_s(int *p, int n);
 
 struct arm_state {
     unsigned int regs[NREGS];
@@ -252,7 +253,6 @@ void armemu_bx(struct arm_state *state){
     state->regs[PC] = state->regs[rn];
 }
 
-
 bool is_b_inst(unsigned int iw){
     unsigned int op;
     op = (iw >> 26) & 0b10;
@@ -277,6 +277,12 @@ bool is_neg_offset(unsigned int iw){
     return sign == 0b1;
 }
 
+bool is_bge_inst(unsigned int iw){
+    unsigned int bge;
+    bge = iw >> 28 & 0b1111;
+    return bge == 0b1010;
+}
+
 void armemu_b(struct arm_state *state){
     unsigned int iw, offset;
 
@@ -291,6 +297,14 @@ void armemu_b(struct arm_state *state){
 
     if(is_beq_inst(iw)){
         if(state->cpsr == 0x40000000){
+            state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+        }
+        else{
+            state->regs[PC] = state->regs[PC] + 4;
+        }
+    }
+    else if(is_bge_inst(iw)){
+        if(state->cpsr >> 31 == 0b0){
             state->regs[PC] = state->regs[PC] + 8 + offset * 4;
         }
         else{
@@ -333,6 +347,7 @@ unsigned int armemu(struct arm_state *state){
     return state->regs[0];
 }
 
+
 /*test part*/
 void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int size){
     init_arm_state(as, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
@@ -340,7 +355,15 @@ void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int 
     sum = armemu(as);
     printf("sum is: %d\n", sum);
 }                  
-    
+
+void find_max_test(struct arm_state *as, unsigned int *func, int *p_array, int size){
+    init_arm_state(as, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
+    int max;
+    max = armemu(as);
+    printf("max is: %d\n", max);
+}
+
+
 /*main part*/
 int main(int argc, char **argv)
 {
@@ -352,6 +375,7 @@ int main(int argc, char **argv)
     init_array_c(p_pos_array, size);
 
     sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
+    find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
   
     return 0;
 }
