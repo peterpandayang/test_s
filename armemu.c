@@ -389,8 +389,8 @@ void armemu_b(struct arm_state *state){
         }
     }
     else if(is_bne_inst(iw)){
-        printf("bne's r0 is: %d\n", state->regs[0]);
         if(state->cpsr >> 30 == 0b0){
+            printf("bne's r0 is: %d\n", state->regs[0]);
             state->regs[PC] = state->regs[PC] + 8 + offset * 4;
         }
         else{
