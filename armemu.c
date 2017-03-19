@@ -444,7 +444,7 @@ int main(int argc, char **argv)
     init_array_c(p_pos_array, size);
 
     sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
-    find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
+    // find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
     // fibo_iter_test(&state, (unsigned int *) find_max_s, size);
   
     return 0;
