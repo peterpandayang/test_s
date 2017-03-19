@@ -270,7 +270,7 @@ void armemu_mem(struct arm_state *state){
     if(is_ldr_inst(iw)){
         armemu_ldr(state);
     }
-    else if(is_str_inst(iw))
+    else if(is_str_inst(iw)){}
 }
 
 
