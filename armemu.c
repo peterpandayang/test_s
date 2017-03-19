@@ -247,7 +247,7 @@ void armemu_ldr(struct arm_state *state){
         i = iw >> 25 & 0b1;
         if(i == 0b0){
             offset = iw & 0xFFF;
-            state->regs[rd] = *((unsigned int *)state->regs[rn]);
+            state->regs[rd] = *((unsigned int *)state->regs[rn] + offset);
         }        
     }
 
@@ -261,13 +261,13 @@ void armemu_str(struct arm_state *state){
     unsigned int rd, rn, offset, i;
 
     iw = *((unsigned int *) state->regs[PC]);
-    rd = (iw >> 16) & 0xF;
-    rn = (iw >> 12) & 0xF;
+    rn = (iw >> 16) & 0xF;
+    rd = (iw >> 12) & 0xF;
     if(is_off_addr(iw)){
         i = iw >> 25 & 0b1;
         if(i == 0b0){
             offset = iw & 0xFFF;
-            state->regs[rd] = *((unsigned int *)state->regs[rn]);
+            *((unsigned int *)state->regs[rn] + offset) = state->regs[rd];
         }        
     }
 

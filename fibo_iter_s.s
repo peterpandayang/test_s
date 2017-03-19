@@ -4,7 +4,7 @@
 fibo_iter_s:
 
 	sub sp, sp, #16
-	# str r0, [sp, #16]
+	str r0, [sp, #16]
 	mov r0, #2
 	# str r0, [sp, #12]
 	# ldr r0, [sp, #12]
