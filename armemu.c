@@ -14,6 +14,7 @@
 
 int sum_array_s(int *p, int n);
 int find_max_s(int *p, int n);
+int fibo_iter_s(int n);
 
 struct arm_state {
     unsigned int regs[NREGS];
@@ -66,6 +67,12 @@ bool is_add_inst(unsigned int iw){
     return (opcode == 0b0100);
 }
 
+bool is_sub_inst(unsigned int iw){
+    unsigned int opcode;
+    opcode = (iw >> 21) & 0b1111;
+    return (opcode == 0b0010);
+}
+
 bool is_imme_dp(unsigned int iw){
     unsigned int i;
     i = (iw >> 25) & 0b1;
@@ -87,6 +94,28 @@ void armemu_add(struct arm_state *state){
     else{
         rm = iw & 0xF;
         state->regs[rd] = state->regs[rn] + state->regs[rm];
+    }
+
+    if (rd != PC) {
+        state->regs[PC] = state->regs[PC] + 4;
+    }
+}
+
+void armemu_sub(struct arm_state *state){
+    unsigned int iw;
+    unsigned int rd, rn, rm, imme;
+
+    iw = *((unsigned int *) state->regs[PC]);    
+    rd = (iw >> 12) & 0xF;
+    rn = (iw >> 16) & 0xF;
+
+    if(is_imme_dp(iw)){
+        imme = iw & 0xFF;
+        state->regs[rd] = state->regs[rn] - imme;
+    }
+    else{
+        rm = iw & 0xF;
+        state->regs[rd] = state->regs[rn] - state->regs[rm];
     }
 
     if (rd != PC) {
@@ -176,6 +205,9 @@ void armemu_data_pro(struct arm_state *state){
     else if(is_add_inst(iw)){
         armemu_add(state);
     }  
+    else if(is_sub_inst(iw)){
+        armemu_sub(state);
+    }  
     else if(is_cmp_inst(iw)){
         armemu_cmp(state);
     }
@@ -190,6 +222,13 @@ bool is_ldr_inst(unsigned int iw){
     return L == 0b1 && B == 0b0;
 }
 
+bool is_str_inst(unsigned int iw){
+    unsigned int L, B;
+    L = (iw >> 20) & 0b1;
+    B = (iw >> 22) & 0b1;
+    return L == 0b0 && B == 0b0;
+}
+
 bool is_off_addr(unsigned int iw){
     unsigned int P, W;
     P = (iw >> 24) & 0b1;
@@ -198,6 +237,26 @@ bool is_off_addr(unsigned int iw){
 }
 
 void armemu_ldr(struct arm_state *state){
+    unsigned int iw;
+    unsigned int rd, rn, offset, i;
+
+    iw = *((unsigned int *) state->regs[PC]);
+    rd = (iw >> 16) & 0xF;
+    rn = (iw >> 12) & 0xF;
+    if(is_off_addr(iw)){
+        i = iw >> 25 & 0b1;
+        if(i == 0b0){
+            offset = iw & 0xFFF;
+            state->regs[rd] = *((unsigned int *)state->regs[rn]);
+        }        
+    }
+
+    if (rd != PC) {
+        state->regs[PC] = state->regs[PC] + 4;
+    }
+}
+
+void armemu_str(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, offset, i;
 
@@ -230,6 +289,9 @@ void armemu_mem(struct arm_state *state){
 
     if(is_ldr_inst(iw)){
         armemu_ldr(state);
+    }
+    else if(is_str_inst(iw)){
+
     }
 }
 
@@ -363,6 +425,13 @@ void find_max_test(struct arm_state *as, unsigned int *func, int *p_array, int s
     printf("max is: %d\n", max);
 }
 
+void fibo_iter_test(struct arm_state *as, unsigned int *func, int size){
+    init_arm_state(as, (unsigned int *) func, size, 0, 0, 0);
+    int fibo_iter;
+    fibo_iter = armemu(as);
+    printf("fibo iter result is: %d\n", fibo_iter);
+}
+
 
 /*main part*/
 int main(int argc, char **argv)
@@ -376,6 +445,7 @@ int main(int argc, char **argv)
 
     sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
     find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
+    fibo_iter_test(&state, (unsigned int *) find_max_s, size);
   
     return 0;
 }
