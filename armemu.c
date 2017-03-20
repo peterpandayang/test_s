@@ -519,7 +519,7 @@ int main(int argc, char **argv){
     // sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
     // find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
     // fibo_iter_test(&state, (unsigned int *) fibo_iter_s, 3);
-    fibo_rec_test(&state, (unsigned int *) fibo_rec_s, 4);
+    fibo_rec_test(&state, (unsigned int *) fibo_rec_s, 5);
   
     return 0;
 }
