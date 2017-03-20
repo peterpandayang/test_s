@@ -40,7 +40,7 @@ void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0,
     as->cpsr = 0;
 
     for (i = 0; i < STACK_SIZE; i++) {
-        as->stack[i] = 0;
+        as->stack[i] = i;
     }
 
     as->regs[PC] = (unsigned int) func;
