@@ -247,13 +247,8 @@ void armemu_ldr(struct arm_state *state){
     if(is_off_addr(iw)){
         i = iw >> 25 & 0b1;
         if(i == 0b0){
-            printf("load lalala\n");
             offset = iw & 0xFFF;
             state->regs[rd] = *((unsigned int *)state->regs[rn] + offset);
-            if(offset == 0){
-                printf("link reg is: %d\n", state->regs[14]);
-                printf("sp ldr reg is: %d\n", *(unsigned int *)state->regs[13]);
-            }
         }        
     }
 
@@ -274,10 +269,6 @@ void armemu_str(struct arm_state *state){
         if(i == 0b0){
             offset = iw & 0xFFF;
             *((unsigned int *)state->regs[rn] + offset) = state->regs[rd];
-            if(offset == 0){
-                printf("link reg is: %d\n", state->regs[14]);
-                printf("sp str reg is: %d\n", *(unsigned int *)state->regs[13]);
-            }
         }        
     }
 
@@ -321,9 +312,8 @@ void armemu_bx(struct arm_state *state){
 
     iw = *((unsigned int *) state->regs[PC]);
     rn = iw & 0b1111;
-    printf("add r0 is: %d\n", state->regs[0]);
+    printf("lr is: %d\n", state->regs[14]);
     state->regs[PC] = state->regs[rn];
-    printf("pc is: %d\n", state->regs[15]);
 }
 
 bool is_b_inst(unsigned int iw){
