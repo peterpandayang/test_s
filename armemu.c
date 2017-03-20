@@ -88,6 +88,10 @@ void armemu_add(struct arm_state *state){
     rd = (iw >> 12) & 0xF;
     rn = (iw >> 16) & 0xF;
 
+    if(rd == 13){
+        printf("stack pointer before add is: %d\n", state->regs[rd]);
+    }
+    
     if(is_imme_dp(iw)){
         imme = iw & 0xFF;
         state->regs[rd] = state->regs[rn] + imme;
@@ -96,6 +100,7 @@ void armemu_add(struct arm_state *state){
         rm = iw & 0xF;
         state->regs[rd] = state->regs[rn] + state->regs[rm];        
     }
+
 
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
@@ -117,6 +122,9 @@ void armemu_sub(struct arm_state *state){
     else{
         rm = iw & 0xF;
         state->regs[rd] = state->regs[rn] - state->regs[rm];
+    }
+    if(rd == 13){
+        printf("stack pointer after sub is: %d\n", state->regs[rd]);
     }
 
     if (rd != PC) {
