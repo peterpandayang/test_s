@@ -30,7 +30,7 @@ rec:
 	bl fibo_rec_s
 	add sp, sp, #8
 	sub sp, sp, #4
-	ldr r1, [sp, #4]
+	ldr r1, [sp]
 	add sp, sp, #4
 	add r0, r0, r1
 
