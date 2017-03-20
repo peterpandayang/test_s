@@ -180,6 +180,7 @@ void armemu_mov(struct arm_state *state){
     else{
         printf("start mov r0 is: %d\n", state->regs[0]);
         printf("start pc is: %d\n", state->regs[15]);
+        printf("stack pointer is: %d\n", state->regs[13]);
         rn = iw & 0b1111;
         state->regs[rd] = state->regs[rn];
     }
@@ -313,7 +314,6 @@ void armemu_bx(struct arm_state *state){
     iw = *((unsigned int *) state->regs[PC]);
     rn = iw & 0b1111;
     printf("branch and exchange reg is: %d\n", state->regs[14]);
-    printf("rn is: %d\n", rn);
     state->regs[PC] = state->regs[rn];
 }
 
