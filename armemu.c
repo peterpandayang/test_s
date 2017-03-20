@@ -314,8 +314,8 @@ void armemu_bx(struct arm_state *state){
     iw = *((unsigned int *) state->regs[PC]);
     rn = iw & 0b1111;
     printf("add r0 is: %d\n", state->regs[0]);
-    printf("pc is: %d\n", state->regs[15]);
     state->regs[PC] = state->regs[rn];
+    printf("pc is: %d\n", state->regs[15]);
 }
 
 bool is_b_inst(unsigned int iw){
