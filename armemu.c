@@ -40,7 +40,7 @@ void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0,
     as->cpsr = 0;
 
     for (i = 0; i < STACK_SIZE; i++) {
-        as->stack[i] = i;
+        as->stack[i] = 0;
     }
 
     as->regs[PC] = (unsigned int) func;
@@ -368,6 +368,10 @@ bool is_bl_inst(unsigned int iw){
     return bl == 0b1;
 }
 
+void save_link_addr(struct arm_state *state){
+    *((unsigned int *)state->regs[SP]) = state->regs[PC];
+}
+
 void armemu_b(struct arm_state *state){
     unsigned int iw, offset;
 
@@ -382,7 +386,8 @@ void armemu_b(struct arm_state *state){
 
     if(is_bl_inst(iw)){
         printf("bl r0 is: %d\n", state->regs[0]);
-        state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+        // state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+        save_link_addr(state);
     }
     else if(is_beq_inst(iw)){
         if(state->cpsr == 0x40000000){
