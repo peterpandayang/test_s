@@ -178,10 +178,10 @@ void armemu_mov(struct arm_state *state){
         state->regs[rd] = imme;
     }
     else{
-        // printf("\n");
-        // printf("start mov r0 is: %d\n", state->regs[0]);
-        // printf("start pc is: %d\n", state->regs[15]);
-        // printf("stack pointer is: %d\n", state->regs[13] - 8);
+        printf("\n");
+        printf("start mov r0 is: %d\n", state->regs[0]);
+        printf("start pc is: %d\n", state->regs[15]);
+        printf("stack pointer is: %d\n", state->regs[13] - 8);
         rn = iw & 0b1111;
         state->regs[rd] = state->regs[rn];
     }
@@ -250,9 +250,9 @@ void armemu_ldr(struct arm_state *state){
         i = iw >> 25 & 0b1;
         if(i == 0b0){
             offset = iw & 0xFFF;
-            // printf("offset is: %d\n", offset);
+            printf("offset is: %d\n", offset);
             state->regs[rd] = *((unsigned int *)state->regs[rn] + offset);
-            // printf("we are loading: %d\n", *((unsigned int *)state->regs[rn] + offset));
+            printf("we are loading: %d\n", *((unsigned int *)state->regs[rn] + offset));
         }        
     }
 
@@ -273,7 +273,7 @@ void armemu_str(struct arm_state *state){
         if(i == 0b0){
             offset = iw & 0xFFF;
             *((unsigned int *)state->regs[rn] + offset) = state->regs[rd];
-            // printf("we are storing: %d\n", state->regs[rd]);
+            printf("we are storing: %d\n", state->regs[rd]);
         }        
     }
 
@@ -381,11 +381,11 @@ void armemu_b(struct arm_state *state){
     }
 
     if(is_bl_inst(iw)){
-        // printf("branch and link's r0 is: %d\n", state->regs[0]);
-        // printf("link regiter before str reg is: %d\n", state->regs[LR]);
+        printf("branch and link's r0 is: %d\n", state->regs[0]);
+        printf("link regiter before str reg is: %d\n", state->regs[LR]);
         save_link_addr(state);
-        // printf("link regiter after is: %d\n", state->regs[LR]);
-        // printf("program counter before link and branch is: %d\n", state->regs[PC]);
+        printf("link regiter after is: %d\n", state->regs[LR]);
+        printf("program counter before link and branch is: %d\n", state->regs[PC]);
         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
     }
     else if(is_beq_inst(iw)){
