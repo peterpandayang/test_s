@@ -252,7 +252,7 @@ void armemu_ldr(struct arm_state *state){
             state->regs[rd] = *((unsigned int *)state->regs[rn] + offset);
             if(offset == 0){
                 printf("link reg is: %d\n", state->regs[14]);
-                printf("sp ldr reg is: %d\n", state->regs[13]);
+                printf("sp ldr reg is: %d\n", *(unsigned int *)state->regs[13]);
             }
         }        
     }
@@ -276,7 +276,7 @@ void armemu_str(struct arm_state *state){
             *((unsigned int *)state->regs[rn] + offset) = state->regs[rd];
             if(offset == 0){
                 printf("link reg is: %d\n", state->regs[14]);
-                printf("sp str reg is: %d\n", state->regs[13]);
+                printf("sp str reg is: %d\n", *(unsigned int *)state->regs[13]);
             }
         }        
     }
