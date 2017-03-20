@@ -178,8 +178,8 @@ void armemu_mov(struct arm_state *state){
         state->regs[rd] = imme;
     }
     else{
-        printf("mov r0 is: %d\n", state->regs[0]);
-        printf("pc is: %d\n", state->regs[15]);
+        printf("start mov r0 is: %d\n", state->regs[0]);
+        printf("start pc is: %d\n", state->regs[15]);
         rn = iw & 0b1111;
         state->regs[rd] = state->regs[rn];
     }
@@ -312,7 +312,7 @@ void armemu_bx(struct arm_state *state){
 
     iw = *((unsigned int *) state->regs[PC]);
     rn = iw & 0b1111;
-    printf("lr is: %d\n", state->regs[14]);
+    printf("branch and exchange reg is: %d\n", state->regs[14]);
     state->regs[PC] = state->regs[rn];
 }
 
@@ -375,11 +375,11 @@ void armemu_b(struct arm_state *state){
     }
 
     if(is_bl_inst(iw)){
-        printf("bl r0 is: %d\n", state->regs[0]);
+        printf("branch and link's r0 is: %d\n", state->regs[0]);
         printf("sp1 str reg is: %d\n", *(unsigned int *)state->regs[13]);
         save_link_addr(state);
         printf("sp2 str reg is: %d\n", *(unsigned int *)state->regs[13]);
-        printf("pc is: %d\n", state->regs[PC]);
+        printf("program counter before link and branch is: %d\n", state->regs[PC]);
         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
     }
     else if(is_beq_inst(iw)){
