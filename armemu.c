@@ -376,9 +376,9 @@ void armemu_b(struct arm_state *state){
 
     if(is_bl_inst(iw)){
         printf("branch and link's r0 is: %d\n", state->regs[0]);
-        printf("sp1 str reg is: %d\n", *(unsigned int *)state->regs[LR]);
+        printf("link regiter before str reg is: %d\n", state->regs[LR]);
         save_link_addr(state);
-        printf("sp2 str reg is: %d\n", *(unsigned int *)state->regs[LR]);
+        printf("link regiter after is: %d\n", state->regs[LR]);
         printf("program counter before link and branch is: %d\n", state->regs[PC]);
         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
     }
