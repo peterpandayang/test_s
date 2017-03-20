@@ -117,9 +117,14 @@ void armemu_sub(struct arm_state *state){
 
     if(is_imme_dp(iw)){
         imme = iw & 0xFF;
+        if(rd == 13){
+            printf("stack pointer before sub is: %d\n", state->regs[13]);
+            printf("imme is: %d\n", imme);
+            printf("rn is: %d\n", rn);
+        }
         state->regs[rd] = state->regs[rn] - imme;
         if(rd == 13){
-            printf("stack pointer after sub is: %d\n", state->regs[rd]);
+            printf("stack pointer after sub is: %d\n", state->regs[13]);
             printf("imme is: %d\n", imme);
         }
     }
