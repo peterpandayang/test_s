@@ -181,7 +181,7 @@ void armemu_mov(struct arm_state *state){
         printf("\n");
         printf("start mov r0 is: %d\n", state->regs[0]);
         printf("start pc is: %d\n", state->regs[15]);
-        printf("stack pointer is: %d\n", state->regs[13]);
+        printf("stack pointer is: %d\n", state->regs[13] - 8);
         rn = iw & 0b1111;
         state->regs[rd] = state->regs[rn];
     }
