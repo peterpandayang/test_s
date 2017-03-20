@@ -91,14 +91,10 @@ void armemu_add(struct arm_state *state){
     if(is_imme_dp(iw)){
         imme = iw & 0xFF;
         state->regs[rd] = state->regs[rn] + imme;
-        printf("add r0 is: %d\n", state->regs[0]);
-        printf("add r1 is: %d\n", state->regs[1]);
     }
     else{
         rm = iw & 0xF;
-        state->regs[rd] = state->regs[rn] + state->regs[rm];
-        printf("add r0 is: %d\n", state->regs[0]);
-        printf("add r1 is: %d\n", state->regs[1]);
+        state->regs[rd] = state->regs[rn] + state->regs[rm];        
     }
 
     if (rd != PC) {
@@ -315,7 +311,7 @@ void armemu_bx(struct arm_state *state){
 
     iw = *((unsigned int *) state->regs[PC]);
     rn = iw & 0b1111;
-
+    printf("add r0 is: %d\n", state->regs[0]);
     state->regs[PC] = state->regs[rn];
 }
 
@@ -395,7 +391,6 @@ void armemu_b(struct arm_state *state){
     }
     else if(is_bne_inst(iw)){
         if(state->cpsr >> 30 == 0b0){
-            printf("bne's r0 is: %d\n", state->regs[0]);
             state->regs[PC] = state->regs[PC] + 8 + offset * 4;
         }
         else{
