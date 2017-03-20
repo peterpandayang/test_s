@@ -246,6 +246,7 @@ void armemu_ldr(struct arm_state *state){
     if(is_off_addr(iw)){
         i = iw >> 25 & 0b1;
         if(i == 0b0){
+            printf("load lalala\n");
             offset = iw & 0xFFF;
             state->regs[rd] = *((unsigned int *)state->regs[rn] + offset);
         }        
