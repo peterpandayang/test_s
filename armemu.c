@@ -492,7 +492,7 @@ int fibo_test(int size){
     printf("(Assembly)\n");
 
     for(i = 0; i < size; i++){
-        int rec_c = fibo_rec_c(i);
+        int rec_c = fibo_rec_s(i);
         printf("%d ", rec_c);
     }
     printf("(C)\n");
