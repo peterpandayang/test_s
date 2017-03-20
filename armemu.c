@@ -318,7 +318,7 @@ void armemu_bx(struct arm_state *state){
     iw = *((unsigned int *) state->regs[PC]);
     rn = iw & 0b1111;
     printf("branch and exchange reg is: %d\n", state->regs[rn]);  
-    state->regs[PC] = state->regs[rn];
+    state->regs[PC] = state->regs[rn] -2;
     printf("stack pointer before returning is: %d\n", state->regs[13]);
 }
 
