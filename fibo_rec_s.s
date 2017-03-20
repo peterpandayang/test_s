@@ -35,7 +35,7 @@ rec:
 	add r0, r0, r1
 
 fibo_s_end:
-	ldr lr, [sp]
+	ldr lr, [sp, #8]
 	add sp, sp, #8
 	bx lr
 	
