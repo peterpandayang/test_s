@@ -359,7 +359,7 @@ bool is_bl_inst(unsigned int iw){
 }
 
 void save_link_addr(struct arm_state *state){
-    *((unsigned int *)state->regs[SP]) = state->regs[PC] + 4;
+    (unsigned int *)state->regs[LR] = state->regs[PC] + 4;
 }
 
 void armemu_b(struct arm_state *state){
