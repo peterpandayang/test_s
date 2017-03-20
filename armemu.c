@@ -178,10 +178,10 @@ void armemu_mov(struct arm_state *state){
         state->regs[rd] = imme;
     }
     else{
-        // printf("\n");
-        // printf("start mov r0 is: %d\n", state->regs[0]);
-        // printf("start pc is: %d\n", state->regs[15]);
-        // printf("stack pointer is: %d\n", state->regs[13] - 8);
+        printf("\n");
+        printf("start mov r0 is: %d\n", state->regs[0]);
+        printf("start pc is: %d\n", state->regs[15]);
+        printf("stack pointer is: %d\n", state->regs[13] - 8);
         rn = iw & 0b1111;
         state->regs[rd] = state->regs[rn];
     }
@@ -250,9 +250,9 @@ void armemu_ldr(struct arm_state *state){
         i = iw >> 25 & 0b1;
         if(i == 0b0){
             offset = iw & 0xFFF;
-            // printf("offset is: %d\n", offset);
+            printf("offset is: %d\n", offset);
             state->regs[rd] = *((unsigned int *)state->regs[rn] + offset);
-            // printf("we are loading: %d\n", *((unsigned int *)state->regs[rn] + offset));
+            printf("we are loading: %d\n", *((unsigned int *)state->regs[rn] + offset));
         }        
     }
 
@@ -273,7 +273,7 @@ void armemu_str(struct arm_state *state){
         if(i == 0b0){
             offset = iw & 0xFFF;
             *((unsigned int *)state->regs[rn] + offset) = state->regs[rd];
-            // printf("we are storing: %d\n", state->regs[rd]);
+            printf("we are storing: %d\n", state->regs[rd]);
         }        
     }
 
@@ -317,8 +317,8 @@ void armemu_bx(struct arm_state *state){
 
     iw = *((unsigned int *) state->regs[PC]);
     rn = iw & 0b1111;
-    // printf("branch and exchange reg is: %d\n", state->regs[14]);
-    // printf("stack pointer before returning is: %d\n", state->regs[13]);
+    printf("branch and exchange reg is: %d\n", state->regs[14]);
+    printf("stack pointer before returning is: %d\n", state->regs[13]);
     state->regs[PC] = state->regs[rn];
 }
 
@@ -381,11 +381,11 @@ void armemu_b(struct arm_state *state){
     }
 
     if(is_bl_inst(iw)){
-        // printf("branch and link's r0 is: %d\n", state->regs[0]);
-        // printf("link regiter before str reg is: %d\n", state->regs[LR]);
+        printf("branch and link's r0 is: %d\n", state->regs[0]);
+        printf("link regiter before str reg is: %d\n", state->regs[LR]);
         save_link_addr(state);
-        // printf("link regiter after is: %d\n", state->regs[LR]);
-        // printf("program counter before link and branch is: %d\n", state->regs[PC]);
+        printf("link regiter after is: %d\n", state->regs[LR]);
+        printf("program counter before link and branch is: %d\n", state->regs[PC]);
         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
     }
     else if(is_beq_inst(iw)){
@@ -491,7 +491,7 @@ int main(int argc, char **argv){
     // sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
     // find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
     // fibo_iter_test(&state, (unsigned int *) fibo_iter_s, 3);
-    fibo_rec_test(&state, (unsigned int *) fibo_rec_s, 4);
+    fibo_rec_test(&state, (unsigned int *) fibo_rec_s, 3);
   
     return 0;
 }
