@@ -317,7 +317,7 @@ void armemu_bx(struct arm_state *state){
 
     iw = *((unsigned int *) state->regs[PC]);
     rn = iw & 0b1111;
-    printf("branch and exchange reg is: %d\n", state->regs[14]);  
+    printf("branch and exchange reg is: %d\n", state->regs[rn]);  
     state->regs[PC] = state->regs[rn];
     printf("stack pointer before returning is: %d\n", state->regs[13]);
 }
@@ -516,7 +516,7 @@ int main(int argc, char **argv){
     // sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
     // find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
     // fibo_iter_test(&state, (unsigned int *) fibo_iter_s, 3);
-    fibo_rec_test(&state, (unsigned int *) fibo_rec_s, 4);
+    fibo_rec_test(&state, (unsigned int *) fibo_rec_s, 3);
   
     return 0;
 }
