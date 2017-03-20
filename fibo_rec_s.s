@@ -2,6 +2,7 @@
 .func fibo_rec_s
 
 fibo_rec_s:
+	mov r5, r0
 	sub sp, sp, #8
 	str lr, [sp]
 
@@ -17,12 +18,12 @@ not_0:
 rec:
 	str r0, [sp, #4]
 	sub r0, r0, #1
-	b fibo_rec_s
+	bl fibo_rec_s
 	str r0, [sp, #-4]
 	ldr r0, [sp, #4]
 	sub r0, r0, #2
 	sub sp, sp, #8
-	b fibo_rec_s
+	bl fibo_rec_s
 	add sp, sp, #8
 	ldr r1, [sp, #-4]
 	add r0, r0, r1

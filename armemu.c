@@ -178,6 +178,7 @@ void armemu_mov(struct arm_state *state){
         state->regs[rd] = imme;
     }
     else{
+        printf("mov r0 is: %d\n", state->regs[0]);
         rn = iw & 0b1111;
         state->regs[rd] = state->regs[rn];
     }
@@ -473,9 +474,9 @@ int main(int argc, char **argv){
 
     init_array_c(p_pos_array, size);
 
-    sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
-    find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
-    fibo_iter_test(&state, (unsigned int *) fibo_iter_s, 3);
+    // sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
+    // find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
+    // fibo_iter_test(&state, (unsigned int *) fibo_iter_s, 3);
     fibo_rec_test(&state, (unsigned int *) fibo_rec_s, 3);
   
     return 0;
