@@ -179,6 +179,7 @@ void armemu_mov(struct arm_state *state){
     }
     else{
         printf("mov r0 is: %d\n", state->regs[0]);
+        printf("pc is: %d\n", state->regs[15]);
         rn = iw & 0b1111;
         state->regs[rd] = state->regs[rn];
     }
@@ -313,6 +314,7 @@ void armemu_bx(struct arm_state *state){
     iw = *((unsigned int *) state->regs[PC]);
     rn = iw & 0b1111;
     printf("add r0 is: %d\n", state->regs[0]);
+    printf("pc is: %d\n", state->regs[15]);
     state->regs[PC] = state->regs[rn];
 }
 
