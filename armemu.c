@@ -475,7 +475,7 @@ void fibo_rec_test(struct arm_state *as, unsigned int *func, int size){
     init_arm_state(as, (unsigned int *) func, size, 0, 0, 0);
     int fibo_rec;
     fibo_rec = armemu(as);
-    // printf("fibo recursion result is: %d\n", fibo_rec);
+    printf("fibo recursion result is: %d\n", fibo_rec);
 }
 
 
