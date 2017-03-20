@@ -19,7 +19,7 @@ rec:
 	sub r0, r0, #1
 	bl fibo_rec_s
 	sub sp, sp, #4
-	str r0, [sp, #-4]
+	str r0, [sp]
 	add sp, sp, #4
 	ldr r0, [sp, #4]
 	sub r0, r0, #2
@@ -27,7 +27,7 @@ rec:
 	bl fibo_rec_s
 	add sp, sp, #8
 	sub sp, sp, #4
-	ldr r1, [sp, #-4]
+	ldr r1, [sp]
 	add sp, sp, #4
 	add r0, r0, r1
 
