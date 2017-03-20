@@ -317,8 +317,13 @@ void armemu_bx(struct arm_state *state){
 
     iw = *((unsigned int *) state->regs[PC]);
     rn = iw & 0b1111;
-    printf("branch and exchange reg is: %d\n", state->regs[rn]);  
-    state->regs[PC] = state->regs[rn] -2;
+    printf("branch and exchange reg is: %d\n", state->regs[rn]); 
+    if(state->regs[rn]; < 1000){
+        state->regs[PC] = 0;
+    } 
+    else{
+        state->regs[PC] = state->regs[rn];
+    }
     printf("stack pointer before returning is: %d\n", state->regs[13]);
 }
 
