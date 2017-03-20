@@ -250,6 +250,7 @@ void armemu_ldr(struct arm_state *state){
         i = iw >> 25 & 0b1;
         if(i == 0b0){
             offset = iw & 0xFFF;
+            printf("offset is: %d\n", offset);
             state->regs[rd] = *((unsigned int *)state->regs[rn] + offset);
             printf("we are loading: %d\n", *((unsigned int *)state->regs[rn] + offset));
         }        
