@@ -386,8 +386,9 @@ void armemu_b(struct arm_state *state){
 
     if(is_bl_inst(iw)){
         printf("bl r0 is: %d\n", state->regs[0]);
-        // state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+        printf("sp1 str reg is: %d\n", *(unsigned int *)state->regs[13]);
         save_link_addr(state);
+        printf("sp2 str reg is: %d\n", *(unsigned int *)state->regs[13]);
         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
     }
     else if(is_beq_inst(iw)){
