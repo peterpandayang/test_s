@@ -33,6 +33,7 @@ rec:
 	ldr r1, [sp]
 	add sp, sp, #4
 	add r0, r0, r1
+	b fibo_s_end
 
 
 fibo_s_end:
