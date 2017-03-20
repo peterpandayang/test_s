@@ -251,6 +251,7 @@ void armemu_ldr(struct arm_state *state){
         if(i == 0b0){
             offset = iw & 0xFFF;
             state->regs[rd] = *((unsigned int *)state->regs[rn] + offset);
+            printf("we are loading: %d\n", *((unsigned int *)state->regs[rn] + offset));
         }        
     }
 
@@ -271,6 +272,7 @@ void armemu_str(struct arm_state *state){
         if(i == 0b0){
             offset = iw & 0xFFF;
             *((unsigned int *)state->regs[rn] + offset) = state->regs[rd];
+            printf("we are storing: %d\n", state->regs[rd]);
         }        
     }
 
