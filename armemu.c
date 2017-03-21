@@ -615,8 +615,8 @@ int main(int argc, char **argv){
     int size = 20;
 
     init_array_c(p_pos_array, size);
-    strcpy(v_st.s, "This is a test string for testing");
-    strcpy(v_st.sub, "testing");
+    strcpy(v_st.s, "hello");
+    strcpy(v_st.sub, "llo");
     char *p_s = v_st.s;
     char *p_sub = v_st.sub;
 
