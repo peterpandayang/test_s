@@ -415,6 +415,7 @@ void armemu_b(struct arm_state *state){
         else{
             save_link_addr(state);
             state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+            printf("hahaha\n");
         }
     }
     else if(is_beq_inst(iw)){
