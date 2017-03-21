@@ -403,8 +403,18 @@ void armemu_b(struct arm_state *state){
     }
 
     if(is_bl_inst(iw)){
-        save_link_addr(state);
-        state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+        if(is_beq_inst(iw)){
+            if(state->cpsr == 0x40000000){
+                state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+            }
+            else{
+                state->regs[PC] = state->regs[PC] + 4;
+            }
+        }
+        else{
+            save_link_addr(state);
+            state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+        }
     }
     else if(is_beq_inst(iw)){
         if(state->cpsr == 0x40000000){
