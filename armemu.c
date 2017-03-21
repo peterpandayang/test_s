@@ -49,7 +49,6 @@ void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0,
     as->regs[LR] = 0;
 
     printf("arg0 is: %d\n", arg0);
-    printf("arg0 is: %c\n", *((unsigned int *)arg0));
     as->regs[0] = arg0;
     as->regs[1] = arg1;
     as->regs[2] = arg2;
@@ -224,6 +223,13 @@ bool is_ldr_inst(unsigned int iw){
     return L == 0b1 && B == 0b0;
 }
 
+bool is_ldrb_inst(unsigned int iw){
+    unsigned int L, B;
+    L = (iw >> 20) & 0b1;
+    B = (iw >> 22) & 0b1;
+    return L == 0b1 && B == 0b1;
+}
+
 bool is_str_inst(unsigned int iw){
     unsigned int L, B;
     L = (iw >> 20) & 0b1;
@@ -239,6 +245,26 @@ bool is_off_addr(unsigned int iw){
 }
 
 void armemu_ldr(struct arm_state *state){
+    unsigned int iw;
+    unsigned int rd, rn, offset, i;
+
+    iw = *((unsigned int *) state->regs[PC]);
+    rn = (iw >> 16) & 0xF;
+    rd = (iw >> 12) & 0xF;
+    if(is_off_addr(iw)){
+        i = iw >> 25 & 0b1;
+        if(i == 0b0){
+            offset = iw & 0xFFF;
+            state->regs[rd] = *((unsigned int *)(state->regs[rn] + offset));
+        }        
+    }
+
+    if (rd != PC) {
+        state->regs[PC] = state->regs[PC] + 4;
+    }
+}
+
+void armemu_ldrb(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, offset, i;
 
@@ -294,6 +320,9 @@ void armemu_mem(struct arm_state *state){
     }
     else if(is_str_inst(iw)){
         armemu_str(state);
+    }
+    else if(is_ldrb_inst(iw)){
+        armemu_ldrb(state);
     }
 }
 
@@ -477,6 +506,7 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
     int pos;
     pos = armemu(as);
     printf("position is: %d\n", pos);
+    printf("char is: %c\n", pos);
 }
 
 
