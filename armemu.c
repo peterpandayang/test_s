@@ -16,6 +16,7 @@ int sum_array_s(int *p, int n);
 int find_max_s(int *p, int n);
 int fibo_iter_s(int n);
 int fibo_rec_s(int n);
+int find_sub_in_s_s(char *s, char *sub);
 
 struct arm_state {
     unsigned int regs[NREGS];
@@ -26,7 +27,7 @@ struct arm_state {
 struct value_st {
     int pos_array[VALUE_MAX_STR_LEN];
     char s[50];
-    char sub1[10];
+    char sub[10];
 };
 
 void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3){
@@ -97,7 +98,6 @@ void armemu_add(struct arm_state *state){
         state->regs[rd] = state->regs[rn] + state->regs[rm];        
     }
 
-
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
     }
@@ -118,8 +118,7 @@ void armemu_sub(struct arm_state *state){
     else{
         rm = iw & 0xF;
         state->regs[rd] = state->regs[rn] - state->regs[rm];
-    }
-    
+    }  
 
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
@@ -467,6 +466,12 @@ void fibo_rec_test(struct arm_state *as, unsigned int *func, int size){
     printf("fibo recursion result is: %d\n", fibo_rec);
 }
 
+void find_sub_in_s_test(struct arm_state *as, unsigned int *func, int *p_s, int *p_sub){
+    init_arm_state(as, (unsigned int *) func, (unsigned int) p_s, (unsigned int) p_sub, 0, 0);
+    int pos;
+    pos = armemu(as);
+    printf("position is: %d\n", pos);
+}
 
 
 /*main part*/
@@ -477,11 +482,16 @@ int main(int argc, char **argv){
     int size = 20;
 
     init_array_c(p_pos_array, size);
+    strcpy(v_st.s, "This is a test string for testing");
+    strcpy(v_st.sub, "testing");
+    char *p_s = v_st.s;
+    char *p_sub = v_st.sub;
 
     sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
     find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
     fibo_iter_test(&state, (unsigned int *) fibo_iter_s, size);
     fibo_rec_test(&state, (unsigned int *) fibo_rec_s, size);
+    find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
   
     return 0;
 }
