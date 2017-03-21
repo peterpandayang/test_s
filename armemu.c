@@ -199,6 +199,13 @@ void armemu_mov(struct arm_state *state){
         printf("stack pointer is: %d\n", state->regs[13]);
         rn = iw & 0b1111;
         state->regs[rd] = state->regs[rn];
+        if(rn == 0 && state->regs[rn] == 3){
+            printf("heihaheiha is hahalala: %d\n", *((unsigned int *) state->regs[PC]));
+        }
+        if(rn == 0 && state->regs[rn] == 2){
+            printf("heihaheiha is hahalala: %d\n", *((unsigned int *) state->regs[PC] + 8));
+        }
+        
     }
 
     if (rd != PC) {
