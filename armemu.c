@@ -299,6 +299,9 @@ void armemu_str(struct arm_state *state){
             if(state->regs[0] == 3){
                 printf("heihaheiha is hahalala: %d\n", *((unsigned int *) state->regs[SP] + 8));
             }
+            if(state->regs[0] == 2){
+                printf("heihaheiha is hahalala: %d\n", *((unsigned int *) state->regs[SP] + 8));
+            }
         }        
     }
 
