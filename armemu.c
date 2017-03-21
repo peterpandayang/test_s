@@ -200,12 +200,12 @@ void armemu_mov(struct arm_state *state){
         rn = iw & 0b1111;
         state->regs[rd] = state->regs[rn];
         if(rn == 0 && state->regs[rn] == 3){
-            printf("heihaheiha is hahalala: %d\n", *((unsigned int *) state->regs[PC]));
+            printf("heihaheiha is hahalala: %d\n", *((unsigned int *) state->regs[SP]));
         }
         if(rn == 0 && state->regs[rn] == 2){
-            printf("heihaheiha is hahalala: %d\n", *((unsigned int *) state->regs[PC] + 8));
+            printf("heihaheiha is hahalala: %d\n", *((unsigned int *) state->regs[SP] + 8));
         }
-        
+
     }
 
     if (rd != PC) {
