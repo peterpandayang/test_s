@@ -296,6 +296,9 @@ void armemu_str(struct arm_state *state){
             offset = iw & 0xFFF;
             *((unsigned int *)state->regs[rn] + offset) = state->regs[rd];
             printf("we are storing: %d\n", state->regs[rd]);
+            if(state->regs[0] == 3){
+                printf("heihaheiha is hahalala: %d\n", *((unsigned int *) state->regs[SP] + 8));
+            }
         }        
     }
 
