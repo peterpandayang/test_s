@@ -97,6 +97,10 @@ void armemu_add(struct arm_state *state){
         state->regs[rd] = state->regs[rn] + state->regs[rm];        
     }
 
+    if(rd == 3){
+        printf("r3 is: %d\n", state->regs[rd]);
+        printf("r1 is: %d\n", state->regs[rn]);
+    }
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
     }
@@ -138,7 +142,7 @@ void armemu_cmp(struct arm_state *state){
     iw = *((unsigned int *) state->regs[PC]);    
     rn = (iw >> 16) & 0xF;
     state->cpsr = 0;
-    
+
     if(is_imme_dp(iw)){
         imme = iw & 0xFF;
         if(state->regs[rn] - imme < 0){
