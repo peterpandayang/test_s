@@ -466,7 +466,7 @@ void fibo_rec_test(struct arm_state *as, unsigned int *func, int size){
     printf("fibo recursion result is: %d\n", fibo_rec);
 }
 
-void find_sub_in_s_test(struct arm_state *as, unsigned int *func, int *p_s, int *p_sub){
+void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, char *p_sub){
     init_arm_state(as, (unsigned int *) func, char p_s, char p_sub, 0, 0);
     int pos;
     pos = armemu(as);
