@@ -518,21 +518,26 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
     // printf("char is: %c\n", pos);
 }
 
-
 int find_sub_in_s_c(char *s, char *sub){
     char *p, *q;
-    int i, len = strlen(s) - strlen(sub);
-    for (i = 0; i <= len; i++) {
-        p = s + i;
-        q = sub;
-        if (*q == *p) {
-            if(check_commom(p, q) == 0){
-                return i;
-            }
-        }
-    }
-    return -1;
+    
 }
+
+
+// int find_sub_in_s_c(char *s, char *sub){
+//     char *p, *q;
+//     int i, len = strlen(s) - strlen(sub);
+//     for (i = 0; i <= len; i++) {
+//         p = s + i;
+//         q = sub;
+//         if (*q == *p) {
+//             if(check_commom(p, q) == 0){
+//                 return i;
+//             }
+//         }
+//     }
+//     return -1;
+// }
 
 int check_commom(char *s, char *sub){
     int len = strlen(sub);
@@ -626,9 +631,9 @@ int main(int argc, char **argv){
     // fibo_rec_test(&state, (unsigned int *) fibo_rec_s, size);
 
 
-    strstr_test(p_s, p_sub);
-    // printf("address is: %d\n", p_s);
-    // find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
+    // strstr_test(p_s, p_sub);
+    printf("address is: %d\n", p_s);
+    find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
   
     return 0;
 }
