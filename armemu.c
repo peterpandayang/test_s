@@ -618,7 +618,7 @@ int main(int argc, char **argv){
     strcpy(v_st.s, "This is a test string for testing");
     strcpy(v_st.sub, "testing");
     char *p_s = v_st.s;
-    char *p_sub = v_st.sub1;
+    char *p_sub = v_st.sub;
 
     sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
     find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
