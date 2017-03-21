@@ -88,7 +88,7 @@ void armemu_add(struct arm_state *state){
     iw = *((unsigned int *) state->regs[PC]);    
     rd = (iw >> 12) & 0xF;
     rn = (iw >> 16) & 0xF;
-
+            printf("hahaha\n");
     if(is_imme_dp(iw)){
         imme = iw & 0xFF;
         state->regs[rd] = state->regs[rn] + imme;
@@ -415,7 +415,6 @@ void armemu_b(struct arm_state *state){
         else{
             save_link_addr(state);
             state->regs[PC] = state->regs[PC] + 8 + offset * 4;
-            printf("hahaha\n");
         }
     }
     else if(is_beq_inst(iw)){

@@ -93,7 +93,7 @@ has_common:
 
 get_len:
 	mov r2, #0
-
+	add r1, r1, #3
 	mov r0, #3
 	bx lr
 
