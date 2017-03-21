@@ -126,7 +126,7 @@ void armemu_sub(struct arm_state *state){
         if(rd == 13){
             printf("stack pointer after sub is: %d\n", state->regs[13]);
             printf("imme is: %d\n", imme);
-            printf("heihaheiha is hahalala: %d\n", *((unsigned int *) state->regs[SP] + 8));
+            printf("heihaheiha is hahalala: %d\n", *((unsigned int *) (state->regs[SP] + 8)));
         }
     }
     else{
