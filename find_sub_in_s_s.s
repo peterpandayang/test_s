@@ -4,8 +4,14 @@
 find_sub_in_s_s:
 	ldrb r3, [r0]
 	mov r0, r3
+	mov r1, #1
+	cmp r1, #1
+	bleq lala
 	bx lr
 
+lala:
+	mov r0, #3
+	bx lr
 
 # 	mov r2, #0
 # 	sub sp, sp, #64
