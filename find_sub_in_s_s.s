@@ -9,6 +9,7 @@ find_sub_in_s_s:
 	str r1, [sp, #8]
 	str r2, [sp, #16]
 	str lr, [sp, #64]
+	bx lr
 	bl get_len
 	bx lr
 	str r0, [sp, #48]
