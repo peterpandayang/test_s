@@ -515,7 +515,7 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
     int pos;
     pos = armemu(as);
     printf("position is: %d\n", pos);
-    printf("char is: %c\n", pos);
+    // printf("char is: %c\n", pos);
 }
 
 
