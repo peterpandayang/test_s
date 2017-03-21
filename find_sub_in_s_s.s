@@ -5,7 +5,7 @@ find_sub_in_s_s:
 	ldrb r3, [r0]
 	mov r0, r3
 	mov r1, #1
-	cmp r1, #1
+	cmp r1, #2
 	bleq lala
 	bx lr
 
