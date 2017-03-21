@@ -405,6 +405,7 @@ void armemu_b(struct arm_state *state){
     if(is_bl_inst(iw)){
         if(is_beq_inst(iw)){
             if(state->cpsr == 0x40000000){
+                save_link_addr(state);
                 state->regs[PC] = state->regs[PC] + 8 + offset * 4;
             }
             else{
@@ -520,7 +521,7 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
 
 int find_sub_in_s_c(char *s, char *sub){
     char *p, *q;
-    
+
 }
 
 
