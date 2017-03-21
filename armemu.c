@@ -519,6 +519,74 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
 }
 
 
+int find_sub_in_s_c(char *s, char *sub){
+    char *p, *q;
+    int i, len = strlen(s) - strlen(sub);
+    for (i = 0; i <= len; i++) {
+        p = s + i;
+        q = sub;
+        if (*q == *p) {
+            if(check_commom(p, q) == 0){
+                return i;
+            }
+        }
+    }
+    return -1;
+}
+
+int check_commom(char *s, char *sub){
+    int len = strlen(sub);
+    int i;
+    char *p, *q;
+    p = s;
+    q = sub;
+    for(i = 0; i < len; i++){
+        if(*q != *p){
+            return -1;
+        }
+        p = p + 1;
+        q = q + 1;
+    }
+    return 0;
+}
+
+
+int strstr_test(char *p_s, char *p_sub){
+    printf("Test for strstr: \n");
+    int pos; 
+    printf("Larger string: ");
+    print_str(p_s);
+    printf("Smaller string: ");
+    print_str(p_sub);
+    printf("Test for strstr in C: \n");
+
+    pos = find_sub_in_s_c(p_s, p_sub);
+    if(pos != -1){
+        printf("Find substring at:\n");
+        print_str(p_s);
+        print_arrow(pos);
+    }
+    else{
+        printf("Can't find substring\n");
+    }
+
+    // printf("Test for strstr in Assembly: \n");
+    // pos = 0;
+    // pos = find_sub_in_s_s(p_s, p_sub);
+    // if(pos != -1){
+    //     printf("Find substring at:\n");
+    //     print_str(p_s);
+    //     print_arrow(pos);
+    // }
+    // else{
+    //     printf("Can't find substring\n");
+    // }
+    // printf("\n");
+    return 0;
+}
+
+
+
 /*main part*/
 int main(int argc, char **argv){
     struct arm_state state;
@@ -537,8 +605,10 @@ int main(int argc, char **argv){
     fibo_iter_test(&state, (unsigned int *) fibo_iter_s, size);
     fibo_rec_test(&state, (unsigned int *) fibo_rec_s, size);
 
-    printf("address is: %d\n", p_s);
-    find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
+
+    strstr_test(p_s, p_sub);
+    // printf("address is: %d\n", p_s);
+    // find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
   
     return 0;
 }
