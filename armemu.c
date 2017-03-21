@@ -204,7 +204,7 @@ void armemu_mov(struct arm_state *state){
             printf("heihaheiha is hahalala: %d\n", *((unsigned int *) state->regs[SP]));
         }
         if(rn == 0 && state->regs[rn] == 2){
-            printf("heihaheiha is hahalala: %d\n", *((unsigned int *) state->regs[SP] + 8));
+            printf("heihaheiha is hahalala: %d\n", *((unsigned int *) (state->regs[SP] + 8)));
         }
 
     }
@@ -274,7 +274,7 @@ void armemu_ldr(struct arm_state *state){
         if(i == 0b0){
             offset = iw & 0xFFF;
             printf("offset is: %d\n", offset);
-            state->regs[rd] = *((unsigned int *)state->regs[rn] + offset);
+            state->regs[rd] = *((unsigned int *)(state->regs[rn] + offset));
             printf("we are loading: %d\n", *((unsigned int *)state->regs[rn] + offset));
         }        
     }
@@ -295,7 +295,7 @@ void armemu_str(struct arm_state *state){
         i = iw >> 25 & 0b1;
         if(i == 0b0){
             offset = iw & 0xFFF;
-            *((unsigned int *)state->regs[rn] + offset) = state->regs[rd];
+            *((unsigned int *)(state->regs[rn] + offset)) = state->regs[rd];
             printf("we are storing: %d\n", state->regs[rd]);
             if(state->regs[0] == 3){
                 printf("heihaheiha is hahalala: %d\n", *((unsigned int *) state->regs[SP] + 8));
