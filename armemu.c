@@ -554,17 +554,10 @@ int check_commom(char *s, char *sub){
 int strstr_test(char *p_s, char *p_sub){
     printf("Test for strstr: \n");
     int pos; 
-    printf("Larger string: ");
-    print_str(p_s);
-    printf("Smaller string: ");
-    print_str(p_sub);
-    printf("Test for strstr in C: \n");
 
     pos = find_sub_in_s_c(p_s, p_sub);
     if(pos != -1){
-        printf("Find substring at:\n");
-        print_str(p_s);
-        print_arrow(pos);
+        printf("Find substring at: %d\n", pos);
     }
     else{
         printf("Can't find substring\n");
