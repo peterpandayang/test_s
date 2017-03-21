@@ -535,7 +535,7 @@ int main(int argc, char **argv){
     int size = 20;
 
     init_array_c(p_pos_array, size);
-    strcpy(v_st.s, "hello\0");
+    strcpy(v_st.s, "hello" + "\0");
     strcpy(v_st.sub, "llo\0");
     char *p_s = v_st.s;
     char *p_sub = v_st.sub;
