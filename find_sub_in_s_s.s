@@ -6,7 +6,7 @@ find_sub_in_s_s:
 	mov r0, r3
 	mov r1, #1
 	cmp r1, #2
-	bleq lala
+	# bleq lala
 	bx lr
 
 lala:
