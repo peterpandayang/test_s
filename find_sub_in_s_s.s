@@ -53,40 +53,40 @@ not_found:
 .endfunc
 
 
-# .func check_common
+.func check_common
 
-# check_common:
-# 	 mov r2, #0
-# 	 str r0, [sp, #24]
-# 	 str r1, [sp, #32]
-# 	 str r2, [sp, #40]
+check_common:
+	 mov r2, #0
+	 str r0, [sp, #24]
+	 str r1, [sp, #32]
+	 str r2, [sp, #40]
 
-# check_common_loop:
-# 	ldr r1, [sp, #56]
-# 	ldr r2, [sp, #40]
-# 	cmp r2, r1
-# 	beq has_common
-# 	ldr r0, [sp, #24]
-# 	add r0, r0, r2
-# 	ldr r1, [sp, #32]
-# 	add r1, r1, r2
-# 	ldrb r3, [r0]
-# 	ldrb r12, [r1]
-# 	cmp r3, r12
-# 	bne no_common
-# 	add r2, r2, #1
-# 	str r2, [sp, #40]
-# 	b check_common_loop
+check_common_loop:
+	ldr r1, [sp, #56]
+	ldr r2, [sp, #40]
+	cmp r2, r1
+	beq has_common
+	ldr r0, [sp, #24]
+	add r0, r0, r2
+	ldr r1, [sp, #32]
+	add r1, r1, r2
+	ldrb r3, [r0]
+	ldrb r12, [r1]
+	cmp r3, r12
+	bne no_common
+	add r2, r2, #1
+	str r2, [sp, #40]
+	b check_common_loop
 
-# no_common:
-# 	mov r0, #-1
-# 	bx lr
+no_common:
+	mov r0, #-1
+	bx lr
 
-# has_common:
-# 	mov r0, #0
-# 	bx lr
+has_common:
+	mov r0, #0
+	bx lr
 
-# .endfunc
+.endfunc
 
 
 .func get_len
