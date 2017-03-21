@@ -138,7 +138,7 @@ void armemu_cmp(struct arm_state *state){
     iw = *((unsigned int *) state->regs[PC]);    
     rn = (iw >> 16) & 0xF;
     state->cpsr = 0;
-
+    printf("r1 is: %d\n", state->regs[1]);
     if(is_imme_dp(iw)){
         imme = iw & 0xFF;
         if(state->regs[rn] - imme < 0){
@@ -518,99 +518,6 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
     // printf("char is: %c\n", pos);
 }
 
-int find_sub_in_s_c(char *s, char *sub){
-    char *p, *q;
-
-}
-
-
-// int find_sub_in_s_c(char *s, char *sub){
-//     char *p, *q;
-//     int i, len = strlen(s) - strlen(sub);
-//     for (i = 0; i <= len; i++) {
-//         p = s + i;
-//         q = sub;
-//         if (*q == *p) {
-//             if(check_commom(p, q) == 0){
-//                 return i;
-//             }
-//         }
-//     }
-//     return -1;
-// }
-
-int check_commom(char *s, char *sub){
-    int len = strlen(sub);
-    int i;
-    char *p, *q;
-    p = s;
-    q = sub;
-    for(i = 0; i < len; i++){
-        if(*q != *p){
-            return -1;
-        }
-        p = p + 1;
-        q = q + 1;
-    }
-    return 0;
-}
-
-
-int strstr_test(char *p_s, char *p_sub){
-    printf("Test for strstr: \n");
-    int pos; 
-    printf("Larger string: ");
-    print_str(p_s);
-    printf("Smaller string: ");
-    print_str(p_sub);
-    printf("Test for strstr in C: \n");
-
-    pos = find_sub_in_s_c(p_s, p_sub);
-    if(pos != -1){
-        printf("Find substring at:\n");
-        print_str(p_s);
-        print_arrow(pos);
-    }
-    else{
-        printf("Can't find substring\n");
-    }
-
-    // printf("Test for strstr in Assembly: \n");
-    // pos = 0;
-    // pos = find_sub_in_s_s(p_s, p_sub);
-    // if(pos != -1){
-    //     printf("Find substring at:\n");
-    //     print_str(p_s);
-    //     print_arrow(pos);
-    // }
-    // else{
-    //     printf("Can't find substring\n");
-    // }
-    // printf("\n");
-    return 0;
-}
-
-int print_str(char *p){
-    int len = strlen(p);
-    int i;
-    printf("\"");
-    for(i = 0; i < len; i++){
-        printf("%c", *p);
-        p += 1;
-    }
-    printf("\"");
-    printf("\n");
-    return 0;
-}
-
-int print_arrow(int pos){
-    int i;
-    for(i = 0; i < pos; i++){
-        printf(" ");
-    }
-    printf(" ^\n");
-    return 0;
-}
 
 /*main part*/
 int main(int argc, char **argv){
@@ -620,7 +527,7 @@ int main(int argc, char **argv){
     int size = 20;
 
     init_array_c(p_pos_array, size);
-    strcpy(v_st.s, "hellohello");
+    strcpy(v_st.s, "hello");
     strcpy(v_st.sub, "llo");
     char *p_s = v_st.s;
     char *p_sub = v_st.sub;
@@ -631,7 +538,6 @@ int main(int argc, char **argv){
     // fibo_rec_test(&state, (unsigned int *) fibo_rec_s, size);
 
 
-    // strstr_test(p_s, p_sub);
     printf("address is: %d\n", p_s);
     find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
   
