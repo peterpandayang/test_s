@@ -615,10 +615,10 @@ int main(int argc, char **argv){
     int size = 20;
 
     init_array_c(p_pos_array, size);
-    strcpy(v_st.s, "hello");
-    strcpy(v_st.sub, "llo");
+    strcpy(v_st.s, "This is a test string for testing");
+    strcpy(v_st.sub, "testing");
     char *p_s = v_st.s;
-    char *p_sub = v_st.sub;
+    char *p_sub = v_st.sub1;
 
     sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
     find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
