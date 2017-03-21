@@ -100,7 +100,7 @@ get_len_loop:
 	ldrb r1, [r3]
 	cmp r1, #0
 	beq done
-	add r2, r2, #1
+	add r2, r2, #4
 	b get_len_loop
 
 done:
