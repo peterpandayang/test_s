@@ -518,7 +518,7 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
     unsigned int int_p_s = (unsigned int)((unsigned int *)p_s);
     unsigned int int_p_sub = (unsigned int)((unsigned int *)p_sub);
     int s_len = strlen(p_s);
-    int s_sub_len = strlen(p_s_sub);
+    int s_sub_len = strlen(p_sub);
     printf("s_len is: %d\n", s_len);
     printf("s_sub_len is: %d\n", s_sub_len);
     printf("inner address is: %d\n", p_s);
