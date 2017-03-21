@@ -94,9 +94,6 @@ has_common:
 
 get_len:
 	mov r2, #0
-	add r1, r1, #3
-	mov r0, #3
-	bx lr
 
 get_len_loop:
 	add r3, r0, r2
