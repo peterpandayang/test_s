@@ -517,6 +517,8 @@ void fibo_rec_test(struct arm_state *as, unsigned int *func, int size){
 void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, char *p_sub){
     unsigned int int_p_s = (unsigned int)((unsigned int *)p_s);
     unsigned int int_p_sub = (unsigned int)((unsigned int *)p_sub);
+    int s_len = strlen(p_s);
+    printf("s_len is: %d\n", s_len);
     printf("inner address is: %d\n", p_s);
     printf("char is: %c\n", *p_s);
     init_arm_state(as, (unsigned int *) func, int_p_s, int_p_sub, 0, 0);
