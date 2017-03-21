@@ -99,7 +99,7 @@ void armemu_add(struct arm_state *state){
 
     if(rd == 3){
         printf("r3 is: %d\n", state->regs[rd]);
-        printf("r1 is: %d\n", state->regs[rn]);
+        printf("r0 is: %d\n", state->regs[rn]);
     }
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
@@ -283,6 +283,7 @@ void armemu_ldrb(struct arm_state *state){
 
     if(rd == 1){
         printf("char in r1 is: %c\n", state->regs[rd]);
+        printf("int in r1 is: %c\n", state->regs[rd]);
     }
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
