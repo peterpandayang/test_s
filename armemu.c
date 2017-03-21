@@ -281,6 +281,9 @@ void armemu_ldrb(struct arm_state *state){
         }        
     }
 
+    if(rd == 1){
+        printf("char in r1 is: %c\n", state->regs[rd]);
+    }
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
     }
