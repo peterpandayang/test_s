@@ -161,6 +161,7 @@ void armemu_cmp(struct arm_state *state){
             state->cpsr = 0x80000000;
         }
         if(state->regs[rn] - state->regs[rm] == 0){
+            printf("rn and rm are: %d %d\n", rn, rm);
             state->cpsr = 0x40000000;
         }
     }
