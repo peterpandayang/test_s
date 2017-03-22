@@ -282,7 +282,9 @@ void armemu_ldrb(struct arm_state *state){
         i = iw >> 25 & 0b1;
         if(i == 0b0){
             offset = iw & 0xFFF;
-            state->regs[rd] = *((unsigned int *)(state->regs[rn] + offset));
+            // char *p = 
+            state->regs[rd] = *((unsigned int *)(state->regs[rn] + offset)) & 0xFF;
+            // state->regs[rd] = *((unsigned int *)(state->regs[rn] + offset));
         }        
     }
 
