@@ -477,14 +477,14 @@ unsigned int armemu(struct arm_state *state){
 
     while (state->regs[PC] != 0) {
         armemu_one(state);
-        // printf("r0 is: %d\n", state->regs[0]);
-        // printf("r1 is: %d\n", state->regs[1]);
-        // printf("r2 is: %d\n", state->regs[2]);
-        // printf("r3 is: %c\n", state->regs[3]);
-        // printf("r3 is: %d\n", state->regs[3]);
-        // printf("r12 is: %c\n", state->regs[12]);
-        // printf("PC is: %d\n", state->regs[PC]);
-        // printf("\n");
+        printf("r0 is: %d\n", state->regs[0]);
+        printf("r1 is: %d\n", state->regs[1]);
+        printf("r2 is: %d\n", state->regs[2]);
+        printf("r3 is: %c\n", state->regs[3]);
+        printf("r3 is: %d\n", state->regs[3]);
+        printf("r12 is: %c\n", state->regs[12]);
+        printf("PC is: %d\n", state->regs[PC]);
+        printf("\n");
     }
 
     return state->regs[0];
@@ -525,35 +525,11 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
     unsigned int int_p_sub = (unsigned int)((unsigned int *)p_sub);
     int s_len = strlen(p_s);
     int s_sub_len = strlen(p_sub);
-    // printf("s_len is: %d\n", s_len);
-    // printf("s_sub_len is: %d\n", s_sub_len);
-    // printf("inner address is: %d\n", p_s);
-    // printf("char is: %c\n", *p_s);
     init_arm_state(as, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     int pos;
     pos = armemu(as);
     printf("position is: %d\n", pos);
-    // printf("char is: %c\n", pos);
 }
-
-
-// int strstr_test(char *p_s, char *p_sub){
-//     printf("Test for strstr: \n");
-// int s_len = strlen(p_s);
-//     int s_sub_len = strlen(p_sub);
-//     printf("Test for strstr in Assembly: \n");
-//     int pos = 0;
-//     pos = find_sub_in_s_s(p_s, p_sub, s_len, s_sub_len);
-//     if(pos != -1){
-//         printf("Find substring at: %d\n", pos);
-        
-//     }
-//     else{
-//         printf("Can't find substring\n");
-//     }
-//     printf("\n");
-//     return 0;
-// }
 
 
 /*main part*/
@@ -573,9 +549,6 @@ int main(int argc, char **argv){
     // find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
     fibo_iter_test(&state, (unsigned int *) fibo_iter_s, size);
     // fibo_rec_test(&state, (unsigned int *) fibo_rec_s, size);
-
-
-    // strstr_test(p_s, p_sub);
     find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
   
     return 0;
