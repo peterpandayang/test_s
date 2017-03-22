@@ -1,7 +1,7 @@
 .global find_sub_in_s_s
 .func find_sub_in_s_s
 
-find_sub_in_s_s: #760
+find_sub_in_s_s: 
 	sub sp, sp, #64
 	sub r12, r2, r3
 	str r12, [sp, #48]
@@ -13,7 +13,7 @@ find_sub_in_s_s: #760
 	str lr, [sp, #64]
 
 loop: 
-	ldr r1, [sp, #48] #796
+	ldr r1, [sp, #48] 
 	ldr r2, [sp, #16]
 	sub r2, r2, #1
 	cmp r2, r1
@@ -22,10 +22,10 @@ loop:
 	add r2, r2, #1
 	add r0, r0, r2
 	ldr r1, [sp, #8]
-	ldrb r3, [r0] #832
+	ldrb r3, [r0] 
 	ldrb r12, [r1]
 	cmp r3, r12
-	bleq check_common #868
+	bleq check_common 
 	ldr lr, [sp, #64]
 	cmp r0, #0
 	beq found
