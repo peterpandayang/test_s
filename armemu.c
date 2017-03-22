@@ -589,8 +589,8 @@ int main(int argc, char **argv){
 
 
     printf("address is: %d\n", p_s);
-    strstr_test(p_s, p_sub);
-    // find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
+    // strstr_test(p_s, p_sub);
+    find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
   
     return 0;
 }
