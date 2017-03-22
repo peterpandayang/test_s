@@ -419,6 +419,7 @@ void armemu_b(struct arm_state *state){
 
     if(is_bl_inst(iw)){
         if(is_beq_inst(iw)){
+            printf("this is bl instruction\n");
             if(state->cpsr == 0x40000000){
                 save_link_addr(state);
                 state->regs[PC] = state->regs[PC] + 8 + offset * 4;
