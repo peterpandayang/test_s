@@ -25,9 +25,6 @@ loop:
 	ldrb r3, [r0]  
 	ldrb r12, [r1]
 	cmp r3, r12
-
-	# bne haha
-
 	bleq check_common 
 	ldr lr, [sp, #64]
 	cmp r0, #0
@@ -70,16 +67,10 @@ check_common_loop:
 	add r0, r0, r2
 	ldr r1, [sp, #32]
 	add r1, r1, r2
-
-	mov r3, #0
-
 	ldrb r3, [r0]
 	ldrb r12, [r1]  
 	cmp r3, r12
 	bne no_common
-
-	mov r3, #1
-
 	add r2, r2, #1
 	str r2, [sp, #40]
 	b check_common_loop
