@@ -411,6 +411,7 @@ void armemu_b(struct arm_state *state){
     if(is_bl_inst(iw)){
         if(is_beq_inst(iw)){
             if(state->cpsr == 0x40000000){
+                printf("\n");
                 printf("bleq is taken\n");
                 save_link_addr(state);
                 state->regs[PC] = state->regs[PC] + 8 + offset * 4;
@@ -483,6 +484,7 @@ unsigned int armemu(struct arm_state *state){
         printf("r1 is: %d\n", state->regs[1]);
         printf("r2 is: %d\n", state->regs[2]);
         printf("r3 is: %c\n", state->regs[3]);
+        printf("r3 is: %d\n", state->regs[3]);
         printf("r12 is: %c\n", state->regs[12]);
         printf("\n");
     }
