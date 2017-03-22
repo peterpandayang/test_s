@@ -48,6 +48,9 @@ loop:
 	cmp r3, r12
 	bleq check_common
 
+	cmp r3, r12
+	bleq hahab
+
 	ldr lr, [sp, #64]
 	cmp r0, #0
 	beq found
@@ -55,6 +58,12 @@ loop:
 	add r2, r2, #1
 	str r2, [sp, #16]
 	b loop
+
+
+hahab:
+	mov r0, r2
+	bx lr
+
 
 found:
 	ldr r0, [sp, #16]
