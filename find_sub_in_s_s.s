@@ -7,10 +7,11 @@ find_sub_in_s_s:
 	str r12, [sp, #48]
 	str r3, [sp, #56]	
 	str r0, [sp]
+	mov r2, #0
 	str r1, [sp, #8]
 	str r2, [sp, #16]
 	str lr, [sp, #64]
-	mov r2, #0
+	
 
 
 
