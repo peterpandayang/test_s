@@ -4,10 +4,6 @@
 find_sub_in_s_s:
 	sub sp, sp, #64
 	sub r12, r2, r3
-
-	mov r0, r3
-	bx lr
-
 	str r12, [sp, #48]
 	str r3, [sp, #56]	
 	str r0, [sp]

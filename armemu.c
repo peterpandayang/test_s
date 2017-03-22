@@ -525,6 +525,24 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
     // printf("char is: %c\n", pos);
 }
 
+int strstr_test(char *p_s, char *p_sub){
+    printf("Test for strstr: \n");
+    
+    int s_len = strlen(p_s);
+    int s_sub_len = strlen(p_sub);
+    printf("Test for strstr in Assembly: \n");
+    pos = 0;
+    pos = find_sub_in_s_s(p_s, p_sub, s_len, s_sub_len);
+    if(pos != -1){
+        printf("Find substring at: %d\n", pos);
+    }
+    else{
+        printf("Can't find substring\n");
+    }
+    printf("\n");
+    return 0;
+}
+
 
 /*main part*/
 int main(int argc, char **argv){
@@ -546,6 +564,7 @@ int main(int argc, char **argv){
 
 
     // printf("address is: %d\n", p_s);
+    strstr_test(p_s, p_sub);
     find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
   
     return 0;
