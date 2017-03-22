@@ -5,7 +5,7 @@ find_sub_in_s_s:
 	sub sp, sp, #64
 	sub r12, r2, r3
 
-	mov r0, r2
+	mov r0, r3
 	bx lr
 
 	str r12, [sp, #48]
