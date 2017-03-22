@@ -158,6 +158,7 @@ void armemu_cmp(struct arm_state *state){
             state->cpsr = 0x80000000;
         }
         if(state->regs[rn] - state->regs[rm] == 0){
+            printf("cpsr is set\n");
             state->cpsr = 0x40000000;
         }
     }
