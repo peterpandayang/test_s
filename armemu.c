@@ -150,10 +150,19 @@ void armemu_cmp(struct arm_state *state){
     }
     else{
         rm = iw & 0xF;
+        // if(rn == 3 ){
+        //     printf("r3 is: %c\n", state->regs[rn]);
+        //     printf("r12 is: %c\n", state->regs[rd]);
+        // //     printf("result is: %d\n", state->regs[rn] - state->regs[rm]);
+        //     if(*((unsigned int *)state->regs[rn]) == *((unsigned int *)state->regs[rd])){
+        //         state->cpsr = 0x40000000;
+        //     }
+        // }
         if(state->regs[rn] - state->regs[rm] < 0){
             state->cpsr = 0x80000000;
         }
         if(state->regs[rn] - state->regs[rm] == 0){
+            printf("cpsr is set\n");
             state->cpsr = 0x40000000;
         }
     }
@@ -273,10 +282,16 @@ void armemu_ldrb(struct arm_state *state){
         i = iw >> 25 & 0b1;
         if(i == 0b0){
             offset = iw & 0xFFF;
+            // char *p = 
             state->regs[rd] = *((unsigned int *)(state->regs[rn] + offset)) & 0xFF;
+            // state->regs[rd] = *((unsigned int *)(state->regs[rn] + offset));
         }        
     }
 
+    if(rd == 1){
+        printf("char in r1 is: %c\n", state->regs[rd]);
+        printf("int in r1 is: %d\n", state->regs[rd]);
+    }
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
     }
@@ -402,8 +417,12 @@ void armemu_b(struct arm_state *state){
     }
 
     if(is_bl_inst(iw)){
+        printf("bl branch appear\n");
         if(is_beq_inst(iw)){
             if(state->cpsr == 0x40000000){
+                printf("\n");
+                printf("branch is taken\n");
+                printf("\n");
                 save_link_addr(state);
                 state->regs[PC] = state->regs[PC] + 8 + offset * 4;
             }
@@ -433,6 +452,7 @@ void armemu_b(struct arm_state *state){
         }
     }
     else if(is_bne_inst(iw)){
+        printf(".................................................................\n");
         if(state->cpsr >> 30 == 0b0){
             state->regs[PC] = state->regs[PC] + 8 + offset * 4;
         }
@@ -468,9 +488,19 @@ void armemu_one(struct arm_state *state){
 }
 
 unsigned int armemu(struct arm_state *state){
+
     while (state->regs[PC] != 0) {
         armemu_one(state);
+        printf("r0 is: %d\n", state->regs[0]);
+        printf("r1 is: %d\n", state->regs[1]);
+        printf("r2 is: %d\n", state->regs[2]);
+        printf("r3 is: %c\n", state->regs[3]);
+        printf("r3 is: %d\n", state->regs[3]);
+        printf("r12 is: %c\n", state->regs[12]);
+        printf("PC is: %d\n", state->regs[PC]);
+        printf("\n");
     }
+
     return state->regs[0];
 }
 
@@ -509,10 +539,34 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
     unsigned int int_p_sub = (unsigned int)((unsigned int *)p_sub);
     int s_len = strlen(p_s);
     int s_sub_len = strlen(p_sub);
+    printf("s_len is: %d\n", s_len);
+    printf("s_sub_len is: %d\n", s_sub_len);
+    printf("inner address is: %d\n", p_s);
+    printf("char is: %c\n", *p_s);
     init_arm_state(as, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     int pos;
     pos = armemu(as);
     printf("position is: %d\n", pos);
+    // printf("char is: %c\n", pos);
+}
+
+
+int strstr_test(char *p_s, char *p_sub){
+    printf("Test for strstr: \n");
+int s_len = strlen(p_s);
+    int s_sub_len = strlen(p_sub);
+    printf("Test for strstr in Assembly: \n");
+    int pos = 0;
+    pos = find_sub_in_s_s(p_s, p_sub, s_len, s_sub_len);
+    if(pos != -1){
+        printf("Find substring at: %d\n", pos);
+        
+    }
+    else{
+        printf("Can't find substring\n");
+    }
+    printf("\n");
+    return 0;
 }
 
 
@@ -529,10 +583,14 @@ int main(int argc, char **argv){
     char *p_s = v_st.s;
     char *p_sub = v_st.sub;
 
-    sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
-    find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
-    fibo_iter_test(&state, (unsigned int *) fibo_iter_s, size);
-    fibo_rec_test(&state, (unsigned int *) fibo_rec_s, size);
+    // sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
+    // find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
+    // fibo_iter_test(&state, (unsigned int *) fibo_iter_s, size);
+    // fibo_rec_test(&state, (unsigned int *) fibo_rec_s, size);
+
+
+    printf("address is: %d\n", p_s);
+    // strstr_test(p_s, p_sub);
     find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
   
     return 0;
