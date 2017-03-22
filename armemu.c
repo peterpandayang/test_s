@@ -173,9 +173,6 @@ void armemu_mov(struct arm_state *state){
     iw = *((unsigned int *) state->regs[PC]);
     rd = (iw >> 12) & 0xF;
 
-    if(rd == 0){
-        printf("r0 is: %d\n", state->regs[0]);
-    }
     if(is_imme_dp(iw)){
         unsigned int imme = iw & 0xFF;
         state->regs[rd] = imme;
