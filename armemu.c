@@ -22,6 +22,8 @@ struct arm_state {
     unsigned int regs[NREGS];
     unsigned int cpsr;
     unsigned char stack[STACK_SIZE];
+    char s[50];
+    char sub[10];
 };
 
 struct value_st {
@@ -535,10 +537,14 @@ int main(int argc, char **argv){
     int size = 20;
 
     init_array_c(p_pos_array, size);
-    strcpy(v_st.s, "hello");
-    strcpy(v_st.sub, "lo");
-    char *p_s = v_st.s;
-    char *p_sub = v_st.sub;
+    // strcpy(v_st.s, "hello");
+    // strcpy(v_st.sub, "lo");
+    strcpy(state.s, "hello");
+    strcpy(state.sub, "lo");
+    // char *p_s = v_st.s;
+    // char *p_sub = v_st.sub;
+    char *p_s = state.s;
+    char *p_sub = state.sub;
 
     // sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
     // find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
