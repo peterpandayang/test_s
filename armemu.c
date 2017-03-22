@@ -27,11 +27,11 @@ struct arm_state {
     char sub[10];
 };
 
-struct value_st {
-    int pos_array[VALUE_MAX_STR_LEN];
-    char s[50];
-    char sub[10];
-};
+// struct value_st {
+//     int pos_array[VALUE_MAX_STR_LEN];
+//     char s[50];
+//     char sub[10];
+// };
 
 void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3){
     int i;
@@ -50,7 +50,6 @@ void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0,
     as->regs[PC] = (unsigned int) func;
     as->regs[SP] = (unsigned int) &as->stack[STACK_SIZE];
     as->regs[LR] = 0;
-
     as->regs[0] = arg0;
     as->regs[1] = arg1;
     as->regs[2] = arg2;
@@ -315,7 +314,6 @@ void armemu_mem(struct arm_state *state){
     unsigned int iw;
 
     iw = *((unsigned int *)state->regs[PC]);
-
     if(is_ldr_inst(iw)){
         armemu_ldr(state);
     }
@@ -331,9 +329,7 @@ void armemu_mem(struct arm_state *state){
 /* branch part*/
 bool is_bx_inst(unsigned int iw){
     unsigned int bx_code;
-
     bx_code = (iw >> 4) & 0x00FFFFFF;
-
     return (bx_code == 0b000100101111111111110001);
 }
 
@@ -455,7 +451,6 @@ void armemu_one(struct arm_state *state){
     unsigned int iw;
     
     iw = *((unsigned int *) state->regs[PC]);
-
     if (is_bx_inst(iw)) {
         armemu_bx(state);
     } 
@@ -474,14 +469,6 @@ unsigned int armemu(struct arm_state *state){
 
     while (state->regs[PC] != 0) {
         armemu_one(state);
-        // printf("r0 is: %d\n", state->regs[0]);
-        // printf("r1 is: %d\n", state->regs[1]);
-        // printf("r2 is: %d\n", state->regs[2]);
-        // printf("r3 is: %c\n", state->regs[3]);
-        // printf("r3 is: %d\n", state->regs[3]);
-        // printf("r12 is: %c\n", state->regs[12]);
-        // printf("PC is: %d\n", state->regs[PC]);
-        // printf("\n");
     }
 
     return state->regs[0];
