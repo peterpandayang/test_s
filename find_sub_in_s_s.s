@@ -69,6 +69,10 @@ not_found:
 .func check_common
 
 check_common:
+
+	mov r0, #31
+	bx lr
+
 	 mov r2, #0
 	 str r0, [sp, #24]
 	 str r1, [sp, #32]
@@ -102,24 +106,24 @@ has_common:
 .endfunc
 
 
-.func get_len
+# .func get_len
 
-get_len:
-	mov r2, #0
+# get_len:
+# 	mov r2, #0
 
-get_len_loop:
-	add r3, r0, r2
-	ldrb r1, [r3]
-	cmp r1, #0
-	beq done
-	add r2, r2, #1
-	b get_len_loop
+# get_len_loop:
+# 	add r3, r0, r2
+# 	ldrb r1, [r3]
+# 	cmp r1, #0
+# 	beq done
+# 	add r2, r2, #1
+# 	b get_len_loop
 
-done:
-	mov r0, r2
-	bx lr
+# done:
+# 	mov r0, r2
+# 	bx lr
 	
-.endfunc
+# .endfunc
 
 
 
