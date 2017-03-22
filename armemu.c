@@ -27,11 +27,6 @@ struct arm_state {
     char sub[10];
 };
 
-// struct value_st {
-//     int pos_array[VALUE_MAX_STR_LEN];
-//     char s[50];
-//     char sub[10];
-// };
 
 void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3){
     int i;
@@ -528,7 +523,7 @@ int main(int argc, char **argv){
     // strcpy(v_st.s, "hello");
     // strcpy(v_st.sub, "lo");
     strcpy(state.s, "hello");
-    strcpy(state.sub, "lol");
+    strcpy(state.sub, "lo");
     // char *p_s = v_st.s;
     // char *p_sub = v_st.sub;
     char *p_s = state.s;
