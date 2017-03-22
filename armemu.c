@@ -406,9 +406,9 @@ void armemu_b(struct arm_state *state){
     if(is_bl_inst(iw)){
         if(is_beq_inst(iw)){
             if(state->cpsr == 0x40000000){
-                printf("\n");
-                printf("branch is taken\n");
-                printf("\n");
+                // printf("\n");
+                // printf("branch is taken\n");
+                // printf("\n");
                 save_link_addr(state);
                 state->regs[PC] = state->regs[PC] + 8 + offset * 4;
             }
@@ -438,7 +438,7 @@ void armemu_b(struct arm_state *state){
         }
     }
     else if(is_bne_inst(iw)){
-        printf(".................................................................\n");
+        // printf(".................................................................\n");
         if(state->cpsr >> 30 == 0b0){
             state->regs[PC] = state->regs[PC] + 8 + offset * 4;
         }
@@ -484,7 +484,7 @@ unsigned int armemu(struct arm_state *state){
         // printf("r3 is: %d\n", state->regs[3]);
         // printf("r12 is: %c\n", state->regs[12]);
         // printf("PC is: %d\n", state->regs[PC]);
-        printf("\n");
+        // printf("\n");
     }
 
     return state->regs[0];
@@ -525,10 +525,10 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
     unsigned int int_p_sub = (unsigned int)((unsigned int *)p_sub);
     int s_len = strlen(p_s);
     int s_sub_len = strlen(p_sub);
-    printf("s_len is: %d\n", s_len);
-    printf("s_sub_len is: %d\n", s_sub_len);
-    printf("inner address is: %d\n", p_s);
-    printf("char is: %c\n", *p_s);
+    // printf("s_len is: %d\n", s_len);
+    // printf("s_sub_len is: %d\n", s_sub_len);
+    // printf("inner address is: %d\n", p_s);
+    // printf("char is: %c\n", *p_s);
     init_arm_state(as, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     int pos;
     pos = armemu(as);
