@@ -543,8 +543,9 @@ int main(int argc, char **argv){
 
     // sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
     // find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
-    fibo_iter_test(&state, (unsigned int *) fibo_iter_s, 10);
+    fibo_iter_test(&state, (unsigned int *) fibo_iter_s, size);
     // fibo_rec_test(&state, (unsigned int *) fibo_rec_s, size);
+    printf("this is alright\n");
     find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
   
     return 0;
