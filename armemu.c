@@ -491,13 +491,13 @@ unsigned int armemu(struct arm_state *state){
 
     while (state->regs[PC] != 0) {
         armemu_one(state);
-        printf("r0 is: %d\n", state->regs[0]);
-        printf("r1 is: %d\n", state->regs[1]);
-        printf("r2 is: %d\n", state->regs[2]);
-        printf("r3 is: %c\n", state->regs[3]);
-        printf("r3 is: %d\n", state->regs[3]);
-        printf("r12 is: %c\n", state->regs[12]);
-        printf("PC is: %d\n", state->regs[PC]);
+        // printf("r0 is: %d\n", state->regs[0]);
+        // printf("r1 is: %d\n", state->regs[1]);
+        // printf("r2 is: %d\n", state->regs[2]);
+        // printf("r3 is: %c\n", state->regs[3]);
+        // printf("r3 is: %d\n", state->regs[3]);
+        // printf("r12 is: %c\n", state->regs[12]);
+        // printf("PC is: %d\n", state->regs[PC]);
         printf("\n");
     }
 
@@ -524,14 +524,14 @@ void fibo_iter_test(struct arm_state *as, unsigned int *func, int size){
     init_arm_state(as, (unsigned int *) func, size, 0, 0, 0);
     int fibo_iter;
     fibo_iter = armemu(as);
-    printf("fibo iteration result is: %d\n", fibo_iter);
+    // printf("fibo iteration result is: %d\n", fibo_iter);
 }
 
 void fibo_rec_test(struct arm_state *as, unsigned int *func, int size){
     init_arm_state(as, (unsigned int *) func, size, 0, 0, 0);
     int fibo_rec;
     fibo_rec = armemu(as);
-    printf("fibo recursion result is: %d\n", fibo_rec);
+    // printf("fibo recursion result is: %d\n", fibo_rec);
 }
 
 void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, char *p_sub){
