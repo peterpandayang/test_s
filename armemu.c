@@ -285,10 +285,12 @@ void armemu_ldrb(struct arm_state *state){
     }
 
     if(rd == 3){
+        printf("int in r3 is: %d\n", state->regs[rd]);
         printf("char in r3 is: %c\n", state->regs[rd]);
     }
     if(rd == 12){
-        printf("char in r12 is: %c\n", state->regs[rd]);
+        printf("int in r12 is: %d\n", state->regs[rd]);
+        printf("char in r3 is: %c\n", state->regs[rd]);
     }
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
