@@ -528,7 +528,7 @@ int main(int argc, char **argv){
     // strcpy(v_st.s, "hello");
     // strcpy(v_st.sub, "lo");
     strcpy(state.s, "hello");
-    strcpy(state.sub, "lo");
+    strcpy(state.sub, "lol");
     // char *p_s = v_st.s;
     // char *p_sub = v_st.sub;
     char *p_s = state.s;
