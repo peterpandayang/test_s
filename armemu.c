@@ -22,7 +22,7 @@ struct arm_state {
     unsigned int regs[NREGS];
     unsigned int cpsr;
     unsigned char stack[STACK_SIZE];
-    int pos_array[VALUE_MAX_STR_LEN];
+    int array[VALUE_MAX_STR_LEN];
     char s[50];
     char sub[10];
 };
@@ -514,16 +514,16 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
 /*main part*/
 int main(int argc, char **argv){
     struct arm_state state;
-    int *p_pos_array = state.pos_array;
+    int *p_array = state.array;
     int size = 20;
-    init_array_c(p_pos_array, size);
+    init_array_c(p_array, size);
     strcpy(state.s, "hello");
     strcpy(state.sub, "lo");
     char *p_s = state.s;
     char *p_sub = state.sub;
 
-    sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
-    find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
+    sum_array_test(&state, (unsigned int *) sum_array_s, p_array, size);
+    find_max_test(&state, (unsigned int *) find_max_s, p_array, size);
     fibo_iter_test(&state, (unsigned int *) fibo_iter_s, size);
     fibo_rec_test(&state, (unsigned int *) fibo_rec_s, size);
     find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
