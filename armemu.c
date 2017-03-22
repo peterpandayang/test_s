@@ -518,7 +518,7 @@ int main(int argc, char **argv){
     int size = 20;
     init_array_c(p_array, size);
     strcpy(state.s, "hello");
-    strcpy(state.sub, "lo");
+    strcpy(state.sub, "llo");
     char *p_s = state.s;
     char *p_sub = state.sub;
 
