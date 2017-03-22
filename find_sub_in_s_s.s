@@ -39,7 +39,7 @@ found:
 	bx lr
 
 not_found:
-	mov r0, r0, #0
+	mov r0, #0
 	sub r0, r0, #1
 	bx lr
 
