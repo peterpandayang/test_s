@@ -549,7 +549,7 @@ int main(int argc, char **argv){
     // find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
     fibo_iter_test(&state, (unsigned int *) fibo_iter_s, size);
     // fibo_rec_test(&state, (unsigned int *) fibo_rec_s, size);
-    find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
+    // find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
   
     return 0;
 }
