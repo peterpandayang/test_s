@@ -114,6 +114,9 @@ void armemu_sub(struct arm_state *state){
     rd = (iw >> 12) & 0xF;
     rn = (iw >> 16) & 0xF;
 
+    if(rn == 2){
+        printf("r2 is: %d\n", state->regs[2]);
+    }
     if(is_imme_dp(iw)){
         imme = iw & 0xFF;
         state->regs[rd] = state->regs[rn] - imme;
