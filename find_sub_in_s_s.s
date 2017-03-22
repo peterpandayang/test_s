@@ -23,7 +23,7 @@ loop:
 	add r0, r0, r2
 	ldr r1, [sp, #8]
 	ldrb r3, [r0]    
-	ldrb r12, [r1]    /* 612 */
+	ldrb r12, [r1]   
 	cmp r3, r12
 	bleq check_common 
 	ldr lr, [sp, #64]
@@ -48,7 +48,7 @@ not_found:
 
 .func check_common
 
-check_common: /* 668 */
+check_common: 
 
 	mov r2, #0 
 	str r0, [sp, #24]
@@ -65,14 +65,14 @@ check_common_loop:
 	ldr r1, [sp, #32]
 	add r1, r1, r2
 	ldrb r3, [r0]
-	ldrb r12, [r1]   /* 724 */  
+	ldrb r12, [r1]   
 	cmp r3, r12
 	bne no_common 
 	add r2, r2, #1
 	str r2, [sp, #40]
 	b check_common_loop
 
-no_common:   /* 668 */
+no_common:   
 	mov r0, #0
 	sub r0, r0, #1
 	bx lr
