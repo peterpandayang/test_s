@@ -30,7 +30,7 @@ find_sub_in_s_s:
 	# ldr r1, [sp, #48]
 	# sub r2, r1, r0
 	# str r2, [sp, #48]
-	ldr r0, [sp, #48]
+	ldr r0, [sp, #56]
 	bx lr 
 
 loop:
