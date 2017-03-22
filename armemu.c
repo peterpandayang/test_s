@@ -505,6 +505,7 @@ void fibo_iter_test(struct arm_state *as, unsigned int *func, int size){
     int fibo_iter;
     fibo_iter = armemu(as);
     printf("fibo iteration result is: %d\n", fibo_iter);
+    init_arm_state(as, (unsigned int *) func, 0, 0, 0, 0);
 }
 
 void fibo_rec_test(struct arm_state *as, unsigned int *func, int size){
@@ -523,7 +524,6 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
     init_arm_state(as, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     int pos;
     pos = armemu(as);
-    init_arm_state(as, (unsigned int *) func, 0, 0, 0, 0);
     printf("position is: %d\n", pos);
 }
 
