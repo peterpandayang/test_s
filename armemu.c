@@ -410,6 +410,7 @@ void armemu_b(struct arm_state *state){
     }
 
     if(is_bl_inst(iw)){
+        printf("bl branch appear\n");
         if(is_beq_inst(iw)){
             if(state->cpsr == 0x40000000){
                 printf("\n");
