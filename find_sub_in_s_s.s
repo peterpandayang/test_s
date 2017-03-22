@@ -34,10 +34,6 @@ loop:
 	str r2, [sp, #16]
 	b loop
 
-haha:
-	mov r0, #2
-	bx lr
-
 found:
 	ldr r0, [sp, #16]
 	bx lr

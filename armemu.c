@@ -532,7 +532,7 @@ int main(int argc, char **argv){
     struct arm_state state;
     struct value_st v_st;
     int *p_pos_array = v_st.pos_array;
-    int size = 10;
+    int size = 20;
 
     init_array_c(p_pos_array, size);
     strcpy(v_st.s, "hello");
