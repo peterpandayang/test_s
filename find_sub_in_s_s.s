@@ -29,8 +29,6 @@ loop:
 	ldr lr, [sp, #64]
 	cmp r0, #0
 	beq found
-	cmp r0, #-1
-	beq not_found
 	ldr r2, [sp, #16]
 	add r2, r2, #1
 	str r2, [sp, #16]
@@ -41,7 +39,8 @@ found:
 	bx lr
 
 not_found:
-	mov r0, #-1
+	mov r0, r0, #0
+	sub r0, r0, #1
 	bx lr
 
 .endfunc
@@ -73,7 +72,7 @@ check_common_loop:
 	str r2, [sp, #40]
 	b check_common_loop
 
-no_common:   /* 744 */
+no_common:   /* 668 */
 	mov r0, #0
 	sub r0, r0, #1
 	bx lr
