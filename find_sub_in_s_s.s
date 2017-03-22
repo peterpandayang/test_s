@@ -70,13 +70,14 @@ check_common_loop:
 	ldrb r3, [r0]
 	ldrb r12, [r1]  
 	cmp r3, r12
-	bne no_common
+	bne no_common 184
 	add r2, r2, #1
 	str r2, [sp, #40]
 	b check_common_loop
 
 no_common:
-	mov r0, #-1
+	mov r0, #0
+	sub r0, r0, #1
 	bx lr
 
 has_common:
