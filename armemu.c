@@ -469,6 +469,14 @@ unsigned int armemu(struct arm_state *state){
 
     while (state->regs[PC] != 0) {
         armemu_one(state);
+        printf("r0 is: %d\n", state->regs[0]);
+        printf("r1 is: %d\n", state->regs[1]);
+        printf("r2 is: %d\n", state->regs[2]);
+        printf("r3 is: %c\n", state->regs[3]);
+        printf("r3 is: %d\n", state->regs[3]);
+        printf("r12 is: %c\n", state->regs[12]);
+        printf("PC is: %d\n", state->regs[PC]);
+        printf("\n");
     }
 
     return state->regs[0];
