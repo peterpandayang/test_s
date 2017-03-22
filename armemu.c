@@ -407,6 +407,7 @@ void armemu_b(struct arm_state *state){
     if(is_bl_inst(iw)){
         if(is_beq_inst(iw)){
             if(state->cpsr == 0x40000000){
+                printf("bleq is taken\n");
                 save_link_addr(state);
                 state->regs[PC] = state->regs[PC] + 8 + offset * 4;
             }
@@ -564,7 +565,7 @@ int main(int argc, char **argv){
 
 
     // printf("address is: %d\n", p_s);
-    strstr_test(p_s, p_sub);
+    // strstr_test(p_s, p_sub);
     find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
   
     return 0;
