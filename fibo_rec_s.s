@@ -22,8 +22,6 @@ rec:
 	str r0, [sp]
 	add sp, sp, #4
 	ldr r0, [sp, #4]
-	mov r0, r0
-
 	sub r0, r0, #2
 	sub sp, sp, #8
 	bl fibo_rec_s
