@@ -22,6 +22,7 @@ struct arm_state {
     unsigned int regs[NREGS];
     unsigned int cpsr;
     unsigned char stack[STACK_SIZE];
+    int pos_array[VALUE_MAX_STR_LEN];
     char s[50];
     char sub[10];
 };
@@ -473,13 +474,13 @@ unsigned int armemu(struct arm_state *state){
 
     while (state->regs[PC] != 0) {
         armemu_one(state);
-        printf("r0 is: %d\n", state->regs[0]);
-        printf("r1 is: %d\n", state->regs[1]);
-        printf("r2 is: %d\n", state->regs[2]);
-        printf("r3 is: %c\n", state->regs[3]);
-        printf("r3 is: %d\n", state->regs[3]);
-        printf("r12 is: %c\n", state->regs[12]);
-        printf("PC is: %d\n", state->regs[PC]);
+        // printf("r0 is: %d\n", state->regs[0]);
+        // printf("r1 is: %d\n", state->regs[1]);
+        // printf("r2 is: %d\n", state->regs[2]);
+        // printf("r3 is: %c\n", state->regs[3]);
+        // printf("r3 is: %d\n", state->regs[3]);
+        // printf("r12 is: %c\n", state->regs[12]);
+        // printf("PC is: %d\n", state->regs[PC]);
         // printf("\n");
     }
 
@@ -517,7 +518,6 @@ void fibo_rec_test(struct arm_state *as, unsigned int *func, int size){
 }
 
 void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, char *p_sub){
-    printf("......................\n");
     unsigned int int_p_s = (unsigned int)((unsigned int *)p_s);
     unsigned int int_p_sub = (unsigned int)((unsigned int *)p_sub);
     int s_len = strlen(p_s);
@@ -533,7 +533,8 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
 int main(int argc, char **argv){
     struct arm_state state;
     struct value_st v_st;
-    int *p_pos_array = v_st.pos_array;
+    // int *p_pos_array = v_st.pos_array;
+    int *p_pos_array = state.pos_array;
     int size = 20;
 
     init_array_c(p_pos_array, size);
@@ -546,10 +547,10 @@ int main(int argc, char **argv){
     char *p_s = state.s;
     char *p_sub = state.sub;
 
-    // sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
-    // find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
+    sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
+    find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
     fibo_iter_test(&state, (unsigned int *) fibo_iter_s, size);
-    // fibo_rec_test(&state, (unsigned int *) fibo_rec_s, size);
+    fibo_rec_test(&state, (unsigned int *) fibo_rec_s, size);
     printf("this is alright\n");
     find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
   
