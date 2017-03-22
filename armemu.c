@@ -139,6 +139,9 @@ void armemu_cmp(struct arm_state *state){
     rn = (iw >> 16) & 0xF;
     state->cpsr = 0;
 
+    if(rd == 0){
+        printf("r0 is: %s\n", state->regs[0]);
+    }
     if(is_imme_dp(iw)){
         imme = iw & 0xFF;
         if(state->regs[rn] - imme < 0){
@@ -511,14 +514,14 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
     unsigned int int_p_sub = (unsigned int)((unsigned int *)p_sub);
     int s_len = strlen(p_s);
     int s_sub_len = strlen(p_sub);
-    printf("s_len is: %d\n", s_len);
-    printf("s_sub_len is: %d\n", s_sub_len);
-    printf("inner address is: %d\n", p_s);
-    printf("char is: %c\n", *p_s);
+    // printf("s_len is: %d\n", s_len);
+    // printf("s_sub_len is: %d\n", s_sub_len);
+    // printf("inner address is: %d\n", p_s);
+    // printf("char is: %c\n", *p_s);
     init_arm_state(as, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     int pos;
     pos = armemu(as);
-    printf("position is: %d\n", pos);
+    // printf("position is: %d\n", pos);
     // printf("char is: %c\n", pos);
 }
 
