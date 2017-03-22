@@ -583,10 +583,10 @@ int main(int argc, char **argv){
     char *p_s = v_st.s;
     char *p_sub = v_st.sub;
 
-    // sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
-    // find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
-    // fibo_iter_test(&state, (unsigned int *) fibo_iter_s, size);
-    // fibo_rec_test(&state, (unsigned int *) fibo_rec_s, size);
+    sum_array_test(&state, (unsigned int *) sum_array_s, p_pos_array, size);
+    find_max_test(&state, (unsigned int *) find_max_s, p_pos_array, size);
+    fibo_iter_test(&state, (unsigned int *) fibo_iter_s, size);
+    fibo_rec_test(&state, (unsigned int *) fibo_rec_s, size);
 
 
     printf("address is: %d\n", p_s);
