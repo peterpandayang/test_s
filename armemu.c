@@ -514,18 +514,11 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
 /*main part*/
 int main(int argc, char **argv){
     struct arm_state state;
-    // struct value_st v_st;
-    // int *p_pos_array = v_st.pos_array;
     int *p_pos_array = state.pos_array;
     int size = 20;
-
     init_array_c(p_pos_array, size);
-    // strcpy(v_st.s, "hello");
-    // strcpy(v_st.sub, "lo");
     strcpy(state.s, "hello");
     strcpy(state.sub, "lo");
-    // char *p_s = v_st.s;
-    // char *p_sub = v_st.sub;
     char *p_s = state.s;
     char *p_sub = state.sub;
 
