@@ -70,7 +70,7 @@ check_common_loop:
 	ldrb r3, [r0]
 	ldrb r12, [r1]  
 	cmp r3, r12
-	bne no_common 184
+	bne no_common 
 	add r2, r2, #1
 	str r2, [sp, #40]
 	b check_common_loop
