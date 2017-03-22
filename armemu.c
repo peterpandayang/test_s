@@ -273,9 +273,7 @@ void armemu_ldrb(struct arm_state *state){
         i = iw >> 25 & 0b1;
         if(i == 0b0){
             offset = iw & 0xFFF;
-            // char *p = 
             state->regs[rd] = *((unsigned int *)(state->regs[rn] + offset)) & 0xFF;
-            // state->regs[rd] = *((unsigned int *)(state->regs[rn] + offset));
         }        
     }
 
@@ -406,9 +404,6 @@ void armemu_b(struct arm_state *state){
     if(is_bl_inst(iw)){
         if(is_beq_inst(iw)){
             if(state->cpsr == 0x40000000){
-                // printf("\n");
-                // printf("branch is taken\n");
-                // printf("\n");
                 save_link_addr(state);
                 state->regs[PC] = state->regs[PC] + 8 + offset * 4;
             }
@@ -438,7 +433,6 @@ void armemu_b(struct arm_state *state){
         }
     }
     else if(is_bne_inst(iw)){
-        // printf(".................................................................\n");
         if(state->cpsr >> 30 == 0b0){
             state->regs[PC] = state->regs[PC] + 8 + offset * 4;
         }
@@ -477,14 +471,14 @@ unsigned int armemu(struct arm_state *state){
 
     while (state->regs[PC] != 0) {
         armemu_one(state);
-        printf("r0 is: %d\n", state->regs[0]);
-        printf("r1 is: %d\n", state->regs[1]);
-        printf("r2 is: %d\n", state->regs[2]);
-        printf("r3 is: %c\n", state->regs[3]);
-        printf("r3 is: %d\n", state->regs[3]);
-        printf("r12 is: %c\n", state->regs[12]);
-        printf("PC is: %d\n", state->regs[PC]);
-        printf("\n");
+        // printf("r0 is: %d\n", state->regs[0]);
+        // printf("r1 is: %d\n", state->regs[1]);
+        // printf("r2 is: %d\n", state->regs[2]);
+        // printf("r3 is: %c\n", state->regs[3]);
+        // printf("r3 is: %d\n", state->regs[3]);
+        // printf("r12 is: %c\n", state->regs[12]);
+        // printf("PC is: %d\n", state->regs[PC]);
+        // printf("\n");
     }
 
     return state->regs[0];
@@ -529,6 +523,7 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
     init_arm_state(as, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     int pos;
     pos = armemu(as);
+    init_arm_state(as, (unsigned int *) func, 0, 0, 0, 0);
     printf("position is: %d\n", pos);
 }
 
