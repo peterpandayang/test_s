@@ -6,17 +6,12 @@ find_sub_in_s_s:
 	sub r12, r2, r3
 	str r12, [sp, #48]
 	str r3, [sp, #56]	
-
-	mov r2, #0
-	
-
-
 	str r0, [sp]
 	str r1, [sp, #8]
-
-	
 	str r2, [sp, #16]
 	str lr, [sp, #64]
+	mov r2, #0
+
 
 
 	# bl get_len
