@@ -422,8 +422,10 @@ void armemu_b(struct arm_state *state){
             printf("this is bl instruction\n");
             if(state->cpsr == 0x40000000){
                 printf("branch has been taken\n");
+                printf("sp before is: %d\n", state->regs[PC]);
                 save_link_addr(state);
                 state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+                printf("sp after is: %d\n", state->regs[PC]);
             }
             else{
                 state->regs[PC] = state->regs[PC] + 4;
