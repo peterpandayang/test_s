@@ -46,17 +46,12 @@ loop:
 	ldrb r3, [r0]
 	ldrb r12, [r1]
 	cmp r3, r12
+
+	beq hahab
+
 	bleq check_common
 
 
-	ldr r0, [sp]
-	add r2, r2, #1
-	add r0, r0, r2
-	ldr r1, [sp, #8]
-	ldrb r3, [r0]
-	ldrb r12, [r1]
-	cmp r3, r12
-	bleq hahab
 
 
 
