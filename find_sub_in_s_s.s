@@ -48,9 +48,6 @@ loop:
 	cmp r3, r12
 	bleq check_common
 
-	bx lr
-
-
 	ldr lr, [sp, #64]
 	cmp r0, #0
 	beq found
@@ -73,9 +70,6 @@ not_found:
 .func check_common
 
 check_common:
-
-	mov r0, #31
-	bx lr
 
 	mov r2, #0
 	str r0, [sp, #24]
