@@ -25,6 +25,9 @@ loop:
 	ldrb r3, [r0]  
 	ldrb r12, [r1]
 	cmp r3, r12
+
+	beq haha
+
 	bleq check_common 
 	ldr lr, [sp, #64]
 	cmp r0, #0
@@ -34,6 +37,9 @@ loop:
 	str r2, [sp, #16]
 	b loop
 
+haha:
+	mov r0, #2
+	bx lr
 
 found:
 	ldr r0, [sp, #16]

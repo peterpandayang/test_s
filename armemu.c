@@ -150,14 +150,14 @@ void armemu_cmp(struct arm_state *state){
     }
     else{
         rm = iw & 0xF;
-        if(rn == 3 ){
-            printf("r3 is: %c\n", state->regs[rn]);
-            printf("r12 is: %c\n", state->regs[rd]);
-        //     printf("result is: %d\n", state->regs[rn] - state->regs[rm]);
-            if(*((unsigned int *)state->regs[rn]) == *((unsigned int *)state->regs[rd])){
-                state->cpsr = 0x40000000;
-            }
-        }
+        // if(rn == 3 ){
+        //     printf("r3 is: %c\n", state->regs[rn]);
+        //     printf("r12 is: %c\n", state->regs[rd]);
+        // //     printf("result is: %d\n", state->regs[rn] - state->regs[rm]);
+        //     if(*((unsigned int *)state->regs[rn]) == *((unsigned int *)state->regs[rd])){
+        //         state->cpsr = 0x40000000;
+        //     }
+        // }
         if(state->regs[rn] - state->regs[rm] < 0){
             state->cpsr = 0x80000000;
         }
