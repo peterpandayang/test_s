@@ -545,7 +545,7 @@ int main(int argc, char **argv){
     // fibo_rec_test(&state, (unsigned int *) fibo_rec_s, size);
 
 
-    printf("address is: %d\n", p_s);
+    // printf("address is: %d\n", p_s);
     find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
   
     return 0;
