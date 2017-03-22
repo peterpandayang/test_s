@@ -139,7 +139,7 @@ void armemu_cmp(struct arm_state *state){
     rn = (iw >> 16) & 0xF;
     state->cpsr = 0;
 
-    if(rd == 0){
+    if(rn == 0){
         printf("r0 is: %s\n", state->regs[0]);
     }
     if(is_imme_dp(iw)){
