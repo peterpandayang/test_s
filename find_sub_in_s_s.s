@@ -2,24 +2,36 @@
 .func find_sub_in_s_s
 
 find_sub_in_s_s:
+	sub sp, sp, #64
+	sub r12, r2, r3
+	str r12, [sp, #48]
+	str r3, [sp, #56]	
 
 	mov r2, #0
-	sub sp, sp, #64
+	
+
+
 	str r0, [sp]
 	str r1, [sp, #8]
+
+	
 	str r2, [sp, #16]
 	str lr, [sp, #64]
-	bl get_len
-	ldr lr, [sp, #64]
-	bx lr
-	str r0, [sp, #48]
-	ldr r0, [sp, #8]
-	bl get_len
-	ldr lr, [sp, #64]
-	str r0, [sp, #56]
-	ldr r1, [sp, #48]
-	sub r2, r1, r0
-	str r2, [sp, #48]
+
+
+	# bl get_len
+	# ldr lr, [sp, #64]
+	# bx lr
+	# str r0, [sp, #48]
+	# ldr r0, [sp, #8]
+	# bl get_len
+	# ldr lr, [sp, #64]
+	# str r0, [sp, #56]
+	# ldr r1, [sp, #48]
+	# sub r2, r1, r0
+	# str r2, [sp, #48]
+	mov r0, r2
+	bx lr 
 
 loop:
 	ldr r1, [sp, #48]
