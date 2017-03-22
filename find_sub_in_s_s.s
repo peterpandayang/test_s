@@ -1,7 +1,7 @@
 .global find_sub_in_s_s
 .func find_sub_in_s_s
 
-find_sub_in_s_s:
+find_sub_in_s_s: #760
 	sub sp, sp, #64
 	sub r12, r2, r3
 	str r12, [sp, #48]
@@ -11,38 +11,21 @@ find_sub_in_s_s:
 	str r1, [sp, #8]
 	str r2, [sp, #16]
 	str lr, [sp, #64]
-	
 
-
-
-	# bl get_len
-	# ldr lr, [sp, #64]
-	# bx lr
-	# str r0, [sp, #48]
-	# ldr r0, [sp, #8]
-	# bl get_len
-	# ldr lr, [sp, #64]
-	# str r0, [sp, #56]
-	# ldr r1, [sp, #48]
-	# sub r2, r1, r0
-	# str r2, [sp, #48]
-	# ldr r0, [sp, #56]
-	# bx lr 
-
-loop:
-	ldr r1, [sp, #48]
+loop: 
+	ldr r1, [sp, #48] #796
 	ldr r2, [sp, #16]
 	sub r2, r2, #1
 	cmp r2, r1
-	beq not_found
+	beq not_found 
 	ldr r0, [sp]
 	add r2, r2, #1
 	add r0, r0, r2
 	ldr r1, [sp, #8]
-	ldrb r3, [r0]
+	ldrb r3, [r0] #832
 	ldrb r12, [r1]
 	cmp r3, r12
-	bleq check_common
+	bleq check_common #868
 	ldr lr, [sp, #64]
 	cmp r0, #0
 	beq found
@@ -67,12 +50,12 @@ not_found:
 
 check_common:
 
-	mov r2, #0
+	mov r2, #0 
 	str r0, [sp, #24]
 	str r1, [sp, #32]
 	str r2, [sp, #40]
 
-check_common_loop:
+check_common_loop: 
 	ldr r1, [sp, #56]
 	ldr r2, [sp, #40]
 	cmp r2, r1

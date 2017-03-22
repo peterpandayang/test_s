@@ -412,6 +412,9 @@ void armemu_b(struct arm_state *state){
     if(is_bl_inst(iw)){
         if(is_beq_inst(iw)){
             if(state->cpsr == 0x40000000){
+                printf("\n");
+                printf("branch is taken\n");
+                printf("\n");
                 save_link_addr(state);
                 state->regs[PC] = state->regs[PC] + 8 + offset * 4;
             }
