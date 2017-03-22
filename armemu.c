@@ -16,7 +16,7 @@ int sum_array_s(int *p, int n);
 int find_max_s(int *p, int n);
 int fibo_iter_s(int n);
 int fibo_rec_s(int n);
-int find_sub_in_s_s(char *s, char *sub);
+int find_sub_in_s_s(char *s, char *sub, int s_len, int s_sub_len);
 
 struct arm_state {
     unsigned int regs[NREGS];
