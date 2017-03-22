@@ -452,6 +452,7 @@ void armemu_b(struct arm_state *state){
         }
     }
     else if(is_bne_inst(iw)){
+        printf(".................................................................\n");
         if(state->cpsr >> 30 == 0b0){
             state->regs[PC] = state->regs[PC] + 8 + offset * 4;
         }
