@@ -48,7 +48,6 @@ loop:
 	cmp r3, r12
 	bleq check_common
 
-	mov r0, #30
 	bx lr
 
 
