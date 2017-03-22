@@ -97,10 +97,6 @@ void armemu_add(struct arm_state *state){
         state->regs[rd] = state->regs[rn] + state->regs[rm];        
     }
 
-    if(rd == 3){
-        printf("r3 is: %d\n", state->regs[rd]);
-        printf("r0 is: %d\n", state->regs[rn]);
-    }
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
     }
@@ -114,9 +110,6 @@ void armemu_sub(struct arm_state *state){
     rd = (iw >> 12) & 0xF;
     rn = (iw >> 16) & 0xF;
 
-    if(rn == 2){
-        printf("r2 is: %d\n", state->regs[2]);
-    }
     if(is_imme_dp(iw)){
         imme = iw & 0xFF;
         state->regs[rd] = state->regs[rn] - imme;
@@ -161,7 +154,6 @@ void armemu_cmp(struct arm_state *state){
             state->cpsr = 0x80000000;
         }
         if(state->regs[rn] - state->regs[rm] == 0){
-            printf("rn and rm are: %d %d\n", rn, rm);
             state->cpsr = 0x40000000;
         }
     }
@@ -181,6 +173,9 @@ void armemu_mov(struct arm_state *state){
     iw = *((unsigned int *) state->regs[PC]);
     rd = (iw >> 12) & 0xF;
 
+    if(rd == 0){
+        printf("r0 is: %d\n", state->regs[0]);
+    }
     if(is_imme_dp(iw)){
         unsigned int imme = iw & 0xFF;
         state->regs[rd] = imme;
@@ -285,14 +280,6 @@ void armemu_ldrb(struct arm_state *state){
         }        
     }
 
-    if(rd == 3){
-        printf("int in r3 is: %d\n", state->regs[rd]);
-        printf("char in r3 is: %c\n", state->regs[rd]);
-    }
-    if(rd == 12){
-        printf("int in r12 is: %d\n", state->regs[rd]);
-        printf("char in r12 is: %c\n", state->regs[rd]);
-    }
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
     }
@@ -419,13 +406,9 @@ void armemu_b(struct arm_state *state){
 
     if(is_bl_inst(iw)){
         if(is_beq_inst(iw)){
-            printf("this is bl instruction\n");
             if(state->cpsr == 0x40000000){
-                printf("branch has been taken\n");
-                printf("sp before is: %d\n", state->regs[PC]);
                 save_link_addr(state);
                 state->regs[PC] = state->regs[PC] + 8 + offset * 4;
-                printf("sp after is: %d\n", state->regs[PC]);
             }
             else{
                 state->regs[PC] = state->regs[PC] + 4;
@@ -552,7 +535,7 @@ int main(int argc, char **argv){
 
     init_array_c(p_pos_array, size);
     strcpy(v_st.s, "hello");
-    strcpy(v_st.sub, "llo");
+    strcpy(v_st.sub, "lo");
     char *p_s = v_st.s;
     char *p_sub = v_st.sub;
 
