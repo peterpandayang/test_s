@@ -559,7 +559,7 @@ int main(int argc, char **argv){
 
     init_array_c(p_pos_array, size);
     strcpy(v_st.s, "hello");
-    strcpy(v_st.sub, "hel");
+    strcpy(v_st.sub, "llo");
     char *p_s = v_st.s;
     char *p_sub = v_st.sub;
 
