@@ -26,7 +26,7 @@ loop:
 	ldrb r12, [r1]
 	cmp r3, r12
 
-	bne haha
+	# bne haha
 
 	bleq check_common 
 	ldr lr, [sp, #64]
