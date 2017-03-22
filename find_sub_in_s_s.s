@@ -47,6 +47,10 @@ loop:
 	ldrb r12, [r1]
 	cmp r3, r12
 	bleq check_common
+
+	bx lr
+
+
 	ldr lr, [sp, #64]
 	cmp r0, #0
 	beq found
@@ -73,10 +77,10 @@ check_common:
 	mov r0, #31
 	bx lr
 
-	 mov r2, #0
-	 str r0, [sp, #24]
-	 str r1, [sp, #32]
-	 str r2, [sp, #40]
+	mov r2, #0
+	str r0, [sp, #24]
+	str r1, [sp, #32]
+	str r2, [sp, #40]
 
 check_common_loop:
 	ldr r1, [sp, #56]
