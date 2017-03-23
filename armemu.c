@@ -477,6 +477,19 @@ void print_array_c(int *p_array, int n){
     printf("\n");
 }
 
+int print_str(char *p){
+    int len = strlen(p);
+    int i;
+    printf("\"");
+    for(i = 0; i < len; i++){
+        printf("%c", *p);
+        p += 1;
+    }
+    printf("\"");
+    printf("\n");
+    return 0;
+}
+
 /*test part*/
 void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int size){
     printf("Start sum array test and print input array......\n");
@@ -518,6 +531,10 @@ void fibo_rec_test(struct arm_state *as, unsigned int *func, int size){
 
 void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, char *p_sub){
     printf("Start strstr test......\n");
+    printf("Larger string: \n");
+    print_str(p_s);
+    printf("Smaller string: \n");
+    print_str(p_sub);
     unsigned int int_p_s = (unsigned int)((unsigned int *)p_s);
     unsigned int int_p_sub = (unsigned int)((unsigned int *)p_sub);
     int s_len = strlen(p_s);
