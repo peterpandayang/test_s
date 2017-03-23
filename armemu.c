@@ -469,10 +469,10 @@ unsigned int armemu(struct arm_state *state){
     return state->regs[0];
 }
 
-void print_array_c(int p_array, int n){
+void print_array_c(int *p_array, int n){
     int i = 0;
     for(i = 0; i < n ; i++){
-        printf("%d ", *((unsigned int *)p_array[i]));
+        printf("%d ", p_array[i]);
     }
     printf("\n");
 }
@@ -490,7 +490,7 @@ void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int 
 
 void find_max_test(struct arm_state *as, unsigned int *func, int *p_array, int size){
     printf("Start max array test and print input array......\n");
-    print_array_c((unsigned int) p_array, size);
+    print_array_c(p_array, size);
     init_arm_state(as, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     int max;
     max = armemu(as);
