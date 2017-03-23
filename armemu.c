@@ -480,7 +480,7 @@ void print_array_c(int *p_array, int n){
 /*test part*/
 void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int size){
     printf("Start sum array test and print input array......\n");
-    print_array_c((unsigned int)p_array, size);
+    print_array_c(*(unsigned int)p_array, size);
     init_arm_state(as, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     int sum;
     sum = armemu(as);
