@@ -499,7 +499,7 @@ void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int 
     int sum;
     sum = armemu(as);
     printf("sum is: %d\n", sum);
-    printf("A total number of %d instructions has been executed.\n", state->exec_instr_count);
+    printf("A total number of %d instructions has been executed.\n", as->exec_instr_count);
     printf("\n");
 }                  
 
@@ -510,7 +510,7 @@ void find_max_test(struct arm_state *as, unsigned int *func, int *p_array, int s
     int max;
     max = armemu(as);
     printf("max is: %d\n", max);
-    printf("A total number of %d instructions has been executed.\n", state->exec_instr_count);
+    printf("A total number of %d instructions has been executed.\n", as->exec_instr_count);
     printf("\n");
 }
 
@@ -520,7 +520,7 @@ void fibo_iter_test(struct arm_state *as, unsigned int *func, int size){
     int fibo_iter;
     fibo_iter = armemu(as);
     printf("fibo iteration result for %d's element is: %d\n", size, fibo_iter);
-    printf("A total number of %d instructions has been executed.\n", state->exec_instr_count);
+    printf("A total number of %d instructions has been executed.\n", as->exec_instr_count);
     printf("\n");
 }
 
@@ -530,7 +530,7 @@ void fibo_rec_test(struct arm_state *as, unsigned int *func, int size){
     int fibo_rec;
     fibo_rec = armemu(as);
     printf("fibo recursion result for %d's element is: %d\n", size, fibo_rec);
-    printf("A total number of %d instructions has been executed.\n", state->exec_instr_count);
+    printf("A total number of %d instructions has been executed.\n", as->exec_instr_count);
     printf("\n");
 }
 
@@ -548,7 +548,7 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
     int pos;
     pos = armemu(as);
     printf("Start position is: %d\n", pos);
-    printf("A total number of %d instructions has been executed.\n", state->exec_instr_count);
+    printf("A total number of %d instructions has been executed.\n", as->exec_instr_count);
     printf("\n");
 }
 
