@@ -469,10 +469,18 @@ unsigned int armemu(struct arm_state *state){
     return state->regs[0];
 }
 
+void print_array_c(int *p_aray, int n){
+    int i = 0;
+    for(i = 0; i < n ; i++){
+        printf("%d ", p_aray[i]);
+    }
+    printf("\n");
+}
 
 /*test part*/
 void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int size){
-    printf("Start sum array test......\n");
+    printf("Start sum array test and print input array......\n");
+    print_array_c((unsigned int) p_array, size);
     init_arm_state(as, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     int sum;
     sum = armemu(as);
@@ -481,7 +489,8 @@ void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int 
 }                  
 
 void find_max_test(struct arm_state *as, unsigned int *func, int *p_array, int size){
-    printf("Start max array test......\n");
+    printf("Start max array test and print input array......\n");
+    print_array_c((unsigned int) p_array, size);
     init_arm_state(as, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     int max;
     max = armemu(as);
@@ -494,7 +503,7 @@ void fibo_iter_test(struct arm_state *as, unsigned int *func, int size){
     init_arm_state(as, (unsigned int *) func, size, 0, 0, 0);
     int fibo_iter;
     fibo_iter = armemu(as);
-    printf("fibo iteration result is: %d\n", fibo_iter);
+    printf("fibo iteration result for %d's element is: %d\n", size, fibo_iter);
     printf("\n");
 }
 
@@ -503,7 +512,7 @@ void fibo_rec_test(struct arm_state *as, unsigned int *func, int size){
     init_arm_state(as, (unsigned int *) func, size, 0, 0, 0);
     int fibo_rec;
     fibo_rec = armemu(as);
-    printf("fibo recursion result is: %d\n", fibo_rec);
+    printf("fibo recursion result for %d's element is: %d\n", size, fibo_rec);
     printf("\n");
 }
 
