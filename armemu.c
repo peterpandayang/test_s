@@ -2,15 +2,12 @@
 #include <stdio.h>
 #include <string.h>
 
-
-
 #define NREGS 16
 #define STACK_SIZE 1024
 #define SP 13
 #define LR 14
 #define PC 15
 #define VALUE_MAX_STR_LEN 64
-
 
 int sum_array_s(int *p, int n);
 int find_max_s(int *p, int n);
@@ -25,6 +22,7 @@ struct arm_state {
     int array[VALUE_MAX_STR_LEN];
     char s[50];
     char sub[10];
+    int exec_instr_count;
 };
 
 
@@ -49,6 +47,8 @@ void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0,
     as->regs[1] = arg1;
     as->regs[2] = arg2;
     as->regs[3] = arg3;
+
+    as->exec_instr_count = 0;
 }
 
 void init_array_c(int *p_pos, int n){
@@ -472,34 +472,43 @@ unsigned int armemu(struct arm_state *state){
 
 /*test part*/
 void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int size){
+    printf("Start sum array test......\n");
     init_arm_state(as, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     int sum;
     sum = armemu(as);
     printf("sum is: %d\n", sum);
+    printf("\n");
 }                  
 
 void find_max_test(struct arm_state *as, unsigned int *func, int *p_array, int size){
+    printf("Start max array test......\n");
     init_arm_state(as, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     int max;
     max = armemu(as);
     printf("max is: %d\n", max);
+    printf("\n");
 }
 
 void fibo_iter_test(struct arm_state *as, unsigned int *func, int size){
+    printf("Start iteration fibonacci test......\n");
     init_arm_state(as, (unsigned int *) func, size, 0, 0, 0);
     int fibo_iter;
     fibo_iter = armemu(as);
     printf("fibo iteration result is: %d\n", fibo_iter);
+    printf("\n");
 }
 
 void fibo_rec_test(struct arm_state *as, unsigned int *func, int size){
+    printf("Start recursion fibonacci test......\n");
     init_arm_state(as, (unsigned int *) func, size, 0, 0, 0);
     int fibo_rec;
     fibo_rec = armemu(as);
     printf("fibo recursion result is: %d\n", fibo_rec);
+    printf("\n");
 }
 
 void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, char *p_sub){
+    printf("Start strstr test......\n");
     unsigned int int_p_s = (unsigned int)((unsigned int *)p_s);
     unsigned int int_p_sub = (unsigned int)((unsigned int *)p_sub);
     int s_len = strlen(p_s);
@@ -508,6 +517,7 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
     int pos;
     pos = armemu(as);
     printf("position is: %d\n", pos);
+    printf("\n");
 }
 
 
