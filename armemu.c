@@ -464,6 +464,7 @@ unsigned int armemu(struct arm_state *state){
 
     while (state->regs[PC] != 0) {
         armemu_one(state);
+        state->exec_instr_count += 1;
     }
 
     return state->regs[0];
@@ -498,6 +499,7 @@ void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int 
     int sum;
     sum = armemu(as);
     printf("sum is: %d\n", sum);
+    printf("A total number of %d instructions has been executed.\n", state->exec_instr_count);
     printf("\n");
 }                  
 
@@ -508,6 +510,7 @@ void find_max_test(struct arm_state *as, unsigned int *func, int *p_array, int s
     int max;
     max = armemu(as);
     printf("max is: %d\n", max);
+    printf("A total number of %d instructions has been executed.\n", state->exec_instr_count);
     printf("\n");
 }
 
@@ -517,6 +520,7 @@ void fibo_iter_test(struct arm_state *as, unsigned int *func, int size){
     int fibo_iter;
     fibo_iter = armemu(as);
     printf("fibo iteration result for %d's element is: %d\n", size, fibo_iter);
+    printf("A total number of %d instructions has been executed.\n", state->exec_instr_count);
     printf("\n");
 }
 
@@ -526,6 +530,7 @@ void fibo_rec_test(struct arm_state *as, unsigned int *func, int size){
     int fibo_rec;
     fibo_rec = armemu(as);
     printf("fibo recursion result for %d's element is: %d\n", size, fibo_rec);
+    printf("A total number of %d instructions has been executed.\n", state->exec_instr_count);
     printf("\n");
 }
 
@@ -542,7 +547,8 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
     init_arm_state(as, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     int pos;
     pos = armemu(as);
-    printf("position is: %d\n", pos);
+    printf("Start position is: %d\n", pos);
+    printf("A total number of %d instructions has been executed.\n", state->exec_instr_count);
     printf("\n");
 }
 
