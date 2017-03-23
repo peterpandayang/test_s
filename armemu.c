@@ -25,6 +25,7 @@ struct arm_state {
     int exec_instr_count;
     int compu_count;
     int mem_count;
+    int branch_count;
 };
 
 
@@ -48,6 +49,7 @@ void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0,
     as->exec_instr_count = 0;
     as->compu_count = 0;
     as->mem_count = 0;
+    as->branch_count = 0;
 }
 
 void init_array_c(int *p_pos, int n){
@@ -423,9 +425,11 @@ void armemu_one(struct arm_state *state){
     unsigned int iw;   
     iw = *((unsigned int *) state->regs[PC]);
     if (is_bx_inst(iw)) {
+        state->branch_count += 1;
         armemu_bx(state);
     } 
     else if (is_b_inst(iw)) {
+        state->branch_count += 1;
         armemu_b(state);
     } 
     else if(is_data_pro_inst(iw)){
@@ -478,6 +482,7 @@ void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int 
     printf("Total number of instructions executed: %d\n", as->exec_instr_count);
     printf("Total number of computation instructions executed: %d\n", as->compu_count);
     printf("Total number of memory instructions executed: %d\n", as->mem_count);
+    printf("Total number of branch instructions executed: %d\n", as->branch_count);
     printf("\n");
 }                  
 
@@ -491,6 +496,7 @@ void find_max_test(struct arm_state *as, unsigned int *func, int *p_array, int s
     printf("Total number of instructions executed: %d\n", as->exec_instr_count);
     printf("Total number of computation instructions executed: %d\n", as->compu_count);
     printf("Total number of memory instructions executed: %d\n", as->mem_count);
+    printf("Total number of branch instructions executed: %d\n", as->branch_count);
     printf("\n");
 }
 
@@ -503,6 +509,7 @@ void fibo_iter_test(struct arm_state *as, unsigned int *func, int size){
     printf("Total number of instructions executed: %d\n", as->exec_instr_count);
     printf("Total number of computation instructions executed: %d\n", as->compu_count);
     printf("Total number of memory instructions executed: %d\n", as->mem_count);
+    printf("Total number of branch instructions executed: %d\n", as->branch_count);
     printf("\n");
 }
 
@@ -515,6 +522,7 @@ void fibo_rec_test(struct arm_state *as, unsigned int *func, int size){
     printf("Total number of instructions executed: %d\n", as->exec_instr_count);
     printf("Total number of computation instructions executed: %d\n", as->compu_count);
     printf("Total number of memory instructions executed: %d\n", as->mem_count);
+    printf("Total number of branch instructions executed: %d\n", as->branch_count);
     printf("\n");
 }
 
@@ -535,6 +543,7 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
     printf("Total number of instructions executed: %d\n", as->exec_instr_count);
     printf("Total number of computation instructions executed: %d\n", as->compu_count);
     printf("Total number of memory instructions executed: %d\n", as->mem_count);
+    printf("Total number of branch instructions executed: %d\n", as->branch_count);
     printf("\n");
 }
 
