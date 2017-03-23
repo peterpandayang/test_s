@@ -469,7 +469,7 @@ unsigned int armemu(struct arm_state *state){
     return state->regs[0];
 }
 
-void print_array_c(int *p_aray, int n){
+void print_array_c(unsigned int *p_aray, int n){
     int i = 0;
     for(i = 0; i < n ; i++){
         printf("%d ", p_aray[i]);
