@@ -427,7 +427,7 @@ void armemu_one(struct arm_state *state){
         armemu_b(state);
     } 
     else if(is_data_pro_inst(iw)){
-        as->compu_count += 1;
+        state->compu_count += 1;
         armemu_data_pro(state);
     }
     else if(is_mem_inst(iw)){
