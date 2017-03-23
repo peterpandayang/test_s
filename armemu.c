@@ -23,23 +23,20 @@ struct arm_state {
     char s[50];
     char sub[10];
     int exec_instr_count;
+    int compu_count;
 };
 
 
 void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3){
     int i;
-
     /* zero out all arm state */
     for (i = 0; i < NREGS; i++) {
         as->regs[i] = 0;
     }
-
     as->cpsr = 0;
-
     for (i = 0; i < STACK_SIZE; i++) {
         as->stack[i] = 0;
     }
-
     as->regs[PC] = (unsigned int) func;
     as->regs[SP] = (unsigned int) &as->stack[STACK_SIZE];
     as->regs[LR] = 0;
@@ -47,8 +44,8 @@ void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0,
     as->regs[1] = arg1;
     as->regs[2] = arg2;
     as->regs[3] = arg3;
-
     as->exec_instr_count = 0;
+    as->compu_count = 0;
 }
 
 void init_array_c(int *p_pos, int n){
@@ -81,7 +78,6 @@ bool is_imme_dp(unsigned int iw){
 void armemu_add(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, rm, imme;
-
     iw = *((unsigned int *) state->regs[PC]);    
     rd = (iw >> 12) & 0xF;
     rn = (iw >> 16) & 0xF;
@@ -93,7 +89,6 @@ void armemu_add(struct arm_state *state){
         rm = iw & 0xF;
         state->regs[rd] = state->regs[rn] + state->regs[rm];        
     }
-
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
     }
@@ -102,11 +97,9 @@ void armemu_add(struct arm_state *state){
 void armemu_sub(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, rm, imme;
-
     iw = *((unsigned int *) state->regs[PC]);    
     rd = (iw >> 12) & 0xF;
     rn = (iw >> 16) & 0xF;
-
     if(is_imme_dp(iw)){
         imme = iw & 0xFF;
         state->regs[rd] = state->regs[rn] - imme;
@@ -115,7 +108,6 @@ void armemu_sub(struct arm_state *state){
         rm = iw & 0xF;
         state->regs[rd] = state->regs[rn] - state->regs[rm];
     }  
-
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
     }
@@ -131,11 +123,9 @@ bool is_cmp_inst(unsigned int iw){
 void armemu_cmp(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, rm, imme;
-
     iw = *((unsigned int *) state->regs[PC]);    
     rn = (iw >> 16) & 0xF;
     state->cpsr = 0;
-
     if(is_imme_dp(iw)){
         imme = iw & 0xFF;
         if(state->regs[rn] - imme < 0){
@@ -166,10 +156,8 @@ bool is_mov_inst(unsigned int iw){
 void armemu_mov(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, imme;
-
     iw = *((unsigned int *) state->regs[PC]);
     rd = (iw >> 12) & 0xF;
-
     if(is_imme_dp(iw)){
         unsigned int imme = iw & 0xFF;
         state->regs[rd] = imme;
@@ -178,7 +166,6 @@ void armemu_mov(struct arm_state *state){
         rn = iw & 0b1111;
         state->regs[rd] = state->regs[rn];
     }
-
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
     }
@@ -192,9 +179,7 @@ bool is_data_pro_inst(unsigned int iw){
 
 void armemu_data_pro(struct arm_state *state){
     unsigned int iw;
-
     iw = *((unsigned int *) state->regs[PC]);
-
     if(is_mov_inst(iw)){
         armemu_mov(state);
     }
@@ -242,7 +227,6 @@ bool is_off_addr(unsigned int iw){
 void armemu_ldr(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, offset, i;
-
     iw = *((unsigned int *) state->regs[PC]);
     rn = (iw >> 16) & 0xF;
     rd = (iw >> 12) & 0xF;
@@ -253,7 +237,6 @@ void armemu_ldr(struct arm_state *state){
             state->regs[rd] = *((unsigned int *)(state->regs[rn] + offset));
         }        
     }
-
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
     }
@@ -262,7 +245,6 @@ void armemu_ldr(struct arm_state *state){
 void armemu_ldrb(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, offset, i;
-
     iw = *((unsigned int *) state->regs[PC]);
     rn = (iw >> 16) & 0xF;
     rd = (iw >> 12) & 0xF;
@@ -273,7 +255,6 @@ void armemu_ldrb(struct arm_state *state){
             state->regs[rd] = *((unsigned int *)(state->regs[rn] + offset)) & 0xFF;
         }        
     }
-
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
     }
@@ -282,7 +263,6 @@ void armemu_ldrb(struct arm_state *state){
 void armemu_str(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, offset, i;
-
     iw = *((unsigned int *) state->regs[PC]);
     rn = (iw >> 16) & 0xF;
     rd = (iw >> 12) & 0xF;
@@ -293,7 +273,6 @@ void armemu_str(struct arm_state *state){
             *((unsigned int *)(state->regs[rn] + offset)) = state->regs[rd];
         }        
     }
-
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
     }
@@ -307,7 +286,6 @@ bool is_mem_inst(unsigned int iw){
 
 void armemu_mem(struct arm_state *state){
     unsigned int iw;
-
     iw = *((unsigned int *)state->regs[PC]);
     if(is_ldr_inst(iw)){
         armemu_ldr(state);
@@ -331,7 +309,6 @@ bool is_bx_inst(unsigned int iw){
 void armemu_bx(struct arm_state *state){
     unsigned int iw;
     unsigned int rn;
-
     iw = *((unsigned int *) state->regs[PC]);
     rn = iw & 0b1111;
     state->regs[PC] = state->regs[rn];
@@ -385,7 +362,6 @@ void save_link_addr(struct arm_state *state){
 
 void armemu_b(struct arm_state *state){
     unsigned int iw, offset;
-
     iw = *((unsigned int *) state->regs[PC]);
     if(is_neg_offset(iw)){
         offset = 0xFFFFFF - (iw & 0xFFFFFF) + 1;
@@ -394,7 +370,6 @@ void armemu_b(struct arm_state *state){
     else{
         offset = iw & 0xFFFFFF;
     }
-
     if(is_bl_inst(iw)){
         if(is_beq_inst(iw)){
             if(state->cpsr == 0x40000000){
@@ -443,8 +418,7 @@ void armemu_b(struct arm_state *state){
 
 /*armemu part*/
 void armemu_one(struct arm_state *state){
-    unsigned int iw;
-    
+    unsigned int iw;   
     iw = *((unsigned int *) state->regs[PC]);
     if (is_bx_inst(iw)) {
         armemu_bx(state);
@@ -453,6 +427,7 @@ void armemu_one(struct arm_state *state){
         armemu_b(state);
     } 
     else if(is_data_pro_inst(iw)){
+        as->compu_count += 1;
         armemu_data_pro(state);
     }
     else if(is_mem_inst(iw)){
@@ -461,12 +436,10 @@ void armemu_one(struct arm_state *state){
 }
 
 unsigned int armemu(struct arm_state *state){
-
     while (state->regs[PC] != 0) {
         armemu_one(state);
         state->exec_instr_count += 1;
     }
-
     return state->regs[0];
 }
 
@@ -500,6 +473,7 @@ void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int 
     sum = armemu(as);
     printf("Sum is: %d\n", sum);
     printf("Total number of instructions executed: %d\n", as->exec_instr_count);
+    printf("Total number of computation instructions executed: %d\n", as->compu_count);
     printf("\n");
 }                  
 
@@ -511,6 +485,7 @@ void find_max_test(struct arm_state *as, unsigned int *func, int *p_array, int s
     max = armemu(as);
     printf("Max is: %d\n", max);
     printf("Total number of instructions executed: %d\n", as->exec_instr_count);
+    printf("Total number of computation instructions executed: %d\n", as->compu_count);
     printf("\n");
 }
 
@@ -521,6 +496,7 @@ void fibo_iter_test(struct arm_state *as, unsigned int *func, int size){
     fibo_iter = armemu(as);
     printf("Fibo iteration result for %d's element is: %d\n", size, fibo_iter);
     printf("Total number of instructions executed: %d\n", as->exec_instr_count);
+    printf("Total number of computation instructions executed: %d\n", as->compu_count);
     printf("\n");
 }
 
@@ -531,6 +507,7 @@ void fibo_rec_test(struct arm_state *as, unsigned int *func, int size){
     fibo_rec = armemu(as);
     printf("Fibo recursion result for %d's element is: %d\n", size, fibo_rec);
     printf("Total number of instructions executed: %d\n", as->exec_instr_count);
+    printf("Total number of computation instructions executed: %d\n", as->compu_count);
     printf("\n");
 }
 
@@ -549,6 +526,7 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
     pos = armemu(as);
     printf("Start position is: %d\n", pos);
     printf("Total number of instructions executed: %d\n", as->exec_instr_count);
+    printf("Total number of computation instructions executed: %d\n", as->compu_count);
     printf("\n");
 }
 
