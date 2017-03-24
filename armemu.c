@@ -636,7 +636,7 @@ void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, 
     print_analysis(state);
 }
 
-void run
+// void run
 
 /*main part*/
 int main(int argc, char **argv){
