@@ -711,7 +711,7 @@ int main(int argc, char **argv){
     char *p_sub = state.sub;
 
     run_emulated(&state, p_array, p_s, p_sub, size);
-    write_to_output(state, 4);
+    write_to_output(&state, 4);
     return 0;
 }
 
