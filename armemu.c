@@ -526,7 +526,7 @@ int print_str(char *p){
     return 0;
 }
 
-void printOneReg(struct arm_state *state, int i){
+void print_one_reg(struct arm_state *state, int i){
     if(i == 13){
         printf("sp");
     }
@@ -544,29 +544,29 @@ void printOneReg(struct arm_state *state, int i){
     }
 }
 
-void printReadRegs(struct arm_state *state){
+void prin_read_regs(struct arm_state *state){
     int i;
     for(i = 0; i <= NREGS; i++){
         if(state->read_regs[i] == 1){
-            printOneReg(state, i);
+            print_one_reg(state, i);
             printf(" ");
         }
     }
     printf("\n");
 }
 
-void printWrittenRegs(struct arm_state *state){
+void print_written_regs(struct arm_state *state){
     int i;
     for(i = 0; i <= NREGS; i++){
         if(state->written_regs[i] == 1){
-            printOneReg(state, i);
+            print_one_reg(state, i);
             printf(" ");
         }
     }
     printf("\n");
 }
 
-void printAnalysis(struct arm_state *state){
+void print_analysis(struct arm_state *state){
     printf("Total instructions: %d\n", state->exec_instr_count);
     printf("Total computation instructions: %d\n", state->compu_count);
     printf("Total memory instructions: %d\n", state->mem_count);
@@ -574,9 +574,9 @@ void printAnalysis(struct arm_state *state){
     printf("Total branch taken: %d\n", state->b_taken_count);
     printf("Total branch not taken: %d\n", state->b_not_taken_count);
     printf("Register used as read: \n");
-    printReadRegs(state);
+    print_read_regs(state);
     printf("Register used as written: \n");
-    printWrittenRegs(state);
+    print_written_regs(state);
     printf("\n");
 }
 
@@ -588,7 +588,7 @@ void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, i
     int sum;
     sum = armemu(state);
     printf("Sum is: %d\n", sum);
-    printAnalysis(state);
+    print_analysis(state);
 }                  
 
 void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, int size){
@@ -598,7 +598,7 @@ void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, in
     int max;
     max = armemu(state);
     printf("Max is: %d\n", max);
-    printAnalysis(state);
+    print_analysis(state);
 }
 
 void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
@@ -607,7 +607,7 @@ void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
     int fibo_iter;
     fibo_iter = armemu(state);
     printf("Fibo iteration result for %d's element is: %d\n", size, fibo_iter);
-    printAnalysis(state);
+    print_analysis(state);
 }
 
 void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
@@ -616,7 +616,7 @@ void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
     int fibo_rec;
     fibo_rec = armemu(state);
     printf("Fibo recursion result for %d's element is: %d\n", size, fibo_rec);
-    printAnalysis(state);
+    print_analysis(state);
 }
 
 void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, char *p_sub){
@@ -633,8 +633,10 @@ void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, 
     init_arm_state(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     pos = armemu(state);
     printf("Start position is: %d\n", pos);
-    printAnalysis(state);
+    print_analysis(state);
 }
+
+void run
 
 /*main part*/
 int main(int argc, char **argv){
