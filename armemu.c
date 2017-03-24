@@ -632,10 +632,11 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
     double total_time = 0.0;
     double inner_func_usecs = 0.0;
 
+
     clock_gettime(CLOCK_MONOTONIC, &t1);
     for (i = 0; i < ITERS; i++) {
         init_arm_state(state, (unsigned int *) func, p_s, p_sub, s_len, s_sub_len);
-        pos = armemu(state);
+        armemu(state);
     }
     clock_gettime(CLOCK_MONOTONIC, &t2); 
 
