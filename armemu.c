@@ -91,14 +91,11 @@ void armemu_add(struct arm_state *state){
     rd = (iw >> 12) & 0xF;
     rn = (iw >> 16) & 0xF;
     if(is_imme_dp(iw)){
-        // imme = iw & 0xFF;
         add_value = iw & 0xFF;
-        // state->regs[rd] = state->regs[rn] + imme;
     }
     else{
         rm = iw & 0xF;
         add_value = state->regs[rm];
-        // state->regs[rd] = state->regs[rn] + state->regs[rm];        
     }
     state->regs[rd] = state->regs[rn] + add_value;  
     if (rd != PC) {
@@ -113,14 +110,11 @@ void armemu_sub(struct arm_state *state){
     rd = (iw >> 12) & 0xF;
     rn = (iw >> 16) & 0xF;
     if(is_imme_dp(iw)){
-        // imme = iw & 0xFF;
         sub_value = iw & 0xFF;
-        // state->regs[rd] = state->regs[rn] - imme;
     }
     else{
         rm = iw & 0xF;
         sub_value = state->regs[rm];
-        // state->regs[rd] = state->regs[rn] - state->regs[rm];
     }  
     state->regs[rd] = state->regs[rn] - sub_value;
     if (rd != PC) {
@@ -150,14 +144,11 @@ void armemu_cmp(struct arm_state *state){
     rn = (iw >> 16) & 0xF;
     state->cpsr = 0;
     if(is_imme_dp(iw)){
-        // imme = iw & 0xFF;
         cmp_value = iw & 0xFF;
-        // update_cpsr_cmp(state, state->regs[rn], imme);
     }
     else{
         rm = iw & 0xF;
         cmp_value = state->regs[rm];
-        // update_cpsr_cmp(state, state->regs[rn], state->regs[rm]);
     }
     update_cpsr_cmp(state, state->regs[rn], cmp_value);
     state->regs[PC] = state->regs[PC] + 4;
@@ -392,6 +383,19 @@ void update_pc_bl_eq(int check_val, struct arm_state *state, int offset){
     }    
 }
 
+void update_based_on_bl(int iw, struct arm_state *state, int offset){
+    if(is_beq_inst(iw)){
+        if(state->cpsr == 0x40000000){
+            save_link_addr(state);
+        }
+        update_pc_bl_eq(state->cpsr, state, offset);
+    }
+    else{            
+        save_link_addr(state);
+        state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+    }
+}
+
 void armemu_b(struct arm_state *state){
     unsigned int iw, offset;
     iw = *((unsigned int *) state->regs[PC]);
@@ -403,16 +407,19 @@ void armemu_b(struct arm_state *state){
         offset = iw & 0xFFFFFF;
     }
     if(is_bl_inst(iw)){
-        if(is_beq_inst(iw)){
-            if(state->cpsr == 0x40000000){
-                save_link_addr(state);
-            }
-            update_pc_bl_eq(state->cpsr, state, offset);
-        }
-        else{            
-            save_link_addr(state);
-            state->regs[PC] = state->regs[PC] + 8 + offset * 4;
-        }
+
+        update_based_on_bl(iw, state, offset);
+
+        // if(is_beq_inst(iw)){
+        //     if(state->cpsr == 0x40000000){
+        //         save_link_addr(state);
+        //     }
+        //     update_pc_bl_eq(state->cpsr, state, offset);
+        // }
+        // else{            
+        //     save_link_addr(state);
+        //     state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+        // }
     }
     else if(is_beq_inst(iw)){
         update_pc_bl_eq(state->cpsr, state, offset);
