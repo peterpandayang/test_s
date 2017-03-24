@@ -651,11 +651,7 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
 void write_to_output(struct arm_state *state, int index){
     FILE *f;
     if(index == 4){
-        f =  = fopen("find_sub_in_s.txt", "w");
-    }
-    if (f == NULL){
-        printf("Error opening file!\n");
-        exit(1);
+        f = fopen("find_sub_in_s.txt", "w");
     }
     /* print some text */
     const char *text = "Write this to the file";
