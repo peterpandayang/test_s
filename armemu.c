@@ -624,15 +624,13 @@ void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
     print_analysis(state);
 }
 
-void gettime_find_s_in_sub(struct arm_state *state, (unsigned int *) func, int int_p_s, int int_p_sub, int s_len, int s_sub_len){
-    struct timespec t1;
-    struct timespec t2;
+void gettime_find_s_in_sub(struct arm_state *state, (unsigned int *) func, int p_s, int p_sub, int s_len, int s_sub_len){
+    struct timespec t1, t2;
     int i;
     long total_nsecs = 0;
     time_t total_secs = 0;
     double total_time = 0.0;
     double inner_func_usecs = 0.0;
-    int pos;
 
     clock_gettime(CLOCK_MONOTONIC, &t1);
     for (i = 0; i < ITERS; i++) {
