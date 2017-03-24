@@ -567,12 +567,12 @@ void printWrittenRegs(struct arm_state *state){
 }
 
 void printAnalysis(struct arm_state *state){
-    printf("Total number of instructions: %d\n", state->exec_instr_count);
-    printf("Total number of computation instructions: %d\n", state->compu_count);
-    printf("Total number of memory instructions: %d\n", state->mem_count);
-    printf("Total number of branch instructions: %d\n", state->branch_count);
-    printf("Total number of branch taken: %d\n", state->b_taken_count);
-    printf("Total number of branch not taken: %d\n", state->b_not_taken_count);
+    printf("Total instructions: %d\n", state->exec_instr_count);
+    printf("Total computation instructions: %d\n", state->compu_count);
+    printf("Total memory instructions: %d\n", state->mem_count);
+    printf("Total branch instructions: %d\n", state->branch_count);
+    printf("Total branch taken: %d\n", state->b_taken_count);
+    printf("Total branch not taken: %d\n", state->b_not_taken_count);
     printf("Register used as read: \n");
     printReadRegs(state);
     printf("Register used as written: \n");
