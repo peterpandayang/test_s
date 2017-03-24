@@ -146,22 +146,10 @@ void armemu_cmp(struct arm_state *state){
     if(is_imme_dp(iw)){
         imme = iw & 0xFF;
         update_cpsr_cmp(state, state->regs[rn], imme);
-        // if(state->regs[rn] - imme < 0){
-        //     state->cpsr = 0x80000000;
-        // }
-        // if(state->regs[rn] - imme == 0){
-        //     state->cpsr = 0x40000000;
-        // }
     }
     else{
         rm = iw & 0xF;
         update_cpsr_cmp(state, state->regs[rn], state->regs[rm]);
-        // if(state->regs[rn] - state->regs[rm] < 0){
-        //     state->cpsr = 0x80000000;
-        // }
-        // if(state->regs[rn] - state->regs[rm] == 0){
-        //     state->cpsr = 0x40000000;
-        // }
     }
     state->regs[PC] = state->regs[PC] + 4;
 }
@@ -377,6 +365,15 @@ void save_link_addr(struct arm_state *state){
     state->regs[LR] = state->regs[PC] + 4;
 }
 
+void update_pc_ne_ge(int check_val, struct arm_state *state, int offset){
+    if(check_val == 0b0){
+        state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+    }
+    else{
+        state->regs[PC] = state->regs[PC] + 4;
+    }
+}
+
 void armemu_b(struct arm_state *state){
     unsigned int iw, offset;
     iw = *((unsigned int *) state->regs[PC]);
@@ -411,20 +408,22 @@ void armemu_b(struct arm_state *state){
         }
     }
     else if(is_bge_inst(iw)){
-        if(state->cpsr >> 31 == 0b0){
-            state->regs[PC] = state->regs[PC] + 8 + offset * 4;
-        }
-        else{
-            state->regs[PC] = state->regs[PC] + 4;
-        }
+        update_pc_ne_ge(state->cpsr >> 31, state, offset);
+        // if(state->cpsr >> 31 == 0b0){
+        //     state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+        // }
+        // else{
+        //     state->regs[PC] = state->regs[PC] + 4;
+        // }
     }
     else if(is_bne_inst(iw)){
-        if(state->cpsr >> 30 == 0b0){
-            state->regs[PC] = state->regs[PC] + 8 + offset * 4;
-        }
-        else{
-            state->regs[PC] = state->regs[PC] + 4;
-        }
+        update_pc_ne_ge(state->cpsr >> 30, state, offset);
+        // if(state->cpsr >> 30 == 0b0){
+        //     state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+        // }
+        // else{
+        //     state->regs[PC] = state->regs[PC] + 4;
+        // }
     }
     else if(is_b_default_inst(iw)){
         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
