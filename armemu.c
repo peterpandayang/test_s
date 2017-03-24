@@ -526,6 +526,44 @@ int print_str(char *p){
     return 0;
 }
 
+void printOneReg(struct arm_state *state, int i){
+    if(i == 13){
+        printf("sp");
+    }
+    else if(i == 14){
+        printf("lr");
+    }
+    else if(i == 15){
+        printf("pc");
+    }
+    else if(i == 16){
+        printf("cpsr");
+    }
+    else{
+        printf("r%d", i);
+    }
+}
+
+void printReadRegs(struct arm_state *state){
+    for(int i = 0; i <= state->NREGS; i++){
+        if(state->read_regs[i] == 1){
+            printOneReg(state, i);
+        }
+        printf("");
+    }
+    printf("\n");
+}
+
+void printWrittenRegs(struct arm_state *state){
+    for(int i = 0; i <= state->NREGS; i++){
+        if(state->written_regs[i] == 1){
+            printOneReg(state, i);
+        }
+        printf(" ");
+    }
+    printf("\n");
+}
+
 void printAnalysis(struct arm_state *state){
     printf("Total number of instructions: %d\n", state->exec_instr_count);
     printf("Total number of computation instructions: %d\n", state->compu_count);
@@ -533,6 +571,10 @@ void printAnalysis(struct arm_state *state){
     printf("Total number of branch instructions: %d\n", state->branch_count);
     printf("Total number of branch taken: %d\n", state->b_taken_count);
     printf("Total number of branch not taken: %d\n", state->b_not_taken_count);
+    printf("Register used as read: \n");
+    printReadRegs(state);
+    printf("Register used as read: \n");
+    printWrittenRegs(state);
     printf("\n");
 }
 
