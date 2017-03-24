@@ -549,8 +549,8 @@ void printReadRegs(struct arm_state *state){
     for(i = 0; i <= NREGS; i++){
         if(state->read_regs[i] == 1){
             printOneReg(state, i);
+            printf(" ");
         }
-        printf("");
     }
     printf("\n");
 }
@@ -560,8 +560,8 @@ void printWrittenRegs(struct arm_state *state){
     for(i = 0; i <= NREGS; i++){
         if(state->written_regs[i] == 1){
             printOneReg(state, i);
+            printf(" ");
         }
-        printf(" ");
     }
     printf("\n");
 }
@@ -575,7 +575,7 @@ void printAnalysis(struct arm_state *state){
     printf("Total number of branch not taken: %d\n", state->b_not_taken_count);
     printf("Register used as read: \n");
     printReadRegs(state);
-    printf("Register used as read: \n");
+    printf("Register used as written: \n");
     printWrittenRegs(state);
     printf("\n");
 }
