@@ -649,7 +649,7 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
 }
 
 void write_to_output(struct arm_state *state, int index){
-    FILE *f;
+    FILE *f = fopen("find_sub_in_s.txt", "w");
     if(index == 4){
         f = fopen("find_sub_in_s.txt", "w");
     }
