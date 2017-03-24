@@ -1,13 +1,17 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/times.h>
+#include <time.h>
+#include <unistd.h>
 
 #define NREGS 16
 #define STACK_SIZE 1024
 #define SP 13
 #define LR 14
 #define PC 15
-#define VALUE_MAX_STR_LEN 64    
+#define VALUE_MAX_STR_LEN 64 
+#define ITERS 10000000  
 
 int sum_array_s(int *p, int n);
 int find_max_s(int *p, int n);
@@ -32,6 +36,7 @@ struct arm_state {
     int reg_writing_count;
     unsigned int read_regs[NREGS + 1];
     unsigned int written_regs[NREGS + 1];
+    double total_time;
 };
 
 void init_arm_state(struct arm_state *state, unsigned int *func, unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3){
@@ -619,6 +624,38 @@ void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
     print_analysis(state);
 }
 
+int gettime_find_s_in_sub(struct arm_state *state, (unsigned int *) func, int int_p_s, int int_p_sub, int s_len, int s_sub_len){
+    struct timespec t1, t2;
+    int i;
+    long total_nsecs = 0;
+    time_t total_secs = 0;
+    double total_time = 0.0;
+    double inner_func_usecs = 0.0;
+    int pos;
+
+    clock_gettime(CLOCK_MONOTONIC, &t1);
+    for (i = 0; i < ITERS; i++) {
+        init_arm_state(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
+        pos = armemu(state);
+    }
+    clock_gettime(CLOCK_MONOTONIC, &t2); 
+
+    total_secs = t2.tv_sec - t1.tv_sec;
+    total_nsecs = t2.tv_nsec - t1.tv_nsec;
+
+    printf("total_secs = %ld\n", total_secs);
+    printf("total_nsecs = %ld\n", total_nsecs);
+
+    total_time = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
+    
+    printf("total_time = %lf\n", total_time);
+    
+    inner_func_usecs = (((double) total_time) / ((double) ITERS)) * 1000000.0;
+
+    printf("inner_func_usecs = %lf\n", inner_func_usecs);
+    // state->total_time = 0.0
+}
+
 void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, char *p_sub){
     printf("Start strstr test:\n");
     printf("Larger string: \n");
@@ -630,17 +667,18 @@ void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, 
     int s_len = strlen(p_s);
     int s_sub_len = strlen(p_sub);
     int pos;
-    init_arm_state(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
-    pos = armemu(state);
+    pos = gettime_find_s_in_sub(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
+    // init_arm_state(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
+    // pos = armemu(state);
     printf("Start position is: %d\n", pos);
     print_analysis(state);
 }
 
 void run_emulated(struct arm_state *state, int *p_array, char *p_s, char *p_sub, int size){
-    sum_array_test(state, (unsigned int *) sum_array_s, p_array, size);
-    find_max_test(state, (unsigned int *) find_max_s, p_array, size);
-    fibo_iter_test(state, (unsigned int *) fibo_iter_s, size);
-    fibo_rec_test(state, (unsigned int *) fibo_rec_s, size);
+    // sum_array_test(state, (unsigned int *) sum_array_s, p_array, size);
+    // find_max_test(state, (unsigned int *) find_max_s, p_array, size);
+    // fibo_iter_test(state, (unsigned int *) fibo_iter_s, size);
+    // fibo_rec_test(state, (unsigned int *) fibo_rec_s, size);
     find_sub_in_s_test(state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
 }
 
@@ -656,12 +694,6 @@ int main(int argc, char **argv){
     char *p_sub = state.sub;
 
     run_emulated(&state, p_array, p_s, p_sub, size);
-
-    // sum_array_test(&state, (unsigned int *) sum_array_s, p_array, size);
-    // find_max_test(&state, (unsigned int *) find_max_s, p_array, size);
-    // fibo_iter_test(&state, (unsigned int *) fibo_iter_s, size);
-    // fibo_rec_test(&state, (unsigned int *) fibo_rec_s, size);
-    // find_sub_in_s_test(&state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
   
     return 0;
 }
