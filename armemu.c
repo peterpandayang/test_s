@@ -86,18 +86,21 @@ bool is_imme_dp(unsigned int iw){
 
 void armemu_add(struct arm_state *state){
     unsigned int iw;
-    unsigned int rd, rn, rm, imme;
+    unsigned int rd, rn, rm, imme, add_value;
     iw = *((unsigned int *) state->regs[PC]);    
     rd = (iw >> 12) & 0xF;
     rn = (iw >> 16) & 0xF;
     if(is_imme_dp(iw)){
-        imme = iw & 0xFF;
-        state->regs[rd] = state->regs[rn] + imme;
+        // imme = iw & 0xFF;
+        add_value = iw & 0xFF;
+        // state->regs[rd] = state->regs[rn] + imme;
     }
     else{
         rm = iw & 0xF;
-        state->regs[rd] = state->regs[rn] + state->regs[rm];        
+        add_value = state->regs[rm];
+        // state->regs[rd] = state->regs[rn] + state->regs[rm];        
     }
+    state->regs[rd] = state->regs[rn] + add_value;  
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
     }
@@ -105,18 +108,21 @@ void armemu_add(struct arm_state *state){
 
 void armemu_sub(struct arm_state *state){
     unsigned int iw;
-    unsigned int rd, rn, rm, imme;
+    unsigned int rd, rn, rm, imme, sub_value;
     iw = *((unsigned int *) state->regs[PC]);    
     rd = (iw >> 12) & 0xF;
     rn = (iw >> 16) & 0xF;
     if(is_imme_dp(iw)){
-        imme = iw & 0xFF;
-        state->regs[rd] = state->regs[rn] - imme;
+        // imme = iw & 0xFF;
+        sub_value = iw & 0xFF;
+        // state->regs[rd] = state->regs[rn] - imme;
     }
     else{
         rm = iw & 0xF;
-        state->regs[rd] = state->regs[rn] - state->regs[rm];
+        sub_value = state->regs[rm];
+        // state->regs[rd] = state->regs[rn] - state->regs[rm];
     }  
+    state->regs[rd] = state->regs[rn] - sub_value;
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
     }
@@ -139,18 +145,21 @@ void update_cpsr_cmp(struct arm_state *state, int val1, int val2){
 
 void armemu_cmp(struct arm_state *state){
     unsigned int iw;
-    unsigned int rd, rn, rm, imme;
+    unsigned int rd, rn, rm, imme, cmp_value;
     iw = *((unsigned int *) state->regs[PC]);    
     rn = (iw >> 16) & 0xF;
     state->cpsr = 0;
     if(is_imme_dp(iw)){
-        imme = iw & 0xFF;
-        update_cpsr_cmp(state, state->regs[rn], imme);
+        // imme = iw & 0xFF;
+        cmp_value = iw & 0xFF;
+        // update_cpsr_cmp(state, state->regs[rn], imme);
     }
     else{
         rm = iw & 0xF;
-        update_cpsr_cmp(state, state->regs[rn], state->regs[rm]);
+        cmp_value = state->regs[rm]
+        // update_cpsr_cmp(state, state->regs[rn], state->regs[rm]);
     }
+    update_cpsr_cmp(state, state->regs[rn], cmp_value);
     state->regs[PC] = state->regs[PC] + 4;
 }
 
@@ -397,11 +406,7 @@ void armemu_b(struct arm_state *state){
         if(is_beq_inst(iw)){
             if(state->cpsr == 0x40000000){
                 save_link_addr(state);
-                // state->regs[PC] = state->regs[PC] + 8 + offset * 4;
             }
-            // else{
-            //     state->regs[PC] = state->regs[PC] + 4;
-            // }
             update_pc_bl_eq(state->cpsr, state, offset);
         }
         else{            
@@ -411,12 +416,6 @@ void armemu_b(struct arm_state *state){
     }
     else if(is_beq_inst(iw)){
         update_pc_bl_eq(state->cpsr, state, offset);
-        // if(state->cpsr == 0x40000000){
-        //     state->regs[PC] = state->regs[PC] + 8 + offset * 4;
-        // }
-        // else{
-        //     state->regs[PC] = state->regs[PC] + 4;
-        // }
     }
     else if(is_bge_inst(iw)){
         update_pc_ne_ge(state->cpsr >> 31, state, offset);
