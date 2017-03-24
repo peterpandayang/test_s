@@ -77,7 +77,7 @@ void update_read_regs(struct arm_state *state, int i){
     state->read_regs[i] = 1;
 }
 
-void update_written_regs(struct arm_state *state){
+void update_written_regs(struct arm_state *state, int i){
     state->written_regs[i] = 1;
 }
 
