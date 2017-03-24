@@ -26,6 +26,8 @@ struct arm_state {
     int compu_count;
     int mem_count;
     int branch_count;
+    int b_taken_count;
+    int b_not_taken_count;
     int reg_reading_count;
     int reg_writing_count;
 };
@@ -51,6 +53,8 @@ void init_arm_state(struct arm_state *state, unsigned int *func, unsigned int ar
     state->compu_count = 0;
     state->mem_count = 0;
     state->branch_count = 0;
+    state->b_taken_count = 0;
+    state->b_not_taken_count = 0;
 }
 
 void init_array_c(int *p_pos, int n){
@@ -124,6 +128,15 @@ bool is_cmp_inst(unsigned int iw){
     return (opcode == 0b1010);
 }
 
+void update_cpsr_cmp(struct arm_state *state, int val1, int val2){
+    if(val1 - val2 < 0){
+        state->cpsr = 0x80000000;
+    }
+    if(val1 - val2 == 0){
+        state->cpsr = 0x40000000;
+    }
+}
+
 void armemu_cmp(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, rm, imme;
@@ -132,21 +145,23 @@ void armemu_cmp(struct arm_state *state){
     state->cpsr = 0;
     if(is_imme_dp(iw)){
         imme = iw & 0xFF;
-        if(state->regs[rn] - imme < 0){
-            state->cpsr = 0x80000000;
-        }
-        if(state->regs[rn] - imme == 0){
-            state->cpsr = 0x40000000;
-        }
+        update_cpsr_cmp(state, state->regs[rn], imme);
+        // if(state->regs[rn] - imme < 0){
+        //     state->cpsr = 0x80000000;
+        // }
+        // if(state->regs[rn] - imme == 0){
+        //     state->cpsr = 0x40000000;
+        // }
     }
     else{
         rm = iw & 0xF;
-        if(state->regs[rn] - state->regs[rm] < 0){
-            state->cpsr = 0x80000000;
-        }
-        if(state->regs[rn] - state->regs[rm] == 0){
-            state->cpsr = 0x40000000;
-        }
+        update_cpsr_cmp(state, state->regs[rn], state->regs[rm]);
+        // if(state->regs[rn] - state->regs[rm] < 0){
+        //     state->cpsr = 0x80000000;
+        // }
+        // if(state->regs[rn] - state->regs[rm] == 0){
+        //     state->cpsr = 0x40000000;
+        // }
     }
     state->regs[PC] = state->regs[PC] + 4;
 }
