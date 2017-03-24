@@ -648,6 +648,20 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
     state->total_time = inner_func_usecs;
 }
 
+void write_to_output(struct arm_state *state, int index){
+    FILE *f;
+    if(index == 4){
+        f =  = fopen("find_sub_in_s.txt", "w");
+    }
+    if (f == NULL){
+        printf("Error opening file!\n");
+        exit(1);
+    }
+    /* print some text */
+    const char *text = "Write this to the file";
+    fprintf(f, "Some text: %s\n", text);
+}
+
 void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, char *p_sub){
     printf("Start strstr test:\n");
     printf("Larger string: \n");
@@ -664,6 +678,7 @@ void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, 
     pos = armemu(state);
     printf("Start position is: %d\n", pos);
     print_analysis(state);
+    write_to_output(state, 4);
 }
 
 void run_emulated(struct arm_state *state, int *p_array, char *p_s, char *p_sub, int size){
