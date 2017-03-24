@@ -631,29 +631,21 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
     time_t total_secs = 0;
     double total_time = 0.0;
     double inner_func_usecs = 0.0;
-
-
     clock_gettime(CLOCK_MONOTONIC, &t1);
     for (i = 0; i < ITERS; i++) {
         init_arm_state(state, (unsigned int *) func, p_s, p_sub, s_len, s_sub_len);
         armemu(state);
     }
     clock_gettime(CLOCK_MONOTONIC, &t2); 
-
     total_secs = t2.tv_sec - t1.tv_sec;
     total_nsecs = t2.tv_nsec - t1.tv_nsec;
-
     printf("total_secs = %ld\n", total_secs);
     printf("total_nsecs = %ld\n", total_nsecs);
-
     total_time = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
-    
-    printf("total_time = %lf\n", total_time);
-    
+    printf("total_time = %lf\n", total_time);   
     inner_func_usecs = (((double) total_time) / ((double) ITERS)) * 1000000.0;
-
     printf("inner_func_usecs = %lf\n", inner_func_usecs);
-    // state->total_time = 0.0
+    state->total_time = inner_func_usecs;
 }
 
 void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, char *p_sub){
