@@ -156,7 +156,7 @@ void armemu_cmp(struct arm_state *state){
     }
     else{
         rm = iw & 0xF;
-        cmp_value = state->regs[rm]
+        cmp_value = state->regs[rm];
         // update_cpsr_cmp(state, state->regs[rn], state->regs[rm]);
     }
     update_cpsr_cmp(state, state->regs[rn], cmp_value);
