@@ -374,7 +374,7 @@ void update_pc_ne_ge(int check_val, struct arm_state *state, int offset){
     }
 }
 
-void update_pc_bl_eq(int check_val, struct arm_state *state, int offset){
+void update_pc_eq(int check_val, struct arm_state *state, int offset){
     if(check_val == 0x40000000){
         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
     }
@@ -383,12 +383,12 @@ void update_pc_bl_eq(int check_val, struct arm_state *state, int offset){
     }    
 }
 
-void update_pc_on_bl(int iw, struct arm_state *state, int offset){
+void update_pc_bl(int iw, struct arm_state *state, int offset){
     if(is_beq_inst(iw)){
         if(state->cpsr == 0x40000000){
             save_link_addr(state);
         }
-        update_pc_bl_eq(state->cpsr, state, offset);
+        update_pc_eq(state->cpsr, state, offset);
     }
     else{            
         save_link_addr(state);
@@ -407,10 +407,10 @@ void armemu_b(struct arm_state *state){
         offset = iw & 0xFFFFFF;
     }
     if(is_bl_inst(iw)){
-        update_pc_on_bl(iw, state, offset);
+        update_pc_bl(iw, state, offset);
     }
     else if(is_beq_inst(iw)){
-        update_pc_bl_eq(state->cpsr, state, offset);
+        update_pc_eq(state->cpsr, state, offset);
     }
     else if(is_bge_inst(iw)){
         update_pc_ne_ge(state->cpsr >> 31, state, offset);
