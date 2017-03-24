@@ -436,6 +436,7 @@ void armemu_one(struct arm_state *state){
     iw = *((unsigned int *) state->regs[PC]);
     if (is_bx_inst(iw)) {
         state->branch_count += 1;
+        state->b_taken_count += 1;
         armemu_bx(state);
     } 
     else if (is_b_inst(iw)) {
