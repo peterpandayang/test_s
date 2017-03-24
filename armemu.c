@@ -367,18 +367,22 @@ void save_link_addr(struct arm_state *state){
 
 void update_pc_ne_ge(int check_val, struct arm_state *state, int offset){
     if(check_val == 0b0){
+        state->b_taken_count += 1;
         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
     }
     else{
+        state->b_not_taken_count += 1;
         state->regs[PC] = state->regs[PC] + 4;
     }
 }
 
 void update_pc_eq(int check_val, struct arm_state *state, int offset){
     if(check_val == 0x40000000){
+        state->b_taken_count += 1;
         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
     }
     else{
+        state->b_not_taken_count += 1;
         state->regs[PC] = state->regs[PC] + 4;
     }    
 }
@@ -390,7 +394,8 @@ void update_pc_bl(int iw, struct arm_state *state, int offset){
         }
         update_pc_eq(state->cpsr, state, offset);
     }
-    else{            
+    else{ 
+        state->b_taken_count += 1;           
         save_link_addr(state);
         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
     }
@@ -419,6 +424,7 @@ void armemu_b(struct arm_state *state){
         update_pc_ne_ge(state->cpsr >> 30, state, offset);
     }
     else if(is_b_default_inst(iw)){
+        state->b_taken_count += 1;
         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
     }
     state->cpsr = 0;
@@ -476,10 +482,12 @@ int print_str(char *p){
 }
 
 void printAnalysis(struct arm_state *state){
-    printf("Total number of instructions executed: %d\n", state->exec_instr_count);
-    printf("Total number of computation instructions executed: %d\n", state->compu_count);
-    printf("Total number of memory instructions executed: %d\n", state->mem_count);
-    printf("Total number of branch instructions executed: %d\n", state->branch_count);
+    printf("Total number of instructions: %d\n", state->exec_instr_count);
+    printf("Total number of computation instructions: %d\n", state->compu_count);
+    printf("Total number of memory instructions: %d\n", state->mem_count);
+    printf("Total number of branch instructions: %d\n", state->branch_count);
+    printf("Total number of branch taken: %d\n", state->b_taken_count);
+    printf("Total number of branch not taken: %d\n", state->b_not_taken_count);
     printf("\n");
 }
 
