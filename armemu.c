@@ -30,6 +30,8 @@ struct arm_state {
     int b_not_taken_count;
     int reg_reading_count;
     int reg_writing_count;
+    unsigned int read_regs[NREGS + 1];
+    unsigned int written_regs[NREGS + 1];
 };
 
 void init_arm_state(struct arm_state *state, unsigned int *func, unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3){
@@ -37,6 +39,12 @@ void init_arm_state(struct arm_state *state, unsigned int *func, unsigned int ar
     /* zero out all arm state */
     for (i = 0; i < NREGS; i++) {
         state->regs[i] = 0;
+    }
+    for (i = 0; i < NREGS + 1; i++) {
+        state->read_regs[i] = 0;
+    }
+    for (i = 0; i < NREGS + 1; i++) {
+        state->written_regs[i] = 0;
     }
     state->cpsr = 0;
     for (i = 0; i < STACK_SIZE; i++) {
@@ -65,6 +73,14 @@ void init_array_c(int *p_pos, int n){
     p_pos[i] = '\0';
 }
 
+void update_read_regs(struct arm_state *state, int i){
+    state->read_regs[i] = 1;
+}
+
+void update_written_regs(struct arm_state *state){
+    state->written_regs[i] = 1;
+}
+
 /* data processing part*/
 bool is_add_inst(unsigned int iw){
     unsigned int opcode;
@@ -86,8 +102,8 @@ bool is_imme_dp(unsigned int iw){
 
 void armemu_add(struct arm_state *state){
     unsigned int iw;
-    unsigned int rd, rn, rm, imme, add_value;
-    iw = *((unsigned int *) state->regs[PC]);    
+    unsigned int rd, rn, rm, add_value;
+    iw = *((unsigned int *) state->regs[PC]); 
     rd = (iw >> 12) & 0xF;
     rn = (iw >> 16) & 0xF;
     if(is_imme_dp(iw)){
@@ -96,16 +112,20 @@ void armemu_add(struct arm_state *state){
     else{
         rm = iw & 0xF;
         add_value = state->regs[rm];
+        update_read_regs(state, rm);
     }
-    state->regs[rd] = state->regs[rn] + add_value;  
+    state->regs[rd] = state->regs[rn] + add_value; 
+    update_read_regs(state, rn);
+    update_written_regs(state, rd); 
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
+        update_written_regs(state, PC);
     }
 }
 
 void armemu_sub(struct arm_state *state){
     unsigned int iw;
-    unsigned int rd, rn, rm, imme, sub_value;
+    unsigned int rd, rn, rm, sub_value;
     iw = *((unsigned int *) state->regs[PC]);    
     rd = (iw >> 12) & 0xF;
     rn = (iw >> 16) & 0xF;
@@ -115,10 +135,13 @@ void armemu_sub(struct arm_state *state){
     else{
         rm = iw & 0xF;
         sub_value = state->regs[rm];
+        update_read_regs(state, rm);
     }  
     state->regs[rd] = state->regs[rn] - sub_value;
+    update_written_regs(state, rd);
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
+        update_written_regs(state, PC);
     }
 }
 
@@ -130,17 +153,19 @@ bool is_cmp_inst(unsigned int iw){
 
 void update_cpsr_cmp(struct arm_state *state, int val1, int val2){
     if(val1 - val2 < 0){
+        update_written_regs(state, 16);
         state->cpsr = 0x80000000;
     }
     if(val1 - val2 == 0){
+        update_written_regs(state, 16);
         state->cpsr = 0x40000000;
     }
 }
 
 void armemu_cmp(struct arm_state *state){
     unsigned int iw;
-    unsigned int rd, rn, rm, imme, cmp_value;
-    iw = *((unsigned int *) state->regs[PC]);    
+    unsigned int rd, rn, rm, cmp_value;
+    iw = *((unsigned int *) state->regs[PC]);  
     rn = (iw >> 16) & 0xF;
     state->cpsr = 0;
     if(is_imme_dp(iw)){
@@ -149,8 +174,10 @@ void armemu_cmp(struct arm_state *state){
     else{
         rm = iw & 0xF;
         cmp_value = state->regs[rm];
+        update_read_regs(state, rm);
     }
     update_cpsr_cmp(state, state->regs[rn], cmp_value);
+    update_written_regs(state, PC);
     state->regs[PC] = state->regs[PC] + 4;
 }
 
@@ -172,8 +199,11 @@ void armemu_mov(struct arm_state *state){
     else{
         rn = iw & 0b1111;
         state->regs[rd] = state->regs[rn];
+        update_read_regs(state, rn);
     }
+    update_written_regs(state, rd);
     if (rd != PC) {
+        update_written_regs(state, PC);
         state->regs[PC] = state->regs[PC] + 4;
     }
 }
@@ -241,9 +271,12 @@ void armemu_ldr(struct arm_state *state){
         if(i == 0b0){
             offset = iw & 0xFFF;
             state->regs[rd] = *((unsigned int *)(state->regs[rn] + offset));
+            update_written_regs(state, rd);  
+            update_read_regs(state, rn);  
         }        
     }
     if (rd != PC) {
+        update_written_regs(state, PC);
         state->regs[PC] = state->regs[PC] + 4;
     }
 }
@@ -259,10 +292,13 @@ void armemu_ldrb(struct arm_state *state){
         if(i == 0b0){
             offset = iw & 0xFFF;
             state->regs[rd] = *((unsigned int *)(state->regs[rn] + offset)) & 0xFF;
+            update_written_regs(state, rd);  
+            update_read_regs(state, rn);  
         }        
     }
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
+        update_written_regs(state, PC);
     }
 }
 
@@ -277,10 +313,13 @@ void armemu_str(struct arm_state *state){
         if(i == 0b0){
             offset = iw & 0xFFF;
             *((unsigned int *)(state->regs[rn] + offset)) = state->regs[rd];
+            update_written_regs(state, rn);  
+            update_read_regs(state, rd);  
         }        
     }
     if (rd != PC) {
         state->regs[PC] = state->regs[PC] + 4;
+        update_written_regs(state, PC);
     }
 }
 
@@ -315,8 +354,10 @@ void armemu_bx(struct arm_state *state){
     unsigned int iw;
     unsigned int rn;
     iw = *((unsigned int *) state->regs[PC]);
+    update_read_regs(state, PC); 
     rn = iw & 0b1111;
     state->regs[PC] = state->regs[rn];
+    update_written_regs(state, PC); 
 }
 
 bool is_b_inst(unsigned int iw){
@@ -363,6 +404,7 @@ bool is_bl_inst(unsigned int iw){
 
 void save_link_addr(struct arm_state *state){
     state->regs[LR] = state->regs[PC] + 4;
+    update_written_regs(state, LR); 
 }
 
 void update_pc_ne_ge(int check_val, struct arm_state *state, int offset){
@@ -428,12 +470,14 @@ void armemu_b(struct arm_state *state){
         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
     }
     state->cpsr = 0;
+    update_written_regs(state, PC); 
 }
 
 /*armemu part*/
 void armemu_one(struct arm_state *state){
     unsigned int iw;   
     iw = *((unsigned int *) state->regs[PC]);
+    update_read_regs(state, PC); 
     if (is_bx_inst(iw)) {
         state->branch_count += 1;
         state->b_taken_count += 1;
