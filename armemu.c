@@ -11,7 +11,7 @@
 #define LR 14
 #define PC 15
 #define VALUE_MAX_STR_LEN 64 
-#define ITERS 10000000  
+#define ITERS 1000  
 
 int sum_array_s(int *p, int n);
 int find_max_s(int *p, int n);
