@@ -30,27 +30,27 @@ struct arm_state {
     int reg_writing_count;
 };
 
-void init_arm_state(struct arm_state *as, unsigned int *func, unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3){
+void init_arm_state(struct arm_state *state, unsigned int *func, unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3){
     int i;
     /* zero out all arm state */
     for (i = 0; i < NREGS; i++) {
-        as->regs[i] = 0;
+        state->regs[i] = 0;
     }
-    as->cpsr = 0;
+    state->cpsr = 0;
     for (i = 0; i < STACK_SIZE; i++) {
-        as->stack[i] = 0;
+        state->stack[i] = 0;
     }
-    as->regs[PC] = (unsigned int) func;
-    as->regs[SP] = (unsigned int) &as->stack[STACK_SIZE];
-    as->regs[LR] = 0;
-    as->regs[0] = arg0;
-    as->regs[1] = arg1;
-    as->regs[2] = arg2;
-    as->regs[3] = arg3;
-    as->exec_instr_count = 0;
-    as->compu_count = 0;
-    as->mem_count = 0;
-    as->branch_count = 0;
+    state->regs[PC] = (unsigned int) func;
+    state->regs[SP] = (unsigned int) &state->stack[STACK_SIZE];
+    state->regs[LR] = 0;
+    state->regs[0] = arg0;
+    state->regs[1] = arg1;
+    state->regs[2] = arg2;
+    state->regs[3] = arg3;
+    state->exec_instr_count = 0;
+    state->compu_count = 0;
+    state->mem_count = 0;
+    state->branch_count = 0;
 }
 
 void init_array_c(int *p_pos, int n){
@@ -469,53 +469,53 @@ int print_str(char *p){
 }
 
 void printAnalysis(struct arm_state *state){
-    printf("Total number of instructions executed: %d\n", as->exec_instr_count);
-    printf("Total number of computation instructions executed: %d\n", as->compu_count);
-    printf("Total number of memory instructions executed: %d\n", as->mem_count);
-    printf("Total number of branch instructions executed: %d\n", as->branch_count);
+    printf("Total number of instructions executed: %d\n", state->exec_instr_count);
+    printf("Total number of computation instructions executed: %d\n", state->compu_count);
+    printf("Total number of memory instructions executed: %d\n", state->mem_count);
+    printf("Total number of branch instructions executed: %d\n", state->branch_count);
     printf("\n");
 }
 
 /*test part*/
-void sum_array_test(struct arm_state *as, unsigned int *func, int *p_array, int size){
+void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, int size){
     printf("Start sum array test and print input array......\n");
     print_array_c(p_array, size);
-    init_arm_state(as, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
+    init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     int sum;
-    sum = armemu(as);
+    sum = armemu(state);
     printf("Sum is: %d\n", sum);
-    printAnalysis(as);
+    printAnalysis(state);
 }                  
 
-void find_max_test(struct arm_state *as, unsigned int *func, int *p_array, int size){
+void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, int size){
     printf("Start max array test and print input array......\n");
     print_array_c(p_array, size);
-    init_arm_state(as, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
+    init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     int max;
-    max = armemu(as);
+    max = armemu(state);
     printf("Max is: %d\n", max);
-    printAnalysis(as);
+    printAnalysis(state);
 }
 
-void fibo_iter_test(struct arm_state *as, unsigned int *func, int size){
+void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
     printf("Start iteration fibonacci test......\n");
-    init_arm_state(as, (unsigned int *) func, size, 0, 0, 0);
+    init_arm_state(state, (unsigned int *) func, size, 0, 0, 0);
     int fibo_iter;
-    fibo_iter = armemu(as);
+    fibo_iter = armemu(state);
     printf("Fibo iteration result for %d's element is: %d\n", size, fibo_iter);
-    printAnalysis(as);
+    printAnalysis(state);
 }
 
-void fibo_rec_test(struct arm_state *as, unsigned int *func, int size){
+void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
     printf("Start recursion fibonacci test......\n");
-    init_arm_state(as, (unsigned int *) func, size, 0, 0, 0);
+    init_arm_state(state, (unsigned int *) func, size, 0, 0, 0);
     int fibo_rec;
-    fibo_rec = armemu(as);
+    fibo_rec = armemu(state);
     printf("Fibo recursion result for %d's element is: %d\n", size, fibo_rec);
-    printAnalysis(as);
+    printAnalysis(state);
 }
 
-void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, char *p_sub){
+void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, char *p_sub){
     printf("Start strstr test......\n");
     printf("Larger string: \n");
     print_str(p_s);
@@ -525,11 +525,11 @@ void find_sub_in_s_test(struct arm_state *as, unsigned int *func, char *p_s, cha
     unsigned int int_p_sub = (unsigned int)((unsigned int *)p_sub);
     int s_len = strlen(p_s);
     int s_sub_len = strlen(p_sub);
-    init_arm_state(as, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
+    init_arm_state(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     int pos;
-    pos = armemu(as);
+    pos = armemu(state);
     printf("Start position is: %d\n", pos);
-    printAnalysis(as);
+    printAnalysis(state);
 }
 
 /*main part*/
