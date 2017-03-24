@@ -649,23 +649,27 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
 }
 
 void write_to_output(struct arm_state *state, int index){
-    FILE *f = fopen("find_sub_in_s.txt", "w");
-    if(index == 4){
-        f = fopen("find_sub_in_s.txt", "w");
-    }
-    /* print some text */
-    const char *text = "Write this to the file";
-    fprintf(f, "Some text: %s\n", text);
-    /* print integers and floats */
-    int i = 1;
-    float py = 3.1415927;
-    fprintf(f, "Integer: %d, float: %f\n", i, py);
+    FILE *f = fopen("text.txt", "w");
+if (f == NULL)
+{
+    printf("Error opening file!\n");
+    exit(1);
+}
 
-    /* printing single chatacters */
-    char c = 'A';
-    fprintf(f, "A character: %c\n", c);
+/* print some text */
+const char *text = "Write this to the file";
+fprintf(f, "Some text: %s\n", text);
 
-    fclose(f);
+/* print integers and floats */
+int i = 1;
+float py = 3.1415927;
+fprintf(f, "Integer: %d, float: %f\n", i, py);
+
+/* printing single chatacters */
+char c = 'A';
+fprintf(f, "A character: %c\n", c);
+
+fclose(f);
 }
 
 void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, char *p_sub){
