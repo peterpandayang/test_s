@@ -478,7 +478,7 @@ void printAnalysis(struct arm_state *state){
 
 /*test part*/
 void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, int size){
-    printf("Start sum array test and print input array......\n");
+    printf("Start sum array test and print input array:\n");
     print_array_c(p_array, size);
     init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     int sum;
@@ -488,7 +488,7 @@ void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, i
 }                  
 
 void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, int size){
-    printf("Start max array test and print input array......\n");
+    printf("Start max array test and print input array:\n");
     print_array_c(p_array, size);
     init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     int max;
@@ -498,7 +498,7 @@ void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, in
 }
 
 void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
-    printf("Start iteration fibonacci test......\n");
+    printf("Start iteration fibonacci test:\n");
     init_arm_state(state, (unsigned int *) func, size, 0, 0, 0);
     int fibo_iter;
     fibo_iter = armemu(state);
@@ -507,7 +507,7 @@ void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
 }
 
 void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
-    printf("Start recursion fibonacci test......\n");
+    printf("Start recursion fibonacci test:\n");
     init_arm_state(state, (unsigned int *) func, size, 0, 0, 0);
     int fibo_rec;
     fibo_rec = armemu(state);
@@ -516,7 +516,7 @@ void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
 }
 
 void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, char *p_sub){
-    printf("Start strstr test......\n");
+    printf("Start strstr test:\n");
     printf("Larger string: \n");
     print_str(p_s);
     printf("Smaller string: \n");
