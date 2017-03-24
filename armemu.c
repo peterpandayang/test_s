@@ -624,7 +624,7 @@ void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
     print_analysis(state);
 }
 
-void gettime_find_s_in_sub(struct arm_state *state, (unsigned int *) func, int p_s, int p_sub, int s_len, int s_sub_len){
+void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s, int p_sub, int s_len, int s_sub_len){
     struct timespec t1, t2;
     int i;
     long total_nsecs = 0;
