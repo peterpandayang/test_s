@@ -545,7 +545,8 @@ void printOneReg(struct arm_state *state, int i){
 }
 
 void printReadRegs(struct arm_state *state){
-    for(int i = 0; i <= state->NREGS; i++){
+    int i;
+    for(i = 0; i <= NREGS; i++){
         if(state->read_regs[i] == 1){
             printOneReg(state, i);
         }
@@ -555,7 +556,8 @@ void printReadRegs(struct arm_state *state){
 }
 
 void printWrittenRegs(struct arm_state *state){
-    for(int i = 0; i <= state->NREGS; i++){
+    int i;
+    for(i = 0; i <= NREGS; i++){
         if(state->written_regs[i] == 1){
             printOneReg(state, i);
         }
