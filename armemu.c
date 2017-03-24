@@ -374,6 +374,15 @@ void update_pc_ne_ge(int check_val, struct arm_state *state, int offset){
     }
 }
 
+void update_pc_bl_eq(int check_val, struct arm_state *state, int offset){
+    if(check_val == 0x40000000){
+        state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+    }
+    else{
+        state->regs[PC] = state->regs[PC] + 4;
+    }    
+}
+
 void armemu_b(struct arm_state *state){
     unsigned int iw, offset;
     iw = *((unsigned int *) state->regs[PC]);
@@ -388,11 +397,12 @@ void armemu_b(struct arm_state *state){
         if(is_beq_inst(iw)){
             if(state->cpsr == 0x40000000){
                 save_link_addr(state);
-                state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+                // state->regs[PC] = state->regs[PC] + 8 + offset * 4;
             }
-            else{
-                state->regs[PC] = state->regs[PC] + 4;
-            }
+            // else{
+            //     state->regs[PC] = state->regs[PC] + 4;
+            // }
+            update_pc_bl_eq(state->cpsr, state, offset);
         }
         else{            
             save_link_addr(state);
@@ -400,30 +410,19 @@ void armemu_b(struct arm_state *state){
         }
     }
     else if(is_beq_inst(iw)){
-        if(state->cpsr == 0x40000000){
-            state->regs[PC] = state->regs[PC] + 8 + offset * 4;
-        }
-        else{
-            state->regs[PC] = state->regs[PC] + 4;
-        }
+        update_pc_bl_eq(state->cpsr, state, offset);
+        // if(state->cpsr == 0x40000000){
+        //     state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+        // }
+        // else{
+        //     state->regs[PC] = state->regs[PC] + 4;
+        // }
     }
     else if(is_bge_inst(iw)){
         update_pc_ne_ge(state->cpsr >> 31, state, offset);
-        // if(state->cpsr >> 31 == 0b0){
-        //     state->regs[PC] = state->regs[PC] + 8 + offset * 4;
-        // }
-        // else{
-        //     state->regs[PC] = state->regs[PC] + 4;
-        // }
     }
     else if(is_bne_inst(iw)){
         update_pc_ne_ge(state->cpsr >> 30, state, offset);
-        // if(state->cpsr >> 30 == 0b0){
-        //     state->regs[PC] = state->regs[PC] + 8 + offset * 4;
-        // }
-        // else{
-        //     state->regs[PC] = state->regs[PC] + 4;
-        // }
     }
     else if(is_b_default_inst(iw)){
         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
@@ -539,8 +538,8 @@ void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, 
     unsigned int int_p_sub = (unsigned int)((unsigned int *)p_sub);
     int s_len = strlen(p_s);
     int s_sub_len = strlen(p_sub);
-    init_arm_state(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     int pos;
+    init_arm_state(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     pos = armemu(state);
     printf("Start position is: %d\n", pos);
     printAnalysis(state);
