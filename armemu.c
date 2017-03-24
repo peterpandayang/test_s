@@ -544,7 +544,7 @@ void print_one_reg(struct arm_state *state, int i){
     }
 }
 
-void prin_read_regs(struct arm_state *state){
+void print_read_regs(struct arm_state *state){
     int i;
     for(i = 0; i <= NREGS; i++){
         if(state->read_regs[i] == 1){
