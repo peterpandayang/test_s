@@ -712,7 +712,7 @@ int main(int argc, char **argv){
 
     run_emulated(&state, p_array, p_s, p_sub, size);
 
-    FILE *f = fopen("find_sub_in_s.txt", "w");
+    FILE *f = fopen("text.txt", "w");
 if (f == NULL)
 {
     printf("Error opening file!\n");
