@@ -41,6 +41,8 @@ struct arm_state {
     unsigned int written_regs[NREGS + 1];
     double armemu_total_time_usecs;
     double armemu_total_time_secs;
+    double native_total_time_usecs;
+    double native_total_time_secs;
 };
 
 void init_arm_state(struct arm_state *state, unsigned int *func, unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3){
@@ -588,6 +590,8 @@ void print_analysis(struct arm_state *state){
     print_written_regs(state);
     printf("armemu_total_time_secs = %lf s\n", state->armemu_total_time_secs); 
     printf("armemu_total_time_usecs = %lf us\n", state->armemu_total_time_usecs);  
+    printf("native_total_time_secs = %lf s\n", state->native_total_time_secs); 
+    printf("native_total_time_usecs = %lf us\n", state->native_total_time_usecs);  
     printf("\n");
 }
 
@@ -596,8 +600,9 @@ void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, in
     int i;
     long total_nsecs = 0;
     time_t total_secs = 0;
-    double armemu_total_time_secs = 0.0;
-    double armemu_total_time_usecs = 0.0;
+    double total_time_secs = 0.0;
+    double total_time_usecs = 0.0;
+    // armemu time
     clock_gettime(CLOCK_MONOTONIC, &t1);
     for (i = 0; i < ITERS_ARRAY; i++) {
         init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
@@ -606,10 +611,23 @@ void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, in
     clock_gettime(CLOCK_MONOTONIC, &t2); 
     total_secs = t2.tv_sec - t1.tv_sec;
     total_nsecs = t2.tv_nsec - t1.tv_nsec;
-    armemu_total_time_secs = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
-    armemu_total_time_usecs = (((double) armemu_total_time_secs) / ((double) ITERS_ARRAY)) * 1000000.0;
-    state->armemu_total_time_usecs = armemu_total_time_usecs;
-    state->armemu_total_time_secs = armemu_total_time_secs;
+    total_time_secs = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
+    total_time_usecs = (((double) total_nsecs) / ((double) ITERS_ARRAY)) * 1000000.0;
+    state->armemu_total_time_usecs = total_time_secs;
+    state->armemu_total_time_secs = total_time_usecs;
+    // native time
+    clock_gettime(CLOCK_MONOTONIC, &t1);
+    for (i = 0; i < ITERS_ASSEM; i++) {
+        init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
+        armemu(state);
+    }
+    clock_gettime(CLOCK_MONOTONIC, &t2); 
+    total_secs = t2.tv_sec - t1.tv_sec;
+    total_nsecs = t2.tv_nsec - t1.tv_nsec;
+    total_time_secs = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
+    total_time_usecs = (((double) total_nsecs) / ((double) ITERS_ASSEM)) * 1000000.0;
+    state->native_total_time_usecs = total_time_secs;
+    state->native_total_time_usecs = total_time_usecs;
 }
 
 void gettime_fibo(struct arm_state *state, unsigned int *func, int size){
