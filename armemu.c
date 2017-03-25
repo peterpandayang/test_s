@@ -646,7 +646,7 @@ void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
     int fibo_rec;
     fibo_rec = armemu(state);
     printf("Fibo recursion result for %d's element is: %d\n", size, fibo_rec);
-    gettime_fibo_rec(state, (unsigned int *) func);
+    gettime_fibo_rec(state, (unsigned int *) func, size);
     print_analysis(state);
 }
 
