@@ -679,10 +679,10 @@ void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, 
     int s_len = strlen(p_s);
     int s_sub_len = strlen(p_sub);
     int pos;
-    gettime_find_s_in_sub(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     init_arm_state(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     pos = armemu(state);
     printf("Start position is: %d\n", pos);
+    gettime_find_s_in_sub(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     print_analysis(state);
     write_to_output(state, 4);
 }
