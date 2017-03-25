@@ -585,6 +585,8 @@ void print_analysis(struct arm_state *state){
     print_read_regs(state);
     printf("Register used as written: \n");
     print_written_regs(state);
+    printf("total_time_secs = %lf\n", state->total_time_secs); 
+    printf("total_time_usecs = %lf\n", total_time_usecs);  
     printf("\n");
 }
 
@@ -605,9 +607,9 @@ void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, in
     total_secs = t2.tv_sec - t1.tv_sec;
     total_nsecs = t2.tv_nsec - t1.tv_nsec;
     total_time = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
-    printf("total_time_secs = %lf\n", total_time);   
+    // printf("total_time_secs = %lf\n", total_time);   
     total_time_usecs = (((double) total_time) / ((double) ITERS_ARRAY)) * 1000000.0;
-    printf("total_time_usecs = %lf\n", total_time_usecs);
+    // printf("total_time_usecs = %lf\n", total_time_usecs);
     state->total_time_usecs = total_time_usecs;
     state->total_time_secs = total_time;
 }
@@ -650,9 +652,9 @@ void gettime_fibo(struct arm_state *state, unsigned int *func, int size){
     total_secs = t2.tv_sec - t1.tv_sec;
     total_nsecs = t2.tv_nsec - t1.tv_nsec;
     total_time = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
-    printf("total_time_secs = %lf\n", total_time);   
+    // printf("total_time_secs = %lf\n", total_time);   
     total_time_usecs = (((double) total_time) / ((double) ITERS_FIBO)) * 1000000.0;
-    printf("total_time_usecs = %lf\n", total_time_usecs);
+    // printf("total_time_usecs = %lf\n", total_time_usecs);
     state->total_time_usecs = total_time_usecs;
     state->total_time_secs = total_time;
 }
@@ -693,9 +695,9 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
     total_secs = t2.tv_sec - t1.tv_sec;
     total_nsecs = t2.tv_nsec - t1.tv_nsec;
     total_time = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
-    printf("total_time_secs = %lf\n", total_time);   
+    // printf("total_time_secs = %lf\n", total_time);   
     total_time_usecs = (((double) total_time) / ((double) ITERS_FIND_SUB_IN_S)) * 1000000.0;
-    printf("total_time_usecs = %lf\n", total_time_usecs);
+    // printf("total_time_usecs = %lf\n", total_time_usecs);
     state->total_time_usecs = total_time_usecs;
     state->total_time_secs = total_time;
 }
