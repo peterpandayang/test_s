@@ -586,7 +586,7 @@ void print_analysis(struct arm_state *state){
     printf("Register used as written: \n");
     print_written_regs(state);
     printf("total_time_secs = %lf\n", state->total_time_secs); 
-    printf("total_time_usecs = %lf\n", total_time_usecs);  
+    printf("total_time_usecs = %lf\n", state->total_time_usecs);  
     printf("\n");
 }
 
