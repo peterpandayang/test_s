@@ -590,8 +590,8 @@ void print_analysis(struct arm_state *state){
     print_written_regs(state);
     printf("armemu_total_time_secs = %lf s\n", state->armemu_total_time_secs); 
     printf("armemu_total_time_usecs = %lf us\n", state->armemu_total_time_usecs); 
-    printf("native_total_time_secs = %lf s\n", state->native_total_time_secs); 
-    printf("native_total_time_usecs = %lf us\n", state->native_total_time_usecs);  
+    // printf("native_total_time_secs = %lf s\n", state->native_total_time_secs); 
+    // printf("native_total_time_usecs = %lf us\n", state->native_total_time_usecs);  
     printf("\n");
 }
 
