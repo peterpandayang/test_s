@@ -14,7 +14,7 @@
 #define ITERS_ARRAY 1000
 #define ITERS_FIBO 10
 #define ITERS_FIND_SUB_IN_S 1000  
-#define ITERS_ASSEM 1000000000
+#define ITERS_ASSEM 10000
 
 int sum_array_s(int *p, int n);
 int find_max_s(int *p, int n);
