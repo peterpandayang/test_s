@@ -620,7 +620,7 @@ void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, in
     // native time
     clock_gettime(CLOCK_MONOTONIC, &t1);
     for (i = 0; i < ITERS_ARRAY; i++) {
-        func(p_array, size);
+        *func(p_array, size);
     }
     clock_gettime(CLOCK_MONOTONIC, &t2); 
     total_secs = t2.tv_sec - t1.tv_sec;
