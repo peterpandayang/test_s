@@ -11,7 +11,7 @@
 #define LR 14
 #define PC 15
 #define VALUE_MAX_STR_LEN 64 
-#define ITERS 1000  
+#define ITERS_FIND_SUB_IN_S 1000  
 
 int sum_array_s(int *p, int n);
 int find_max_s(int *p, int n);
@@ -615,6 +615,30 @@ void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
     print_analysis(state);
 }
 
+void gettime_fibo_rec(struct arm_state *state, unsigned int *func, int size){
+    struct timespec t1, t2;
+    int i;
+    long total_nsecs = 0;
+    time_t total_secs = 0;
+    double total_time = 0.0;
+    double inner_func_usecs = 0.0;
+    clock_gettime(CLOCK_MONOTONIC, &t1);
+    for (i = 0; i < ITERS; i++) {
+        init_arm_state(state, (unsigned int *) func, size, 0, 0, 0);
+        armemu(state);
+    }
+    clock_gettime(CLOCK_MONOTONIC, &t2); 
+    total_secs = t2.tv_sec - t1.tv_sec;
+    total_nsecs = t2.tv_nsec - t1.tv_nsec;
+    printf("total_secs = %ld\n", total_secs);
+    printf("total_nsecs = %ld\n", total_nsecs);
+    total_time = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
+    printf("total_time = %lf\n", total_time);   
+    inner_func_usecs = (((double) total_time) / ((double) ITERS)) * 1000000.0;
+    printf("inner_func_usecs = %lf\n", inner_func_usecs);
+    state->total_time = inner_func_usecs;
+}
+
 void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
     printf("Start recursion fibonacci test:\n");
     init_arm_state(state, (unsigned int *) func, size, 0, 0, 0);
@@ -632,7 +656,7 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
     double total_time = 0.0;
     double inner_func_usecs = 0.0;
     clock_gettime(CLOCK_MONOTONIC, &t1);
-    for (i = 0; i < ITERS; i++) {
+    for (i = 0; i < ITERS_FIND_SUB_IN_S; i++) {
         init_arm_state(state, (unsigned int *) func, p_s, p_sub, s_len, s_sub_len);
         armemu(state);
     }
@@ -643,7 +667,7 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
     printf("total_nsecs = %ld\n", total_nsecs);
     total_time = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
     printf("total_time = %lf\n", total_time);   
-    inner_func_usecs = (((double) total_time) / ((double) ITERS)) * 1000000.0;
+    inner_func_usecs = (((double) total_time) / ((double) ITERS_FIND_SUB_IN_S)) * 1000000.0;
     printf("inner_func_usecs = %lf\n", inner_func_usecs);
     state->total_time = inner_func_usecs;
 }
