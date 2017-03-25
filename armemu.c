@@ -12,6 +12,7 @@
 #define PC 15
 #define VALUE_MAX_STR_LEN 64 
 #define ITERS_FIND_SUB_IN_S 1000  
+#define ITERS_REC_FIBO 10
 
 int sum_array_s(int *p, int n);
 int find_max_s(int *p, int n);
@@ -623,7 +624,7 @@ void gettime_fibo_rec(struct arm_state *state, unsigned int *func, int size){
     double total_time = 0.0;
     double inner_func_usecs = 0.0;
     clock_gettime(CLOCK_MONOTONIC, &t1);
-    for (i = 0; i < ITERS; i++) {
+    for (i = 0; i < ITERS_REC_FIBO; i++) {
         init_arm_state(state, (unsigned int *) func, size, 0, 0, 0);
         armemu(state);
     }
@@ -634,7 +635,7 @@ void gettime_fibo_rec(struct arm_state *state, unsigned int *func, int size){
     printf("total_nsecs = %ld\n", total_nsecs);
     total_time = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
     printf("total_time = %lf\n", total_time);   
-    inner_func_usecs = (((double) total_time) / ((double) ITERS)) * 1000000.0;
+    inner_func_usecs = (((double) total_time) / ((double) ITERS_REC_FIBO)) * 1000000.0;
     printf("inner_func_usecs = %lf\n", inner_func_usecs);
     state->total_time = inner_func_usecs;
 }
@@ -715,7 +716,7 @@ void run_emulated(struct arm_state *state, int *p_array, char *p_s, char *p_sub,
     // sum_array_test(state, (unsigned int *) sum_array_s, p_array, size);
     // find_max_test(state, (unsigned int *) find_max_s, p_array, size);
     // fibo_iter_test(state, (unsigned int *) fibo_iter_s, size);
-    // fibo_rec_test(state, (unsigned int *) fibo_rec_s, size);
+    fibo_rec_test(state, (unsigned int *) fibo_rec_s, size);
     find_sub_in_s_test(state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
 }
 
