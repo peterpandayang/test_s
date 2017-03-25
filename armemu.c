@@ -595,7 +595,7 @@ void print_analysis(struct arm_state *state){
     printf("\n");
 }
 
-void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, int size){
+void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, int size, int index){
     struct timespec t1, t2;
     int i;
     long total_nsecs = 0;
@@ -615,19 +615,25 @@ void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, in
     total_time_usecs = (((double) total_nsecs) / ((double) ITERS_ARRAY)) * 1000000.0;
     state->armemu_total_time_usecs = total_time_secs;
     state->armemu_total_time_secs = total_time_usecs;
-    // native time
-    // clock_gettime(CLOCK_MONOTONIC, &t1);
-    // for (i = 0; i < ITERS_ASSEM; i++) {
-    //     init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
-    //     armemu(state);
-    // }
-    // clock_gettime(CLOCK_MONOTONIC, &t2); 
-    // total_secs = t2.tv_sec - t1.tv_sec;
-    // total_nsecs = t2.tv_nsec - t1.tv_nsec;
-    // total_time_secs = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
-    // total_time_usecs = (((double) total_nsecs) / ((double) ITERS_ASSEM)) * 1000000.0;
-    // state->native_total_time_usecs = total_time_secs;
-    // state->native_total_time_usecs = total_time_usecs;
+    native time
+    clock_gettime(CLOCK_MONOTONIC, &t1);
+    if(index == 1){
+        for (i = 0; i < ITERS_ASSEM; i++) {
+            sum_array_s(p_array, size);
+        }       
+    }
+    else{
+        for (i = 0; i < ITERS_ASSEM; i++) {
+            find_max_s(p_array, size);
+        } 
+    }
+    clock_gettime(CLOCK_MONOTONIC, &t2); 
+    total_secs = t2.tv_sec - t1.tv_sec;
+    total_nsecs = t2.tv_nsec - t1.tv_nsec;
+    total_time_secs = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
+    total_time_usecs = (((double) total_nsecs) / ((double) ITERS_ASSEM)) * 1000000.0;
+    state->native_total_time_usecs = total_time_secs;
+    state->native_total_time_usecs = total_time_usecs;
 }
 
 void gettime_fibo(struct arm_state *state, unsigned int *func, int size){
@@ -712,7 +718,7 @@ void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, i
     int sum;
     sum = armemu(state);
     printf("Sum is: %d\n", sum);
-    gettime_array(state, (unsigned int *) func, p_array, size);
+    gettime_array(state, (unsigned int *) func, p_array, size, 1);
     print_analysis(state);
 }                  
 
@@ -723,7 +729,7 @@ void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, in
     int max;
     max = armemu(state);
     printf("Max is: %d\n", max);
-    gettime_array(state, (unsigned int *) func, p_array, size);
+    gettime_array(state, (unsigned int *) func, p_array, size, 2);
     print_analysis(state);
 }
 
