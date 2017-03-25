@@ -608,16 +608,7 @@ void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, in
     print_analysis(state);
 }
 
-void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
-    printf("Start iteration fibonacci test:\n");
-    init_arm_state(state, (unsigned int *) func, size, 0, 0, 0);
-    int fibo_iter;
-    fibo_iter = armemu(state);
-    printf("Fibo iteration result for %d's element is: %d\n", size, fibo_iter);
-    print_analysis(state);
-}
-
-void gettime_fibo_rec(struct arm_state *state, unsigned int *func, int size){
+void gettime_fibo(struct arm_state *state, unsigned int *func, int size){
     struct timespec t1, t2;
     int i;
     long total_nsecs = 0;
@@ -640,13 +631,23 @@ void gettime_fibo_rec(struct arm_state *state, unsigned int *func, int size){
     state->total_time_secs = total_time;
 }
 
+void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
+    printf("Start iteration fibonacci test:\n");
+    init_arm_state(state, (unsigned int *) func, size, 0, 0, 0);
+    int fibo_iter;
+    fibo_iter = armemu(state);
+    printf("Fibo iteration result for %d's element is: %d\n", size, fibo_iter);
+    gettime_fibo(state, (unsigned int *) func, size);
+    print_analysis(state);
+}
+
 void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
     printf("Start recursion fibonacci test:\n");
     init_arm_state(state, (unsigned int *) func, size, 0, 0, 0);
     int fibo_rec;
     fibo_rec = armemu(state);
     printf("Fibo recursion result for %d's element is: %d\n", size, fibo_rec);
-    gettime_fibo_rec(state, (unsigned int *) func, size);
+    gettime_fibo(state, (unsigned int *) func, size);
     print_analysis(state);
 }
 
@@ -715,7 +716,7 @@ void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, 
 void run_emulated(struct arm_state *state, int *p_array, char *p_s, char *p_sub, int size){
     // sum_array_test(state, (unsigned int *) sum_array_s, p_array, size);
     // find_max_test(state, (unsigned int *) find_max_s, p_array, size);
-    // fibo_iter_test(state, (unsigned int *) fibo_iter_s, size);
+    fibo_iter_test(state, (unsigned int *) fibo_iter_s, size);
     fibo_rec_test(state, (unsigned int *) fibo_rec_s, size);
     find_sub_in_s_test(state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
 }
