@@ -659,6 +659,18 @@ void write_to_output(struct arm_state *state, int index){
     if(index == 1){
         f = fopen("sum_array.txt", "w");
     }
+    else if(index == 2){
+        f = fopen("find_max.txt", "w");
+    }
+    else if(index == 3){
+        f = fopen("fibo_iter.txt", "w");
+    }
+    else if(index == 4){
+        f = fopen("fibo_rec.txt", "w");
+    }
+    else if(index == 5){
+        f = fopen("find_sub_in_s.txt", "w");
+    }
     /* print some text */
     const char *text = "Write this to the file lalalalallalallal";
     fprintf(f, "Some text: %s\n", text);
