@@ -11,8 +11,9 @@
 #define LR 14
 #define PC 15
 #define VALUE_MAX_STR_LEN 64 
-#define ITERS_FIND_SUB_IN_S 1000  
+#define ITERS_ARRAY 1000000
 #define ITERS_FIBO 10
+#define ITERS_FIND_SUB_IN_S 1000  
 
 int sum_array_s(int *p, int n);
 int find_max_s(int *p, int n);
@@ -588,6 +589,29 @@ void print_analysis(struct arm_state *state){
 }
 
 /*test part*/
+void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, int size){
+    struct timespec t1, t2;
+    int i;
+    long total_nsecs = 0;
+    time_t total_secs = 0;
+    double total_time = 0.0;
+    double total_time_usecs = 0.0;
+    clock_gettime(CLOCK_MONOTONIC, &t1);
+    for (i = 0; i < ITERS_ARRAY; i++) {
+        init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
+        armemu(state);
+    }
+    clock_gettime(CLOCK_MONOTONIC, &t2); 
+    total_secs = t2.tv_sec - t1.tv_sec;
+    total_nsecs = t2.tv_nsec - t1.tv_nsec;
+    total_time = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
+    printf("total_time_secs = %lf\n", total_time);   
+    total_time_usecs = (((double) total_time) / ((double) ITERS_ARRAY)) * 1000000.0;
+    printf("total_time_usecs = %lf\n", total_time_usecs);
+    state->total_time_usecs = total_time_usecs;
+    state->total_time_secs = total_time;
+}
+
 void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, int size){
     printf("Start sum array test and print input array:\n");
     print_array_c(p_array, size);
@@ -595,6 +619,7 @@ void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, i
     int sum;
     sum = armemu(state);
     printf("Sum is: %d\n", sum);
+    gettime_array(state, (unsigned int *) func, (unsigned int) p_array, size);
     print_analysis(state);
 }                  
 
@@ -605,6 +630,7 @@ void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, in
     int max;
     max = armemu(state);
     printf("Max is: %d\n", max);
+    gettime_array(state, (unsigned int *) func, (unsigned int) p_array, size);
     print_analysis(state);
 }
 
@@ -714,8 +740,8 @@ void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, 
 }
 
 void run_emulated(struct arm_state *state, int *p_array, char *p_s, char *p_sub, int size){
-    // sum_array_test(state, (unsigned int *) sum_array_s, p_array, size);
-    // find_max_test(state, (unsigned int *) find_max_s, p_array, size);
+    sum_array_test(state, (unsigned int *) sum_array_s, p_array, size);
+    find_max_test(state, (unsigned int *) find_max_s, p_array, size);
     fibo_iter_test(state, (unsigned int *) fibo_iter_s, size);
     fibo_rec_test(state, (unsigned int *) fibo_rec_s, size);
     find_sub_in_s_test(state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
