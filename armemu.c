@@ -636,7 +636,7 @@ void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, in
     total_nsecs = t2.tv_nsec - t1.tv_nsec;
     total_time_secs = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
     total_time_usecs = (((double) total_nsecs) / ((double) ITERS_ASSEM)) * 1000000.0;
-    state->native_total_time_usecs = total_time_secs;
+    state->native_total_time_secs = total_time_secs;
     state->native_total_time_usecs = total_time_usecs;
 }
 
