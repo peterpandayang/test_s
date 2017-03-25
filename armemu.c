@@ -595,7 +595,7 @@ void print_analysis(struct arm_state *state){
     printf("\n");
 }
 
-void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, int size){
+void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, int size, int index){
     struct timespec t1, t2;
     int i;
     long total_nsecs = 0;
@@ -619,8 +619,11 @@ void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, in
     state->armemu_total_time_secs = armemu_total_time_secs;
     // native time
     clock_gettime(CLOCK_MONOTONIC, &t1);
-    for (i = 0; i < ITERS_ARRAY; i++) {
-        *func(p_array, size);
+    if(index == 1){
+        sum_array_s(p_array, size);
+    }
+    else{
+        find_max_s(p_array, size);
     }
     clock_gettime(CLOCK_MONOTONIC, &t2); 
     total_secs = t2.tv_sec - t1.tv_sec;
@@ -701,7 +704,7 @@ void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, i
     int sum;
     sum = armemu(state);
     printf("Sum is: %d\n", sum);
-    gettime_array(state, (unsigned int *) func, p_array, size);
+    gettime_array(state, (unsigned int *) func, p_array, size, 1);
     print_analysis(state);
 }                  
 
@@ -712,7 +715,7 @@ void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, in
     int max;
     max = armemu(state);
     printf("Max is: %d\n", max);
-    gettime_array(state, (unsigned int *) func, p_array, size);
+    gettime_array(state, (unsigned int *) func, p_array, size, 2);
     print_analysis(state);
 }
 
