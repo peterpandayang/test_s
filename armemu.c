@@ -615,7 +615,7 @@ void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, in
     total_time_usecs = (((double) total_nsecs) / ((double) ITERS_ARRAY)) * 1000000.0;
     state->armemu_total_time_usecs = total_time_secs;
     state->armemu_total_time_secs = total_time_usecs;
-    native time
+    //native time
     clock_gettime(CLOCK_MONOTONIC, &t1);
     if(index == 1){
         for (i = 0; i < ITERS_ASSEM; i++) {
