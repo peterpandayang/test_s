@@ -11,7 +11,7 @@
 #define LR 14
 #define PC 15
 #define VALUE_MAX_STR_LEN 64 
-#define ITERS_ARRAY 1000000
+#define ITERS_ARRAY 1000
 #define ITERS_FIBO 10
 #define ITERS_FIND_SUB_IN_S 1000  
 
