@@ -619,7 +619,7 @@ void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, i
     int sum;
     sum = armemu(state);
     printf("Sum is: %d\n", sum);
-    gettime_array(state, (unsigned int *) func, (unsigned int) p_array, size);
+    gettime_array(state, (unsigned int *) func, p_array, size);
     print_analysis(state);
 }                  
 
@@ -630,7 +630,7 @@ void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, in
     int max;
     max = armemu(state);
     printf("Max is: %d\n", max);
-    gettime_array(state, (unsigned int *) func, (unsigned int) p_array, size);
+    gettime_array(state, (unsigned int *) func, p_array, size);
     print_analysis(state);
 }
 
