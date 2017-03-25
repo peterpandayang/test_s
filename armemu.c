@@ -37,7 +37,8 @@ struct arm_state {
     int reg_writing_count;
     unsigned int read_regs[NREGS + 1];
     unsigned int written_regs[NREGS + 1];
-    double total_time;
+    double total_time_usecs;
+    double total_time_secs;
 };
 
 void init_arm_state(struct arm_state *state, unsigned int *func, unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3){
@@ -631,13 +632,12 @@ void gettime_fibo_rec(struct arm_state *state, unsigned int *func, int size){
     clock_gettime(CLOCK_MONOTONIC, &t2); 
     total_secs = t2.tv_sec - t1.tv_sec;
     total_nsecs = t2.tv_nsec - t1.tv_nsec;
-    // printf("total_secs = %ld\n", total_secs);
-    // printf("total_nsecs = %ld\n", total_nsecs);
     total_time = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
     printf("total_time_secs = %lf\n", total_time);   
     total_time_usecs = (((double) total_time) / ((double) ITERS_REC_FIBO)) * 1000000.0;
     printf("total_time_usecs = %lf\n", total_time_usecs);
-    state->total_time = total_time_usecs;
+    state->total_time_usecs = total_time_usecs;
+    state->total_time_secs = total_time;
 }
 
 void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
@@ -665,13 +665,12 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
     clock_gettime(CLOCK_MONOTONIC, &t2); 
     total_secs = t2.tv_sec - t1.tv_sec;
     total_nsecs = t2.tv_nsec - t1.tv_nsec;
-    // printf("total_secs = %ld\n", total_secs);
-    // printf("total_nsecs = %ld\n", total_nsecs);
     total_time = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
     printf("total_time_secs = %lf\n", total_time);   
     total_time_usecs = (((double) total_time) / ((double) ITERS_FIND_SUB_IN_S)) * 1000000.0;
     printf("total_time_usecs = %lf\n", total_time_usecs);
-    state->total_time = total_time_usecs;
+    state->total_time_usecs = total_time_usecs;
+    state->total_time_secs = total_time;
 }
 
 void write_to_output(struct arm_state *state, int index){
