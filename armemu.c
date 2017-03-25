@@ -634,7 +634,7 @@ void gettime_fibo_rec(struct arm_state *state, unsigned int *func, int size){
     // printf("total_secs = %ld\n", total_secs);
     // printf("total_nsecs = %ld\n", total_nsecs);
     total_time = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
-    // printf("total_time = %lf\n", total_time);   
+    printf("total_time_secs = %lf\n", total_time);   
     total_time_usecs = (((double) total_time) / ((double) ITERS_REC_FIBO)) * 1000000.0;
     printf("total_time_usecs = %lf\n", total_time_usecs);
     state->total_time = total_time_usecs;
@@ -668,7 +668,7 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
     // printf("total_secs = %ld\n", total_secs);
     // printf("total_nsecs = %ld\n", total_nsecs);
     total_time = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
-    // printf("total_time = %lf\n", total_time);   
+    printf("total_time_secs = %lf\n", total_time);   
     total_time_usecs = (((double) total_time) / ((double) ITERS_FIND_SUB_IN_S)) * 1000000.0;
     printf("total_time_usecs = %lf\n", total_time_usecs);
     state->total_time = total_time_usecs;
