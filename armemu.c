@@ -628,10 +628,10 @@ void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, in
     clock_gettime(CLOCK_MONOTONIC, &t2); 
     total_secs = t2.tv_sec - t1.tv_sec;
     total_nsecs = t2.tv_nsec - t1.tv_nsec;
-    armemu_total_time_secs = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
-    armemu_total_time_usecs = (((double) armemu_total_time_secs) / ((double) ITERS_ARRAY)) * 1000000.0;
-    state->armemu_total_time_usecs = armemu_total_time_usecs;
-    state->armemu_total_time_secs = armemu_total_time_secs;
+    native_total_time_secs = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
+    native_total_time_usecs = (((double) native_total_time_secs) / ((double) ITERS_ARRAY)) * 1000000.0;
+    state->native_total_time_usecs = native_total_time_usecs;
+    state->native_total_time_secs = native_total_time_secs;
 }
 
 void gettime_fibo(struct arm_state *state, unsigned int *func, int size){
