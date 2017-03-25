@@ -672,7 +672,7 @@ void gettime_fibo(struct arm_state *state, unsigned int *func, int size, int ind
     total_secs = t2.tv_sec - t1.tv_sec;
     total_nsecs = t2.tv_nsec - t1.tv_nsec;
     total_time_secs = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
-    total_time_usecs = (((double) total_time_secs) / ((double) ITERS_ASSEM)) * 1000000.0;
+    total_time_usecs = (((double) total_time_secs) / ((double) ITERS_ASSEM)) * 10000000.0;
     state->native_total_time_secs = total_time_secs;
     state->native_total_time_usecs = total_time_usecs;
 }
@@ -682,8 +682,9 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
     int i;
     long total_nsecs = 0;
     time_t total_secs = 0;
-    double armemu_total_time_secs = 0.0;
-    double armemu_total_time_usecs = 0.0;
+    double total_time_secs = 0.0;
+    double total_time_usecs = 0.0;
+    // armemu time
     clock_gettime(CLOCK_MONOTONIC, &t1);
     for (i = 0; i < ITERS_FIND_SUB_IN_S; i++) {
         init_arm_state(state, (unsigned int *) func, p_s, p_sub, s_len, s_sub_len);
@@ -692,10 +693,22 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
     clock_gettime(CLOCK_MONOTONIC, &t2); 
     total_secs = t2.tv_sec - t1.tv_sec;
     total_nsecs = t2.tv_nsec - t1.tv_nsec;
-    armemu_total_time_secs = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
-    armemu_total_time_usecs = (((double) armemu_total_time_secs) / ((double) ITERS_FIND_SUB_IN_S)) * 1000000.0;
-    state->armemu_total_time_usecs = armemu_total_time_usecs;
-    state->armemu_total_time_secs = armemu_total_time_secs;
+    total_time_secs = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
+    total_time_usecs = (((double) total_time_secs) / ((double) ITERS_FIND_SUB_IN_S)) * 1000000.0;
+    state->armemu_total_time_usecs = total_time_usecs;
+    state->armemu_total_time_secs = total_time_secs;
+    // native time
+    clock_gettime(CLOCK_MONOTONIC, &t1);
+    for (i = 0; i < ITERS_ASSEM; i++) {
+        find_sub_in_s_s(p_s, p_sub, s_len, s_sub_len);
+    }
+    clock_gettime(CLOCK_MONOTONIC, &t2); 
+    total_secs = t2.tv_sec - t1.tv_sec;
+    total_nsecs = t2.tv_nsec - t1.tv_nsec;
+    total_time_secs = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
+    total_time_usecs = (((double) total_time_secs) / ((double) ITERS_ASSEM)) * 10000000.0;
+    state->native_total_time_secs = total_time_secs;
+    state->native_total_time_usecs = total_time_usecs;
 }
 
 void write_to_output(struct arm_state *state, int index){
