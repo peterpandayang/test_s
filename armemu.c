@@ -700,7 +700,7 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
     // native time
     clock_gettime(CLOCK_MONOTONIC, &t1);
     for (i = 0; i < ITERS_ASSEM; i++) {
-        find_sub_in_s_s(p_s, p_sub, s_len, s_sub_len);
+        find_sub_in_s_s((unsigned int *)p_s, (unsigned int *)p_sub, s_len, s_sub_len);
     }
     clock_gettime(CLOCK_MONOTONIC, &t2); 
     total_secs = t2.tv_sec - t1.tv_sec;
