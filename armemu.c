@@ -14,6 +14,7 @@
 #define ITERS_ARRAY 1000
 #define ITERS_FIBO 10
 #define ITERS_FIND_SUB_IN_S 1000  
+#define ITERS_ASSEM 1000
 
 int sum_array_s(int *p, int n);
 int find_max_s(int *p, int n);
@@ -38,8 +39,8 @@ struct arm_state {
     int reg_writing_count;
     unsigned int read_regs[NREGS + 1];
     unsigned int written_regs[NREGS + 1];
-    double total_time_usecs;
-    double total_time_secs;
+    double armemu_total_time_usecs;
+    double armemu_total_time_secs;
 };
 
 void init_arm_state(struct arm_state *state, unsigned int *func, unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3){
@@ -585,19 +586,18 @@ void print_analysis(struct arm_state *state){
     print_read_regs(state);
     printf("Register used as written: \n");
     print_written_regs(state);
-    printf("total_time_secs = %lf s\n", state->total_time_secs); 
-    printf("total_time_usecs = %lf us\n", state->total_time_usecs);  
+    printf("armemu_total_time_secs = %lf s\n", state->armemu_total_time_secs); 
+    printf("armemu_total_time_usecs = %lf us\n", state->armemu_total_time_usecs);  
     printf("\n");
 }
 
-/*test part*/
 void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, int size){
     struct timespec t1, t2;
     int i;
     long total_nsecs = 0;
     time_t total_secs = 0;
-    double total_time = 0.0;
-    double total_time_usecs = 0.0;
+    double armemu_total_time_secs = 0.0;
+    double armemu_total_time_usecs = 0.0;
     clock_gettime(CLOCK_MONOTONIC, &t1);
     for (i = 0; i < ITERS_ARRAY; i++) {
         init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
@@ -607,11 +607,74 @@ void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, in
     total_secs = t2.tv_sec - t1.tv_sec;
     total_nsecs = t2.tv_nsec - t1.tv_nsec;
     total_time = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
-    total_time_usecs = (((double) total_time) / ((double) ITERS_ARRAY)) * 1000000.0;
-    state->total_time_usecs = total_time_usecs;
-    state->total_time_secs = total_time;
+    armemu_total_time_usecs = (((double) total_time) / ((double) ITERS_ARRAY)) * 1000000.0;
+    state->armemu_total_time_usecs = armemu_total_time_usecs;
+    state->armemu_total_time_secs = armemu_total_time_secs;
 }
 
+void gettime_fibo(struct arm_state *state, unsigned int *func, int size){
+    struct timespec t1, t2;
+    int i;
+    long total_nsecs = 0;
+    time_t total_secs = 0;
+    double armemu_total_time_secs = 0.0;
+    double armemu_total_time_usecs = 0.0;
+    clock_gettime(CLOCK_MONOTONIC, &t1);
+    for (i = 0; i < ITERS_FIBO; i++) {
+        init_arm_state(state, (unsigned int *) func, size, 0, 0, 0);
+        armemu(state);
+    }
+    clock_gettime(CLOCK_MONOTONIC, &t2); 
+    total_secs = t2.tv_sec - t1.tv_sec;
+    total_nsecs = t2.tv_nsec - t1.tv_nsec;
+    armemu_total_time_secs = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
+    armemu_total_time_usecs = (((double) armemu_total_time_secs) / ((double) ITERS_FIBO)) * 1000000.0;
+    state->armemu_total_time_usecs = armemu_total_time_usecs;
+    state->armemu_total_time_secs = armemu_total_time_secs;
+}
+
+void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s, int p_sub, int s_len, int s_sub_len){
+    struct timespec t1, t2;
+    int i;
+    long total_nsecs = 0;
+    time_t total_secs = 0;
+    double armemu_total_time_secs = 0.0;
+    double armemu_total_time_usecs = 0.0;
+    clock_gettime(CLOCK_MONOTONIC, &t1);
+    for (i = 0; i < ITERS_FIND_SUB_IN_S; i++) {
+        init_arm_state(state, (unsigned int *) func, p_s, p_sub, s_len, s_sub_len);
+        armemu(state);
+    }
+    clock_gettime(CLOCK_MONOTONIC, &t2); 
+    total_secs = t2.tv_sec - t1.tv_sec;
+    total_nsecs = t2.tv_nsec - t1.tv_nsec;
+    armemu_total_time_secs = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
+    armemu_total_time_usecs = (((double) armemu_total_time_secs) / ((double) ITERS_FIND_SUB_IN_S)) * 1000000.0;
+    state->armemu_total_time_usecs = armemu_total_time_usecs;
+    state->armemu_total_time_secs = armemu_total_time_secs;
+}
+
+void write_to_output(struct arm_state *state, int index){
+    FILE *f;
+    if(index == 1){
+        f = fopen("sum_array.txt", "w");
+    }
+    /* print some text */
+    const char *text = "Write this to the file lalalalallalallal";
+    fprintf(f, "Some text: %s\n", text);
+    /* print integers and floats */
+    int i = 1;
+    float py = 3.1415927;
+    fprintf(f, "Integer: %d, float: %f\n", i, py);
+
+    /* printing single chatacters */
+    char c = 'A';
+    fprintf(f, "A character: %c\n", c);
+
+    fclose(f);
+}
+
+/*test part*/
 void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, int size){
     printf("Start sum array test and print input array:\n");
     print_array_c(p_array, size);
@@ -634,27 +697,6 @@ void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, in
     print_analysis(state);
 }
 
-void gettime_fibo(struct arm_state *state, unsigned int *func, int size){
-    struct timespec t1, t2;
-    int i;
-    long total_nsecs = 0;
-    time_t total_secs = 0;
-    double total_time = 0.0;
-    double total_time_usecs = 0.0;
-    clock_gettime(CLOCK_MONOTONIC, &t1);
-    for (i = 0; i < ITERS_FIBO; i++) {
-        init_arm_state(state, (unsigned int *) func, size, 0, 0, 0);
-        armemu(state);
-    }
-    clock_gettime(CLOCK_MONOTONIC, &t2); 
-    total_secs = t2.tv_sec - t1.tv_sec;
-    total_nsecs = t2.tv_nsec - t1.tv_nsec;
-    total_time = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
-    total_time_usecs = (((double) total_time) / ((double) ITERS_FIBO)) * 1000000.0;
-    state->total_time_usecs = total_time_usecs;
-    state->total_time_secs = total_time;
-}
-
 void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
     printf("Start iteration fibonacci test:\n");
     init_arm_state(state, (unsigned int *) func, size, 0, 0, 0);
@@ -673,47 +715,6 @@ void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
     printf("Fibo recursion result for %d's element is: %d\n", size, fibo_rec);
     gettime_fibo(state, (unsigned int *) func, size);
     print_analysis(state);
-}
-
-void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s, int p_sub, int s_len, int s_sub_len){
-    struct timespec t1, t2;
-    int i;
-    long total_nsecs = 0;
-    time_t total_secs = 0;
-    double total_time = 0.0;
-    double total_time_usecs = 0.0;
-    clock_gettime(CLOCK_MONOTONIC, &t1);
-    for (i = 0; i < ITERS_FIND_SUB_IN_S; i++) {
-        init_arm_state(state, (unsigned int *) func, p_s, p_sub, s_len, s_sub_len);
-        armemu(state);
-    }
-    clock_gettime(CLOCK_MONOTONIC, &t2); 
-    total_secs = t2.tv_sec - t1.tv_sec;
-    total_nsecs = t2.tv_nsec - t1.tv_nsec;
-    total_time = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
-    total_time_usecs = (((double) total_time) / ((double) ITERS_FIND_SUB_IN_S)) * 1000000.0;
-    state->total_time_usecs = total_time_usecs;
-    state->total_time_secs = total_time;
-}
-
-void write_to_output(struct arm_state *state, int index){
-    FILE *f;
-    if(index == 4){
-        f = fopen("find_sub_in_s.txt", "w");
-    }
-    /* print some text */
-    const char *text = "Write this to the file lalalalallalallal";
-    fprintf(f, "Some text: %s\n", text);
-    /* print integers and floats */
-    int i = 1;
-    float py = 3.1415927;
-    fprintf(f, "Integer: %d, float: %f\n", i, py);
-
-    /* printing single chatacters */
-    char c = 'A';
-    fprintf(f, "A character: %c\n", c);
-
-    fclose(f);
 }
 
 void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, char *p_sub){
