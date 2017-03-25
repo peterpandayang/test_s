@@ -41,6 +41,8 @@ struct arm_state {
     unsigned int written_regs[NREGS + 1];
     double armemu_total_time_usecs;
     double armemu_total_time_secs;
+    double native_total_time_usecs;
+    double native_total_time_secs;
 };
 
 void init_arm_state(struct arm_state *state, unsigned int *func, unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3){
@@ -587,7 +589,9 @@ void print_analysis(struct arm_state *state){
     printf("Register used as written: \n");
     print_written_regs(state);
     printf("armemu_total_time_secs = %lf s\n", state->armemu_total_time_secs); 
-    printf("armemu_total_time_usecs = %lf us\n", state->armemu_total_time_usecs);  
+    printf("armemu_total_time_usecs = %lf us\n", state->armemu_total_time_usecs); 
+    printf("native_total_time_secs = %lf s\n", state->native_total_time_secs); 
+    printf("native_total_time_usecs = %lf us\n", state->native_total_time_usecs);  
     printf("\n");
 }
 
@@ -598,10 +602,25 @@ void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, in
     time_t total_secs = 0;
     double armemu_total_time_secs = 0.0;
     double armemu_total_time_usecs = 0.0;
+    double native_total_time_secs = 0.0;
+    double native_total_time_usecs = 0.0;
     clock_gettime(CLOCK_MONOTONIC, &t1);
+    // armemu time    
     for (i = 0; i < ITERS_ARRAY; i++) {
         init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
         armemu(state);
+    }
+    clock_gettime(CLOCK_MONOTONIC, &t2); 
+    total_secs = t2.tv_sec - t1.tv_sec;
+    total_nsecs = t2.tv_nsec - t1.tv_nsec;
+    armemu_total_time_secs = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
+    armemu_total_time_usecs = (((double) armemu_total_time_secs) / ((double) ITERS_ARRAY)) * 1000000.0;
+    state->armemu_total_time_usecs = armemu_total_time_usecs;
+    state->armemu_total_time_secs = armemu_total_time_secs;
+    // native time
+    clock_gettime(CLOCK_MONOTONIC, &t1);
+    for (i = 0; i < ITERS_ARRAY; i++) {
+        func(p_array, size);
     }
     clock_gettime(CLOCK_MONOTONIC, &t2); 
     total_secs = t2.tv_sec - t1.tv_sec;
