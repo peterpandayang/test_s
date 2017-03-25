@@ -733,7 +733,7 @@ void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, 
     printf("Start position is: %d\n", pos);
     gettime_find_s_in_sub(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     print_analysis(state);
-    write_to_output(state, 4);
+    // write_to_output(state, 4);
 }
 
 void run_emulated(struct arm_state *state, int *p_array, char *p_s, char *p_sub, int size){
@@ -741,7 +741,7 @@ void run_emulated(struct arm_state *state, int *p_array, char *p_s, char *p_sub,
     find_max_test(state, (unsigned int *) find_max_s, p_array, size);
     fibo_iter_test(state, (unsigned int *) fibo_iter_s, size);
     fibo_rec_test(state, (unsigned int *) fibo_rec_s, size);
-    // find_sub_in_s_test(state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
+    find_sub_in_s_test(state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
 }
 
 /*main part*/
