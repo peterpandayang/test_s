@@ -692,7 +692,7 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
     }
     clock_gettime(CLOCK_MONOTONIC, &t2); 
     total_secs = t2.tv_sec - t1.tv_sec;
-    total_nsecs = t2.tv_nsec - t1.tv_nsec;
+    total_nsecs = t2.tv_nsec - t1.tv_nsec; 
     total_time_secs = (double) total_secs + ((double) total_nsecs) / 1000000000.0;
     total_time_usecs = (((double) total_time_secs) / ((double) ITERS_FIND_SUB_IN_S)) * 1000000.0;
     state->armemu_total_time_usecs = total_time_usecs;
@@ -700,7 +700,7 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
     // native time
     clock_gettime(CLOCK_MONOTONIC, &t1);
     for (i = 0; i < ITERS_ASSEM; i++) {
-        find_sub_in_s_s((unsigned int *)p_s, (unsigned int *)p_sub, s_len, s_sub_len);
+        find_sub_in_s_s((char *)p_s, (char *)p_sub, s_len, s_sub_len);
     }
     clock_gettime(CLOCK_MONOTONIC, &t2); 
     total_secs = t2.tv_sec - t1.tv_sec;
