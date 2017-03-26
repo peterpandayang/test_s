@@ -789,6 +789,7 @@ void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, in
     printf("Max is: %d\n", max);
     gettime_array(state, (unsigned int *) func, p_array, size, 2);
     print_analysis(state);
+    write_to_output(state, 2);
 }
 
 void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
@@ -799,6 +800,7 @@ void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
     printf("Fibo iteration result for %d's element is: %d\n", size, fibo_iter);
     gettime_fibo(state, (unsigned int *) func, size, 1);
     print_analysis(state);
+    write_to_output(state, 3);
 }
 
 void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
@@ -809,6 +811,7 @@ void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
     printf("Fibo recursion result for %d's element is: %d\n", size, fibo_rec);
     gettime_fibo(state, (unsigned int *) func, size, 2);
     print_analysis(state);
+    write_to_output(state, 4);
 }
 
 void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, char *p_sub){
@@ -827,7 +830,7 @@ void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, 
     printf("Start position is: %d\n", pos);
     gettime_find_s_in_sub(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     print_analysis(state);
-    write_to_output(state, 4);
+    write_to_output(state, 5);
 }
 
 void run_test(struct arm_state *state, int *p_array, char *p_s, char *p_sub, int size){
