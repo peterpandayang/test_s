@@ -774,6 +774,7 @@ void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, i
     printf("Sum is: %d\n", sum);
     gettime_array(state, (unsigned int *) func, p_array, size, 1);
     print_analysis(state);
+    write_to_output(state, 1);
 }                  
 
 void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, int size){
