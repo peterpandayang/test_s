@@ -788,20 +788,9 @@ void write_to_output(struct arm_state *state, int index){
     write_read_regs_to_file(state, f);
     write_written_regs_to_file(state, f);
     fprintf(f, "armemu_total_time_secs = %f s\n", state->armemu_total_time_secs); 
-    // fprintf(f, "armemu_total_time_usecs = %f us\n", state->armemu_total_time_usecs);  
-    // fprintf(f, "native_total_time_secs = %lf s\n", (char *)(state->native_total_time_secs)); 
-    // fprintf(f, "native_total_time_usecs = %lf us\n", (char *)(state->native_total_time_usecs));  
-    // fprintf(f, "\n");
-    
-
-    // int i = 1;
-    // float py = 3.1415927;
-    // fprintf(f, "Integer: %d, float: %f\n", i, py);
-
-    // /* printing single chatacters */
-    // char c = 'A';
-    // fprintf(f, "A character: %c\n", c);
-
+    fprintf(f, "armemu_total_time_usecs = %f us\n", state->armemu_total_time_usecs);  
+    fprintf(f, "native_total_time_secs = %f s\n", state->native_total_time_secs); 
+    fprintf(f, "native_total_time_usecs = %f us\n", state->native_total_time_usecs);  
     fclose(f);
 }
 
