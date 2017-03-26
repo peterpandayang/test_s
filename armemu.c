@@ -757,8 +757,8 @@ void write_inst_percentage(FILE *f, struct arm_state *state){
     // // fprintf(f, "Total branch not taken: %d\n", (char *)(state->b_not_taken_count));
     fprintf(f, "Computation      Memory       Branches");
     int total_instr = state->exec_instr_count;
-    double computation_perc = (double)((state->compu_count) / total_instr);
-    fprintf(f, "%d%%\n", computation_perc * 100);
+    double computation_perc = (double)((state->compu_count) / total_instr) * 100;
+    fprintf(f, "%d%%\n", computation_perc);
 }
 
 void write_to_output(struct arm_state *state, int index){
