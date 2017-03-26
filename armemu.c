@@ -604,6 +604,7 @@ void write_read_regs_to_file(struct arm_state *state, FILE *f){
             fprintf(f, " ");
         }
     }
+    printf(f, "\n");
 }
 
 void write_written_regs_to_file(struct arm_state *state, FILE *f){
@@ -615,6 +616,7 @@ void write_written_regs_to_file(struct arm_state *state, FILE *f){
             fprintf(f, " ");
         }
     }
+    printf(f, "\n");
 }
 
 void print_analysis(struct arm_state *state){
