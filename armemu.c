@@ -739,21 +739,21 @@ void write_to_output(struct arm_state *state, int index){
         title = "Result for find sub in s test:";
         fprintf(f, "%s\n", title);
     }
-    fprintf("Total instructions: %d\n", state->exec_instr_count);
-    fprintf("Total computation instructions: %d\n", state->compu_count);
-    fprintf("Total memory instructions: %d\n", state->mem_count);
-    fprintf("Total branch instructions: %d\n", state->branch_count);
-    fprintf("Total branch taken: %d\n", state->b_taken_count);
-    fprintf("Total branch not taken: %d\n", state->b_not_taken_count);
-    fprintf("Register used as read: \n");
-    print_read_regs(state);
-    fprintf("Register used as written: \n");
-    print_written_regs(state);
-    fprintf("armemu_total_time_secs = %lf s\n", state->armemu_total_time_secs); 
-    fprintf("armemu_total_time_usecs = %lf us\n", state->armemu_total_time_usecs);  
-    fprintf("native_total_time_secs = %lf s\n", state->native_total_time_secs); 
-    fprintf("native_total_time_usecs = %lf us\n", state->native_total_time_usecs);  
-    fprintf("\n");
+    fprintf("Total instructions: %d\n", *state->exec_instr_count);
+    // fprintf("Total computation instructions: %d\n", state->compu_count);
+    // fprintf("Total memory instructions: %d\n", state->mem_count);
+    // fprintf("Total branch instructions: %d\n", state->branch_count);
+    // fprintf("Total branch taken: %d\n", state->b_taken_count);
+    // fprintf("Total branch not taken: %d\n", state->b_not_taken_count);
+    // fprintf("Register used as read: \n");
+    // print_read_regs(state);
+    // fprintf("Register used as written: \n");
+    // print_written_regs(state);
+    // fprintf("armemu_total_time_secs = %lf s\n", state->armemu_total_time_secs); 
+    // fprintf("armemu_total_time_usecs = %lf us\n", state->armemu_total_time_usecs);  
+    // fprintf("native_total_time_secs = %lf s\n", state->native_total_time_secs); 
+    // fprintf("native_total_time_usecs = %lf us\n", state->native_total_time_usecs);  
+    // fprintf("\n");
     
 
     // int i = 1;
