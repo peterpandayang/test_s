@@ -752,12 +752,16 @@ void write_inst_percentage(FILE *f, struct arm_state *state){
     // int branch_count;
     // int b_taken_count;
     // int b_not_taken_count;
-    fprintf(f, "Table for percentage of instructions");
+    fprintf(f, "Table for percentage of instructions\n");
     // // fprintf(f, "Total branch not taken: %d\n", (char *)(state->b_not_taken_count));
     fprintf(f, "Computation      Memory       Branches\n");
     int total_instr = state->exec_instr_count;
     float computation_perc = (float)state->compu_count / (float)total_instr;
+    float memory_perc = (float)state->mem_count / (float)total_instr;
+    float branch_perc = (float)state->branch_count / (float)total_instr;
     fprintf(f, "%f%%\n", computation_perc);
+    fprintf(f, "%f%%\n", memory_perc);
+    fprintf(f, "%f%%\n", branch_perc);
 }
 
 void write_to_output(struct arm_state *state, int index){
