@@ -643,7 +643,6 @@ void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, in
     time_t total_secs = 0;
     double total_time_secs = 0.0;
     double total_time_usecs = 0.0;
-    // armemu time
     clock_gettime(CLOCK_MONOTONIC, &t1);
     for (i = 0; i < ITERS_ARRAY; i++) {
         init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
@@ -656,7 +655,6 @@ void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, in
     total_time_usecs = (((double) total_time_secs) / ((double) ITERS_ARRAY)) * 1000000.0;
     state->armemu_total_time_usecs = total_time_usecs;
     state->armemu_total_time_secs = total_time_secs;
-    //native time
     clock_gettime(CLOCK_MONOTONIC, &t1);
     if(index == 1){
         for (i = 0; i < ITERS_ASSEM; i++) {
@@ -684,7 +682,6 @@ void gettime_fibo(struct arm_state *state, unsigned int *func, int size, int ind
     time_t total_secs = 0;
     double total_time_secs = 0.0;
     double total_time_usecs = 0.0;
-    // armemu time
     clock_gettime(CLOCK_MONOTONIC, &t1);
     for (i = 0; i < ITERS_FIBO; i++) {
         init_arm_state(state, (unsigned int *) func, size, 0, 0, 0);
@@ -697,7 +694,6 @@ void gettime_fibo(struct arm_state *state, unsigned int *func, int size, int ind
     total_time_usecs = (((double) total_time_secs) / ((double) ITERS_FIBO)) * 1000000.0;
     state->armemu_total_time_usecs = total_time_usecs;
     state->armemu_total_time_secs = total_time_secs;
-    // native time
     clock_gettime(CLOCK_MONOTONIC, &t1);
     if(index == 1){
         for (i = 0; i < ITERS_ASSEM; i++) {
@@ -725,7 +721,6 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
     time_t total_secs = 0;
     double total_time_secs = 0.0;
     double total_time_usecs = 0.0;
-    // armemu time
     clock_gettime(CLOCK_MONOTONIC, &t1);
     for (i = 0; i < ITERS_FIND_SUB_IN_S; i++) {
         init_arm_state(state, (unsigned int *) func, p_s, p_sub, s_len, s_sub_len);
@@ -738,7 +733,6 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
     total_time_usecs = (((double) total_time_secs) / ((double) ITERS_FIND_SUB_IN_S)) * 1000000.0;
     state->armemu_total_time_usecs = total_time_usecs;
     state->armemu_total_time_secs = total_time_secs;
-    // native time
     clock_gettime(CLOCK_MONOTONIC, &t1);
     for (i = 0; i < ITERS_ASSEM; i++) {
         find_sub_in_s_s((char *)p_s, (char *)p_sub, s_len, s_sub_len);
@@ -750,6 +744,21 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
     total_time_usecs = (((double) total_time_secs) / ((double) ITERS_ASSEM)) * 10000000.0;
     state->native_total_time_secs = total_time_secs;
     state->native_total_time_usecs = total_time_usecs;
+}
+
+void write_inst_percentage(FILE *f, struct arm_state *state){
+    // int exec_instr_count;
+    // int compu_count;
+    // int mem_count;
+    // int branch_count;
+    // int b_taken_count;
+    // int b_not_taken_count;
+    fprintf(f, "Table for percentage of instructions");
+    // fprintf(f, "Total branch not taken: %d\n", (char *)(state->b_not_taken_count));
+    fprintf(f, "Computation      Memory       Branches");
+    int total_instr = state->exec_instr_count;
+    double computation_perc = (double)((state->compu_count) / total_instr);
+    fprintf(f, "%d\n", computation_perc);
 }
 
 void write_to_output(struct arm_state *state, int index){
@@ -792,6 +801,7 @@ void write_to_output(struct arm_state *state, int index){
     fprintf(f, "armemu_total_time_usecs = %f us\n", state->armemu_total_time_usecs);  
     fprintf(f, "native_total_time_secs = %f s\n", state->native_total_time_secs); 
     fprintf(f, "native_total_time_usecs = %f us\n", state->native_total_time_usecs);  
+    write_inst_percentage(f, state);
     fclose(f);
 }
 
