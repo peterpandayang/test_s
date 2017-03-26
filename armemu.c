@@ -516,6 +516,7 @@ unsigned int armemu(struct arm_state *state){
     return state->regs[0];
 }
 
+/*print part*/
 void print_array_c(int *p_array, int n){
     int i = 0;
     for(i = 0; i < n ; i++){
