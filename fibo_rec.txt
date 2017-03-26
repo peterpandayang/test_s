@@ -9,9 +9,9 @@ Register used as read:
 r0 r1 sp lr pc 
 Register used as written: 
 r0 r1 sp lr pc cpsr 
-armemu_total_time_usecs = 105910.031100 us
-native_total_time_usecs = 3604.204913 us
-native method is: 29 times faster than armemu method
+armemu_total_time_usecs = 102859.568500 us
+native_total_time_usecs = 3604.264027 us
+native method is: 28 times faster than armemu method
 
 Table for percentage of instructions
 
