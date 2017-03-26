@@ -748,9 +748,9 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
 void write_inst_percentage(FILE *f, struct arm_state *state){
     // int b_taken_count;
     // int b_not_taken_count;
-    fprintf(f, "Table for percentage of instructions\n");
+    fprintf(f, "\nTable for percentage of instructions\n");
     // // fprintf(f, "Total branch not taken: %d\n", (char *)(state->b_not_taken_count));
-    fprintf(f, "Computation      Memory       Branches\n");
+    fprintf(f, "\nComputation      Memory       Branches\n");
     int total_instr = state->exec_instr_count;
     float computation_perc = (float)state->compu_count / (float)total_instr;
     float memory_perc = (float)state->mem_count / (float)total_instr;
@@ -760,9 +760,9 @@ void write_inst_percentage(FILE *f, struct arm_state *state){
     fprintf(f, "    %f%%\n", branch_perc);
     float branch_taken_perc = (float)state->b_taken_count / (float)state->branch_count;
     float branch_not_taken_perc = (float)state->b_not_taken_count / (float)state->branch_count;
-    fprintf(f, "Branch Taken      Branch Not Taken\n");
+    fprintf(f, "\nBranch Taken     Branch Not Taken\n");
     fprintf(f, "%f%%", branch_taken_perc);
-    fprintf(f, "    %f%%\n", branch_not_taken_perc);
+    fprintf(f, "        %f%%\n", branch_not_taken_perc);
 }
 
 void write_to_output(struct arm_state *state, int index){
