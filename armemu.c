@@ -50,13 +50,11 @@ void init_arm_state(struct arm_state *state, unsigned int *func, unsigned int ar
     /* zero out all arm state */
     for (i = 0; i < NREGS; i++) {
         state->regs[i] = 0;
-    }
-    for (i = 0; i < NREGS + 1; i++) {
         state->read_regs[i] = 0;
-    }
-    for (i = 0; i < NREGS + 1; i++) {
         state->written_regs[i] = 0;
     }
+    state->read_regs[NREGS] = 0;
+    state->written_regs[NREGS] = 0;
     state->cpsr = 0;
     for (i = 0; i < STACK_SIZE; i++) {
         state->stack[i] = 0;
