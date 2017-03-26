@@ -716,50 +716,53 @@ void write_to_output(struct arm_state *state, int index){
     const char *title;
     if(index == 1){
         f = fopen("sum_array.txt", "w");
-        title = "Result for sum array test";
+        title = "Result for sum array test:";
         fprintf(f, "%s\n", title);
     }
     else if(index == 2){
         f = fopen("find_max.txt", "w");
+        title = "Result for find max test:";
+        fprintf(f, "%s\n", title);
     }
     else if(index == 3){
         f = fopen("fibo_iter.txt", "w");
+        title = "Result for fibo iteration test:";
+        fprintf(f, "%s\n", title);
     }
     else if(index == 4){
         f = fopen("fibo_rec.txt", "w");
+        title = "Result for fibo recursion test:";
+        fprintf(f, "%s\n", title);
     }
     else if(index == 5){
         f = fopen("find_sub_in_s.txt", "w");
+        title = "Result for find sub in s test:";
+        fprintf(f, "%s\n", title);
     }
-    /*script
-    printf("Total instructions: %d\n", state->exec_instr_count);
-    printf("Total computation instructions: %d\n", state->compu_count);
-    printf("Total memory instructions: %d\n", state->mem_count);
-    printf("Total branch instructions: %d\n", state->branch_count);
-    printf("Total branch taken: %d\n", state->b_taken_count);
-    printf("Total branch not taken: %d\n", state->b_not_taken_count);
-    printf("Register used as read: \n");
+    fprintf("Total instructions: %d\n", state->exec_instr_count);
+    fprintf("Total computation instructions: %d\n", state->compu_count);
+    fprintf("Total memory instructions: %d\n", state->mem_count);
+    fprintf("Total branch instructions: %d\n", state->branch_count);
+    fprintf("Total branch taken: %d\n", state->b_taken_count);
+    fprintf("Total branch not taken: %d\n", state->b_not_taken_count);
+    fprintf("Register used as read: \n");
     print_read_regs(state);
-    printf("Register used as written: \n");
+    fprintf("Register used as written: \n");
     print_written_regs(state);
-    printf("armemu_total_time_secs = %lf s\n", state->armemu_total_time_secs); 
-    printf("armemu_total_time_usecs = %lf us\n", state->armemu_total_time_usecs);  
-    printf("native_total_time_secs = %lf s\n", state->native_total_time_secs); 
-    printf("native_total_time_usecs = %lf us\n", state->native_total_time_usecs);  
-    printf("\n");
-    */
+    fprintf("armemu_total_time_secs = %lf s\n", state->armemu_total_time_secs); 
+    fprintf("armemu_total_time_usecs = %lf us\n", state->armemu_total_time_usecs);  
+    fprintf("native_total_time_secs = %lf s\n", state->native_total_time_secs); 
+    fprintf("native_total_time_usecs = %lf us\n", state->native_total_time_usecs);  
+    fprintf("\n");
+    
 
-    /* print some text */
-    const char *text = "Write this to the file lalalalallalallal";
-    fprintf(f, "Some text: %s\n", text);
-    /* print integers and floats */
-    int i = 1;
-    float py = 3.1415927;
-    fprintf(f, "Integer: %d, float: %f\n", i, py);
+    // int i = 1;
+    // float py = 3.1415927;
+    // fprintf(f, "Integer: %d, float: %f\n", i, py);
 
-    /* printing single chatacters */
-    char c = 'A';
-    fprintf(f, "A character: %c\n", c);
+    // /* printing single chatacters */
+    // char c = 'A';
+    // fprintf(f, "A character: %c\n", c);
 
     fclose(f);
 }
