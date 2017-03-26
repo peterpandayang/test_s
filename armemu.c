@@ -555,6 +555,24 @@ void print_one_reg(struct arm_state *state, int i){
     }
 }
 
+void write_one_reg(struct arm_state *state, int i, FILE *f){
+    if(i == 13){
+        fprintf(f, "sp");
+    }
+    else if(i == 14){
+        fprintf(f, "lr");
+    }
+    else if(i == 15){
+        fprintf(f, "pc");
+    }
+    else if(i == 16){
+        fprintf(f, "cpsr");
+    }
+    else{
+        fprintf("r%d", i);
+    }
+}
+
 void print_read_regs(struct arm_state *state){
     int i;
     for(i = 0; i <= NREGS; i++){
@@ -575,6 +593,28 @@ void print_written_regs(struct arm_state *state){
         }
     }
     printf("\n");
+}
+
+void write_read_regs_to_file(struct arm_state *state, FILE *f){
+    int i;
+    fprintf(f, "Register used as read: \n");
+    for(i = 0; i <= NREGS; i++){
+        if(state->read_regs[i] == 1){
+            print_one_reg(state, i, f);
+            fprintf(f, " ");
+        }
+    }
+}
+
+void write_written_regs_to_file(struct arm_state *state, FILE *f){
+    int i;
+    fprintf(f, "Register used as written: \n");
+    for(i = 0; i <= NREGS; i++){
+        if(state->written_regs[i] == 1){
+            print_one_reg(state, i, f);
+            fprintf(f, " ");
+        }
+    }
 }
 
 void print_analysis(struct arm_state *state){
@@ -740,20 +780,18 @@ void write_to_output(struct arm_state *state, int index){
         fprintf(f, "%s\n", title);
     }
     fprintf(f, "Total instructions: %d\n", (char *)(state->exec_instr_count));
-    // fprintf("Total computation instructions: %d\n", state->compu_count);
-    // fprintf("Total memory instructions: %d\n", state->mem_count);
-    // fprintf("Total branch instructions: %d\n", state->branch_count);
-    // fprintf("Total branch taken: %d\n", state->b_taken_count);
-    // fprintf("Total branch not taken: %d\n", state->b_not_taken_count);
-    // fprintf("Register used as read: \n");
-    // print_read_regs(state);
-    // fprintf("Register used as written: \n");
-    // print_written_regs(state);
-    // fprintf("armemu_total_time_secs = %lf s\n", state->armemu_total_time_secs); 
-    // fprintf("armemu_total_time_usecs = %lf us\n", state->armemu_total_time_usecs);  
-    // fprintf("native_total_time_secs = %lf s\n", state->native_total_time_secs); 
-    // fprintf("native_total_time_usecs = %lf us\n", state->native_total_time_usecs);  
-    // fprintf("\n");
+    fprintf(f, "Total computation instructions: %d\n", (char *)(state->compu_count));
+    fprintf(f, "Total memory instructions: %d\n", (char *)(state->mem_count));
+    fprintf(f, "Total branch instructions: %d\n", (char *)(state->branch_count));
+    fprintf(f, "Total branch taken: %d\n", (char *)(state->b_taken_count));
+    fprintf(f, "Total branch not taken: %d\n", (char *)(state->b_not_taken_count));
+    write_read_regs_to_file(state, f);
+    write_written_regs_to_file(state, f);
+    fprintf(f, "armemu_total_time_secs = %lf s\n", (char *)(state->armemu_total_time_secs)); 
+    fprintf(f, "armemu_total_time_usecs = %lf us\n", (char *)(state->armemu_total_time_usecs));  
+    fprintf(f, "native_total_time_secs = %lf s\n", (char *)(state->native_total_time_secs)); 
+    fprintf(f, "native_total_time_usecs = %lf us\n", (char *)(state->native_total_time_usecs));  
+    fprintf("\n");
     
 
     // int i = 1;
