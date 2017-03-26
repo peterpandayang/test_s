@@ -739,7 +739,7 @@ void write_to_output(struct arm_state *state, int index){
         title = "Result for find sub in s test:";
         fprintf(f, "%s\n", title);
     }
-    fprintf("Total instructions: %d\n", (char *)(state->exec_instr_count);
+    fprintf("Total instructions: %d\n", (char *)(state->exec_instr_count));
     // fprintf("Total computation instructions: %d\n", state->compu_count);
     // fprintf("Total memory instructions: %d\n", state->mem_count);
     // fprintf("Total branch instructions: %d\n", state->branch_count);
