@@ -713,8 +713,11 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
 
 void write_to_output(struct arm_state *state, int index){
     FILE *f;
+    const char *title;
     if(index == 1){
         f = fopen("sum_array.txt", "w");
+        title = "Result for sum array test";
+        fprintf(f, "%s\n", title);
     }
     else if(index == 2){
         f = fopen("find_max.txt", "w");
@@ -728,6 +731,24 @@ void write_to_output(struct arm_state *state, int index){
     else if(index == 5){
         f = fopen("find_sub_in_s.txt", "w");
     }
+    /*script
+    printf("Total instructions: %d\n", state->exec_instr_count);
+    printf("Total computation instructions: %d\n", state->compu_count);
+    printf("Total memory instructions: %d\n", state->mem_count);
+    printf("Total branch instructions: %d\n", state->branch_count);
+    printf("Total branch taken: %d\n", state->b_taken_count);
+    printf("Total branch not taken: %d\n", state->b_not_taken_count);
+    printf("Register used as read: \n");
+    print_read_regs(state);
+    printf("Register used as written: \n");
+    print_written_regs(state);
+    printf("armemu_total_time_secs = %lf s\n", state->armemu_total_time_secs); 
+    printf("armemu_total_time_usecs = %lf us\n", state->armemu_total_time_usecs);  
+    printf("native_total_time_secs = %lf s\n", state->native_total_time_secs); 
+    printf("native_total_time_usecs = %lf us\n", state->native_total_time_usecs);  
+    printf("\n");
+    */
+
     /* print some text */
     const char *text = "Write this to the file lalalalallalallal";
     fprintf(f, "Some text: %s\n", text);
