@@ -746,10 +746,7 @@ void gettime_find_s_in_sub(struct arm_state *state, unsigned int *func, int p_s,
 }
 
 void write_inst_percentage(FILE *f, struct arm_state *state){
-    // int b_taken_count;
-    // int b_not_taken_count;
     fprintf(f, "\nTable for percentage of instructions\n");
-    // // fprintf(f, "Total branch not taken: %d\n", (char *)(state->b_not_taken_count));
     fprintf(f, "\nComputation      Memory       Branches\n");
     int total_instr = state->exec_instr_count;
     float computation_perc = (float)state->compu_count / (float)total_instr;
@@ -804,7 +801,9 @@ void write_to_output(struct arm_state *state, int index){
     fprintf(f, "armemu_total_time_secs = %f s\n", state->armemu_total_time_secs); 
     fprintf(f, "armemu_total_time_usecs = %f us\n", state->armemu_total_time_usecs);  
     fprintf(f, "native_total_time_secs = %f s\n", state->native_total_time_secs); 
-    fprintf(f, "native_total_time_usecs = %f us\n", state->native_total_time_usecs);  
+    fprintf(f, "native_total_time_usecs = %f us\n", state->native_total_time_usecs);
+    int times = state->armemu_total_time_usecs / state->native_total_time_usecs;
+    fprintf(f, "native method is: %d times faster than armemu method\n", times);
     write_inst_percentage(f, state);
     fclose(f);
 }
