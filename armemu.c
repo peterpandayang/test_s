@@ -632,8 +632,7 @@ void print_analysis(struct arm_state *state){
     printf("armemu_total_time_secs = %lf s\n", state->armemu_total_time_secs); 
     printf("armemu_total_time_usecs = %lf us\n", state->armemu_total_time_usecs);  
     printf("native_total_time_secs = %lf s\n", state->native_total_time_secs); 
-    printf("native_total_time_usecs = %lf us\n", state->native_total_time_usecs);  
-    printf("\n");
+    printf("native_total_time_usecs = %lf us\n\n", state->native_total_time_usecs);  
 }
 
 void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, int size, int index){
@@ -755,10 +754,10 @@ void write_inst_percentage(FILE *f, struct arm_state *state){
     // int b_not_taken_count;
     fprintf(f, "Table for percentage of instructions");
     // // fprintf(f, "Total branch not taken: %d\n", (char *)(state->b_not_taken_count));
-    fprintf(f, "Computation      Memory       Branches");
+    fprintf(f, "Computation      Memory       Branches\n");
     int total_instr = state->exec_instr_count;
-    double computation_perc = (double)(((double)state->compu_count) / (double)total_instr) * 100;
-    fprintf(f, "%d%%\n", computation_perc);
+    float computation_perc = (float)state->compu_count / (float)total_instr;
+    fprintf(f, "%f%%\n", computation_perc);
 }
 
 void write_to_output(struct arm_state *state, int index){
