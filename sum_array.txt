@@ -9,7 +9,15 @@ Register used as read:
 r0 r1 r2 r3 r12 pc 
 Register used as written: 
 r0 r2 r3 r12 pc cpsr 
-armemu_total_time_secs = 0.110160 s
-armemu_total_time_usecs = 110.159710 us
+armemu_total_time_secs = 0.108857 s
+armemu_total_time_usecs = 108.857370 us
 native_total_time_secs = 0.002142 s
-native_total_time_usecs = 2.142234 us
+native_total_time_usecs = 2.142385 us
+
+Table for percentage of instructions
+
+Computation      Memory       Branches
+0.575342%        0.136986%    0.287671%
+
+Branch Taken     Branch Not Taken
+0.523810%        0.476190%
