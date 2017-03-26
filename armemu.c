@@ -805,7 +805,7 @@ void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, 
     write_to_output(state, 4);
 }
 
-void run_emulated(struct arm_state *state, int *p_array, char *p_s, char *p_sub, int size){
+void run_test(struct arm_state *state, int *p_array, char *p_s, char *p_sub, int size){
     sum_array_test(state, (unsigned int *) sum_array_s, p_array, size);
     find_max_test(state, (unsigned int *) find_max_s, p_array, size);
     fibo_iter_test(state, (unsigned int *) fibo_iter_s, size);
@@ -824,7 +824,7 @@ int main(int argc, char **argv){
     char *p_s = state.s;
     char *p_sub = state.sub;
 
-    run_emulated(&state, p_array, p_s, p_sub, size);
+    run_test(&state, p_array, p_s, p_sub, size);
   
     return 0;
 }
