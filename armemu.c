@@ -759,9 +759,9 @@ void write_inst_percentage(FILE *f, struct arm_state *state){
     float computation_perc = (float)state->compu_count / (float)total_instr;
     float memory_perc = (float)state->mem_count / (float)total_instr;
     float branch_perc = (float)state->branch_count / (float)total_instr;
-    fprintf(f, "%f%%\n", computation_perc);
-    fprintf(f, "%f%%\n", memory_perc);
-    fprintf(f, "%f%%\n", branch_perc);
+    fprintf(f, "%f%%", computation_perc);
+    fprintf(f, "        %f%%", memory_perc);
+    fprintf(f, "        %f%%\n", branch_perc);
 }
 
 void write_to_output(struct arm_state *state, int index){
