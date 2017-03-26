@@ -569,7 +569,7 @@ void write_one_reg(struct arm_state *state, int i, FILE *f){
         fprintf(f, "cpsr");
     }
     else{
-        fprintf("r%d", i);
+        fprintf(f, "r%d", i);
     }
 }
 
@@ -600,7 +600,7 @@ void write_read_regs_to_file(struct arm_state *state, FILE *f){
     fprintf(f, "Register used as read: \n");
     for(i = 0; i <= NREGS; i++){
         if(state->read_regs[i] == 1){
-            print_one_reg(state, i, f);
+            write_one_reg(state, i, f);
             fprintf(f, " ");
         }
     }
@@ -611,7 +611,7 @@ void write_written_regs_to_file(struct arm_state *state, FILE *f){
     fprintf(f, "Register used as written: \n");
     for(i = 0; i <= NREGS; i++){
         if(state->written_regs[i] == 1){
-            print_one_reg(state, i, f);
+            write_one_reg(state, i, f);
             fprintf(f, " ");
         }
     }
