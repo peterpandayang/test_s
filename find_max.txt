@@ -1,0 +1,15 @@
+Result for find max test:
+Total instructions: 186
+Total computation instructions: 104
+Total memory instructions: 20
+Total branch instructions: 62
+Total branch taken: 42
+Total branch not taken: 20
+Register used as read: 
+r0 r1 r2 r3 r4 pc 
+Register used as written: 
+r0 r2 r3 r4 pc cpsr 
+armemu_total_time_secs = 0.131730 s
+armemu_total_time_usecs = 131.729559 us
+native_total_time_secs = 0.003162 s
+native_total_time_usecs = 3.161868 us

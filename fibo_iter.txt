@@ -1,0 +1,15 @@
+Result for fibo iteration test:
+Total instructions: 294
+Total computation instructions: 64
+Total memory instructions: 188
+Total branch instructions: 42
+Total branch taken: 22
+Total branch not taken: 20
+Register used as read: 
+r0 r1 r2 r3 r12 sp pc 
+Register used as written: 
+r0 r1 r2 r3 r12 sp pc cpsr 
+armemu_total_time_secs = 0.002342 s
+armemu_total_time_usecs = 234.166100 us
+native_total_time_secs = 0.005172 s
+native_total_time_usecs = 5.171551 us

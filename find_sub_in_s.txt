@@ -1,0 +1,15 @@
+Result for find sub in s test:
+Total instructions: 122
+Total computation instructions: 41
+Total memory instructions: 58
+Total branch instructions: 23
+Total branch taken: 10
+Total branch not taken: 13
+Register used as read: 
+r0 r1 r2 r3 r12 sp lr pc 
+Register used as written: 
+r0 r1 r2 r3 r12 sp lr pc cpsr 
+armemu_total_time_secs = 0.050926 s
+armemu_total_time_usecs = 50.925828 us
+native_total_time_secs = 0.002227 s
+native_total_time_usecs = 2.226870 us

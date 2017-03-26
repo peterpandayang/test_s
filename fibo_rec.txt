@@ -1,0 +1,15 @@
+Result for fibo recursion test:
+Total instructions: 363778
+Total computation instructions: 181888
+Total memory instructions: 87562
+Total branch instructions: 94328
+Total branch taken: 83382
+Total branch not taken: 10946
+Register used as read: 
+r0 r1 sp lr pc 
+Register used as written: 
+r0 r1 sp lr pc cpsr 
+armemu_total_time_secs = 1.594954 s
+armemu_total_time_usecs = 159495.420400 us
+native_total_time_secs = 3.566140 s
+native_total_time_usecs = 3566.139989 us
