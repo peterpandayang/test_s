@@ -629,9 +629,7 @@ void print_analysis(struct arm_state *state){
     print_read_regs(state);
     printf("Register used as written: \n");
     print_written_regs(state);
-    printf("armemu_total_time_secs = %lf s\n", state->armemu_total_time_secs); 
     printf("armemu_total_time_usecs = %lf us\n", state->armemu_total_time_usecs);  
-    printf("native_total_time_secs = %lf s\n", state->native_total_time_secs); 
     printf("native_total_time_usecs = %lf us\n\n", state->native_total_time_usecs);  
 }
 
@@ -798,9 +796,7 @@ void write_to_output(struct arm_state *state, int index){
     fprintf(f, "Total branch not taken: %d\n", (char *)(state->b_not_taken_count));
     write_read_regs_to_file(state, f);
     write_written_regs_to_file(state, f);
-    fprintf(f, "armemu_total_time_secs = %f s\n", state->armemu_total_time_secs); 
     fprintf(f, "armemu_total_time_usecs = %f us\n", state->armemu_total_time_usecs);  
-    fprintf(f, "native_total_time_secs = %f s\n", state->native_total_time_secs); 
     fprintf(f, "native_total_time_usecs = %f us\n", state->native_total_time_usecs);
     int times = state->armemu_total_time_usecs / state->native_total_time_usecs;
     fprintf(f, "native method is: %d times faster than armemu method\n", times);
