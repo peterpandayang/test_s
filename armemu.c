@@ -546,9 +546,6 @@ void print_one_reg(struct arm_state *state, int i){
     else if(i == 15){
         printf("pc");
     }
-    else if(i == 16){
-        printf("cpsr");
-    }
     else{
         printf("r%d", i);
     }
@@ -564,9 +561,6 @@ void write_one_reg(struct arm_state *state, int i, FILE *f){
     else if(i == 15){
         fprintf(f, "pc");
     }
-    else if(i == 16){
-        fprintf(f, "cpsr");
-    }
     else{
         fprintf(f, "r%d", i);
     }
@@ -574,7 +568,7 @@ void write_one_reg(struct arm_state *state, int i, FILE *f){
 
 void print_read_regs(struct arm_state *state){
     int i;
-    for(i = 0; i <= NREGS; i++){
+    for(i = 0; i < NREGS; i++){
         if(state->read_regs[i] == 1){
             print_one_reg(state, i);
             printf(" ");
@@ -585,7 +579,7 @@ void print_read_regs(struct arm_state *state){
 
 void print_written_regs(struct arm_state *state){
     int i;
-    for(i = 0; i <= NREGS; i++){
+    for(i = 0; i < NREGS; i++){
         if(state->written_regs[i] == 1){
             print_one_reg(state, i);
             printf(" ");
@@ -597,7 +591,7 @@ void print_written_regs(struct arm_state *state){
 void write_read_regs_to_file(struct arm_state *state, FILE *f){
     int i;
     fprintf(f, "Register used as read: \n");
-    for(i = 0; i <= NREGS; i++){
+    for(i = 0; i < NREGS; i++){
         if(state->read_regs[i] == 1){
             write_one_reg(state, i, f);
             fprintf(f, " ");
@@ -609,7 +603,7 @@ void write_read_regs_to_file(struct arm_state *state, FILE *f){
 void write_written_regs_to_file(struct arm_state *state, FILE *f){
     int i;
     fprintf(f, "Register used as written: \n");
-    for(i = 0; i <= NREGS; i++){
+    for(i = 0; i < NREGS; i++){
         if(state->written_regs[i] == 1){
             write_one_reg(state, i, f);
             fprintf(f, " ");
