@@ -843,7 +843,6 @@ void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
     print_analysis(state);
     write_to_output(state, 10);
     init_arm_state(state, (unsigned int *) func, 19, 0, 0, 0);
-    int fibo_iter;
     fibo_iter = armemu(state);
     printf("Fibo iteration result for %d's element is: %d\n", size, fibo_iter);
     gettime_fibo(state, (unsigned int *) func, 19, 1);
