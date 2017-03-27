@@ -841,7 +841,7 @@ void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
 
 void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
     printf("Start recursion fibonacci test:\n");
-    init_arm_state(state, (unsigned int *) func, size, 0, 0, 0);
+    init_arm_state(state, (unsigned int *) func, 10, 0, 0, 0);
     int fibo_rec;
     fibo_rec = armemu(state);
     printf("Fibo recursion result for %d's element is: %d\n", 10, fibo_rec);
@@ -849,6 +849,7 @@ void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
     gettime_fibo(state, (unsigned int *) func, 10, 2);
     print_analysis(state);
     write_to_output(state, 11);
+    init_arm_state(state, (unsigned int *) func, 19, 0, 0, 0);
     fibo_rec = armemu(state);
     // printf("Fibo recursion result for %d's element is: %d\n", 19, fibo_rec);
     printf("Fibo recursion result for %d's element is: %d\n", 19, fibo_rec);
