@@ -782,11 +782,16 @@ void write_to_output(struct arm_state *state, int index){
     FILE *f;
     const char *title;
     if(index == 1){
-        f = fopen("sum_array.txt", "w");
-        title = "Result for sum array test:";
+        f = fopen("sum_array_pos.txt", "w");
+        title = "Result for sum positive array test:";
         fprintf(f, "%s\n", title);
     }
     else if(index == 2){
+        f = fopen("sum_array_neg.txt", "w");
+        title = "Result for sum negetive array test:";
+        fprintf(f, "%s\n", title);
+    }
+    else if(index == 5){
         f = fopen("find_max.txt", "w");
         title = "Result for find max test:";
         fprintf(f, "%s\n", title);
@@ -811,7 +816,7 @@ void write_to_output(struct arm_state *state, int index){
         title = "Result for fibo recursion test of 19:";
         fprintf(f, "%s\n", title);
     }
-    else if(index == 5){
+    else if(index == 9){
         f = fopen("find_sub_in_s.txt", "w");
         title = "Result for find sub in s test:";
         fprintf(f, "%s\n", title);
@@ -833,10 +838,7 @@ void write_to_output(struct arm_state *state, int index){
 }
 
 /*test part*/
-// p_neg_array, p_wig_array, p_zero_array, p_large_array,
-
 void single_sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, int size, int index){
-    printf("Test for array with positive values: \n");
     print_array_c(p_array, size);
     init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     int sum;
@@ -851,8 +853,10 @@ void single_sum_array_test(struct arm_state *state, unsigned int *func, int *p_a
 
 void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, int *p_neg_array, int *p_wig_array, int *p_zero_array, int *p_large_array, int size){
     printf("Start sum array test and print input array:\n");
+    printf("Test for array with positive values: \n");
     single_sum_array_test(state, (unsigned int *) func, p_array, size, 0);
-    
+    printf("Test for array with negative values: \n");
+    single_sum_array_test(state, (unsigned int *) func, p_neg_array, size, 1);
 
     // print_array_c(p_array, size);
     // init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
@@ -873,7 +877,7 @@ void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, in
     printf("Max is: %d\n", max);
     gettime_array(state, (unsigned int *) func, p_array, size, 2);
     print_analysis(state);
-    write_to_output(state, 2);
+    write_to_output(state, 5);
 }
 
 void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
@@ -957,7 +961,7 @@ void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, 
     printf("Start position is: %d (Armemu)\n\n", pos);
     gettime_find_s_in_sub(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     print_analysis(state);
-    write_to_output(state, 5);
+    write_to_output(state, 9);
 }
 
 void run_test(struct arm_state *state, int *p_array, int *p_neg_array, int *p_wig_array, int *p_zero_array, int *p_large_array, char *p_s, char *p_sub, int size){
