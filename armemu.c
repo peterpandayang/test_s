@@ -860,7 +860,7 @@ void positive_test(struct arm_state *state, unsigned int *func, int *p_array, in
 
 void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, int *p_neg_array, int *p_wig_array, int *p_zero_array, int *p_large_array, int size){
     printf("Start sum array test and print input array:\n");
-    positive_test(state, (unsigned int *) func, (unsigned int) p_array, size);
+    positive_test(state, (unsigned int *) func, p_array, size);
     // print_array_c(p_array, size);
     // init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     // int sum;
