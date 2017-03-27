@@ -968,9 +968,9 @@ void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, 
 }
 
 void run_test(struct arm_state *state, int *p_array, int *p_neg_array, int *p_wig_array, int *p_zero_array, int *p_large_array, char *p_s, char *p_sub, int size){
-    sum_array_test(state, (unsigned int *) sum_array_s, p_array, size);
+    sum_array_test(state, (unsigned int *) sum_array_s, p_array, p_neg_array, p_wig_array, p_zero_array, p_large_array, size);
     find_max_test(state, (unsigned int *) find_max_s, p_array, p_neg_array, p_wig_array, p_zero_array, p_large_array, size);
-    fibo_iter_test(state, (unsigned int *) fibo_iter_s, p_neg_array, p_wig_array, p_zero_array, p_large_array, size);
+    fibo_iter_test(state, (unsigned int *) fibo_iter_s, size);
     fibo_rec_test(state, (unsigned int *) fibo_rec_s, size);
     find_sub_in_s_test(state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
 }
