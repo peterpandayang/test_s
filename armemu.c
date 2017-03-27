@@ -848,7 +848,7 @@ void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
         int iter_arm = armemu(state);
         printf("%d ", iter_arm);
     }
-    printf("(ARMEMU)\n");
+    printf("(Armemu)\n");
     printf("\n");
     init_arm_state(state, (unsigned int *) func, 10, 0, 0, 0);
     int fibo_iter;
@@ -880,7 +880,7 @@ void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
         int rec_arm = armemu(state);
         printf("%d ", rec_arm);
     }
-    printf("(ARMEMU)\n");
+    printf("(Armemu)\n");
     printf("\n");
     init_arm_state(state, (unsigned int *) func, 10, 0, 0, 0);
     int fibo_rec;
@@ -908,9 +908,11 @@ void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, 
     int s_len = strlen(p_s);
     int s_sub_len = strlen(p_sub);
     int pos;
+    pos = find_sub_in_s_s(p_s, p_sub);
+    printf("Start position is: %d (Assembly)\n", pos);
     init_arm_state(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     pos = armemu(state);
-    printf("Start position is: %d\n", pos);
+    printf("Start position is: %d (Armemu)\n", pos);
     gettime_find_s_in_sub(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     print_analysis(state);
     write_to_output(state, 5);
