@@ -27,6 +27,10 @@ struct arm_state {
     unsigned int cpsr;
     unsigned char stack[STACK_SIZE];
     int array[VALUE_MAX_STR_LEN];
+    int neg_array[VALUE_MAX_STR_LEN];
+    int wig_array[VALUE_MAX_STR_LEN];
+    int zero_array[VALUE_MAX_STR_LEN];
+    int large_array[1024];
     char s[50];
     char sub[10];
     int exec_instr_count;
@@ -74,12 +78,32 @@ void init_arm_state(struct arm_state *state, unsigned int *func, unsigned int ar
     state->b_not_taken_count = 0;
 }
 
-void init_array_c(int *p_pos, int n){
+void init_array_c(int *p_pos, int *p_neg, int *p_wig, int *p_zero, int *p_large, int n, int large_size){
     int i = 0;
     for(i = 0; i < n ; i++){
         p_pos[i] = i;
     }
     p_pos[i] = '\0';
+    i = 0;
+    for(i = 0; i < n ; i++){
+        p_neg[i] = -i;
+    }
+    p_neg[i] = '\0';
+    i = 0;
+    for(i = 0; i < n ; i++){
+        p_wig[i] = i % 2 == 0 ? i : -i;
+    }
+    p_wig[i] = '\0';
+    i = 0;
+    for(i = 0; i < n ; i++){
+        p_zero[i] = 0;
+    }
+    p_zero[i] = '\0';
+    i = 0;
+    for(i = 0; i < large_size ; i++){
+        p_large[i] = i;
+    }
+    p_large[i] = '\0';
 }
 
 void update_read_regs(struct arm_state *state, int i){
@@ -929,9 +953,14 @@ void run_test(struct arm_state *state, int *p_array, char *p_s, char *p_sub, int
 /*main part*/
 int main(int argc, char **argv){
     struct arm_state state;
-    int *p_array = state.array;
     int size = 20;
-    init_array_c(p_array, size);
+    int large_size = 1000;
+    int *p_array = state.array;
+    int *p_neg_array = state.neg_array;
+    int *p_wig_array = state.wig_array;
+    int *p_zero_array = state.zero_array;
+    int *p_large_array = state.large_array;
+    init_array_c(p_array, p_neg_array, p_wig_array, p_zero_array, p_large_array, size, 1000);
     strcpy(state.s, "hello");
     strcpy(state.sub, "llo");
     char *p_s = state.s;
