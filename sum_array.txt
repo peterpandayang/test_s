@@ -8,10 +8,10 @@ Total branch not taken: 20
 Register used as read: 
 r0 r1 r2 r3 r12 pc 
 Register used as written: 
-r0 r2 r3 r12 pc cpsr 
-armemu_total_time_usecs = 109.000509 us
-native_total_time_usecs = 2.141923 us
-native method is: 50 times faster than armemu method
+r0 r2 r3 r12 pc 
+armemu_total_time_usecs = 54.368064 us
+native_total_time_usecs = 0.107174 us
+native method is: 507 times faster than armemu method
 
 Table for percentage of instructions
 
