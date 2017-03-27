@@ -772,9 +772,14 @@ void write_to_output(struct arm_state *state, int index){
         title = "Result for fibo iteration test:";
         fprintf(f, "%s\n", title);
     }
-    else if(index == 4){
-        f = fopen("fibo_rec.txt", "w");
-        title = "Result for fibo recursion test:";
+    else if(index == 11){
+        f = fopen("fibo_rec_10.txt", "w");
+        title = "Result for fibo recursion test of 10:";
+        fprintf(f, "%s\n", title);
+    }
+    else if(index == 20){
+        f = fopen("fibo_rec_19.txt", "w");
+        title = "Result for fibo recursion test of 19:";
         fprintf(f, "%s\n", title);
     }
     else if(index == 5){
@@ -841,13 +846,15 @@ void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
     fibo_rec = armemu(state);
     // printf("Fibo recursion result for %d's element is: %d\n", 10, fibo_rec);
     gettime_fibo(state, (unsigned int *) func, 10, 2);
+    printf("Fibo recursion result for %d's element is: %d\n", 10, fibo_rec);
     print_analysis(state);
-    write_to_output(state, 4);
+    write_to_output(state, 11);
     fibo_rec = armemu(state);
     // printf("Fibo recursion result for %d's element is: %d\n", 19, fibo_rec);
     gettime_fibo(state, (unsigned int *) func, 19, 2);
+    printf("Fibo recursion result for %d's element is: %d\n", 19, fibo_rec);
     print_analysis(state);
-    write_to_output(state, 4);
+    write_to_output(state, 20);
 }
 
 void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, char *p_sub){
