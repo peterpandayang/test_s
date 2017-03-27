@@ -846,7 +846,7 @@ void write_to_output(struct arm_state *state, int index){
 // }
 // p_neg_array, p_wig_array, p_zero_array, p_large_array,
 
-void positive_test(struct arm_state *state, unsigned int *func, int *p_array, size){
+void positive_test(struct arm_state *state, unsigned int *func, int *p_array, int size){
     printf("Test for array with positive values: \n");
     print_array_c(p_array, size);
     init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
