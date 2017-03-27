@@ -767,9 +767,14 @@ void write_to_output(struct arm_state *state, int index){
         title = "Result for find max test:";
         fprintf(f, "%s\n", title);
     }
-    else if(index == 3){
-        f = fopen("fibo_iter.txt", "w");
-        title = "Result for fibo iteration test:";
+    else if(index == 10){
+        f = fopen("fibo_iter_10.txt", "w");
+        title = "Result for fibo iteration test of 10:";
+        fprintf(f, "%s\n", title);
+    }
+    else if(index == 19){
+        f = fopen("fibo_iter_19.txt", "w");
+        title = "Result for fibo iteration test of 19:";
         fprintf(f, "%s\n", title);
     }
     else if(index == 11){
@@ -830,13 +835,20 @@ void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, in
 
 void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
     printf("Start iteration fibonacci test:\n");
-    init_arm_state(state, (unsigned int *) func, size, 0, 0, 0);
+    init_arm_state(state, (unsigned int *) func, 10, 0, 0, 0);
     int fibo_iter;
     fibo_iter = armemu(state);
     printf("Fibo iteration result for %d's element is: %d\n", size, fibo_iter);
-    gettime_fibo(state, (unsigned int *) func, size, 1);
+    gettime_fibo(state, (unsigned int *) func, 10, 1);
     print_analysis(state);
-    write_to_output(state, 3);
+    write_to_output(state, 10);
+    init_arm_state(state, (unsigned int *) func, 19, 0, 0, 0);
+    int fibo_iter;
+    fibo_iter = armemu(state);
+    printf("Fibo iteration result for %d's element is: %d\n", size, fibo_iter);
+    gettime_fibo(state, (unsigned int *) func, 19, 1);
+    print_analysis(state);
+    write_to_output(state, 19);
 }
 
 void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
