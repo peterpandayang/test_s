@@ -842,7 +842,7 @@ void single_sum_array_test(struct arm_state *state, unsigned int *func, int *p_a
     print_array_c(p_array, size);
     init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     int sum;
-    sum_array_s(p_array, 20);
+    sum = sum_array_s(p_array, size);
     printf("Sum is: %d (Assembly)\n", sum);
     sum = armemu(state);
     printf("Sum is: %d (Armemu)\n", sum);
