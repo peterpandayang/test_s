@@ -833,34 +833,27 @@ void write_to_output(struct arm_state *state, int index){
 }
 
 /*test part*/
-// int sum_positive_test(int *p_array, int size){
-//     printf("Test for array with positive values: \n");
-//     printf("Array with positive input: \n");
-//     print_array_c(p_array, size);
-//     int sum_s = sum_array_s(p_array, size);
-//     printf("Sum result are: %d (Assembly) ", sum_s);
-//     int sum_c = sum_array_c(p_array, size);
-//     printf(", %d (C)\n", sum_c);
-//     printf("\n");
-//     return 0;
-// }
 // p_neg_array, p_wig_array, p_zero_array, p_large_array,
 
-void positive_test(struct arm_state *state, unsigned int *func, int *p_array, int size){
+void single_sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, int size, int index){
     printf("Test for array with positive values: \n");
     print_array_c(p_array, size);
     init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     int sum;
+    sum_array_s(p_array, size);
+    printf("Sum is: %d (Assembly)\n", sum);
     sum = armemu(state);
     printf("Sum is: %d (Armemu)\n", sum);
     gettime_array(state, (unsigned int *) func, p_array, size, 1);
     print_analysis(state);
-    write_to_output(state, 1);
+    write_to_output(state, 1 + index);
 }
 
 void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, int *p_neg_array, int *p_wig_array, int *p_zero_array, int *p_large_array, int size){
     printf("Start sum array test and print input array:\n");
-    positive_test(state, (unsigned int *) func, p_array, size);
+    positive_test(state, (unsigned int *) func, p_array, size, 0);
+    
+
     // print_array_c(p_array, size);
     // init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     // int sum;
