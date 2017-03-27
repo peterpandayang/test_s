@@ -834,6 +834,20 @@ void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, in
 }
 
 void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
+    printf("Test for fibonacci sequence of iteration with size %d: \n", size);
+    for(i = 0; i < 20; i++){
+        int iter_s = fibo_iter_s(i);
+        printf("%d ", iter_s);
+    }
+    printf("(Assembly)\n");
+
+    for(i = 0; i < 20; i++){
+        init_arm_state(state, (unsigned int *) func, i, 0, 0, 0);
+        int iter_arm = armemu(state);
+        printf("%d ", iter_arm);
+    }
+    printf("(ARMEMU)\n");
+    printf("\n");
     printf("Start iteration fibonacci test:\n");
     init_arm_state(state, (unsigned int *) func, 10, 0, 0, 0);
     int fibo_iter;
