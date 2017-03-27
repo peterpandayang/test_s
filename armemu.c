@@ -912,7 +912,7 @@ void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, 
     printf("Start position is: %d (Assembly)\n", pos);
     init_arm_state(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     pos = armemu(state);
-    printf("Start position is: %d (Armemu)\n", pos);
+    printf("Start position is: %d (Armemu)\n\n", pos);
     gettime_find_s_in_sub(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     print_analysis(state);
     write_to_output(state, 5);
