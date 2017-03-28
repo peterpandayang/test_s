@@ -1,0 +1,22 @@
+Result for find max test:
+Total instructions: 167
+Total computation instructions: 85
+Total memory instructions: 20
+Total branch instructions: 62
+Total branch taken: 23
+Total branch not taken: 39
+Register used as read: 
+r0 r1 r2 r3 r4 pc 
+Register used as written: 
+r0 r2 r3 r4 pc 
+armemu_total_time_usecs = 62.232381 us
+native_total_time_usecs = 0.107109 us
+native method is: 581 times faster than armemu method
+
+Table for percentage of instructions
+
+Computation      Memory       Branches
+0.508982%        0.119760%    0.371257%
+
+Branch Taken     Branch Not Taken
+0.370968%        0.629032%

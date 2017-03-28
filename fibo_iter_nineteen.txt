@@ -1,0 +1,22 @@
+Result for fibo iteration test of 19:
+Total instructions: 280
+Total computation instructions: 61
+Total memory instructions: 179
+Total branch instructions: 40
+Total branch taken: 21
+Total branch not taken: 19
+Register used as read: 
+r0 r1 r2 r3 r12 sp pc 
+Register used as written: 
+r0 r1 r2 r3 r12 sp pc 
+armemu_total_time_usecs = 101.672000 us
+native_total_time_usecs = 0.217948 us
+native method is: 466 times faster than armemu method
+
+Table for percentage of instructions
+
+Computation      Memory       Branches
+0.217857%        0.639286%    0.142857%
+
+Branch Taken     Branch Not Taken
+0.525000%        0.475000%

@@ -1,0 +1,22 @@
+Result for sum zero array test:
+Total instructions: 146
+Total computation instructions: 84
+Total memory instructions: 20
+Total branch instructions: 42
+Total branch taken: 22
+Total branch not taken: 20
+Register used as read: 
+r0 r1 r2 r3 r12 pc 
+Register used as written: 
+r0 r2 r3 r12 pc 
+armemu_total_time_usecs = 56.013209 us
+native_total_time_usecs = 0.107974 us
+native method is: 518 times faster than armemu method
+
+Table for percentage of instructions
+
+Computation      Memory       Branches
+0.575342%        0.136986%    0.287671%
+
+Branch Taken     Branch Not Taken
+0.523810%        0.476190%

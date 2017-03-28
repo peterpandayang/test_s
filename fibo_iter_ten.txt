@@ -1,22 +1,22 @@
-Result for fibo recursion test:
-Total instructions: 363778
-Total computation instructions: 181888
-Total memory instructions: 87562
-Total branch instructions: 94328
-Total branch taken: 83382
-Total branch not taken: 10946
+Result for fibo iteration test of 10:
+Total instructions: 154
+Total computation instructions: 34
+Total memory instructions: 98
+Total branch instructions: 22
+Total branch taken: 12
+Total branch not taken: 10
 Register used as read: 
-r0 r1 sp lr pc 
+r0 r1 r2 r3 r12 sp pc 
 Register used as written: 
-r0 r1 sp lr pc 
-armemu_total_time_usecs = 107940.544400 us
-native_total_time_usecs = 356.071260 us
-native method is: 303 times faster than armemu method
+r0 r1 r2 r3 r12 sp pc 
+armemu_total_time_usecs = 62.250000 us
+native_total_time_usecs = 0.161240 us
+native method is: 386 times faster than armemu method
 
 Table for percentage of instructions
 
 Computation      Memory       Branches
-0.499997%        0.240702%    0.259301%
+0.220779%        0.636364%    0.142857%
 
 Branch Taken     Branch Not Taken
-0.883958%        0.116042%
+0.545455%        0.454545%

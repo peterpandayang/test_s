@@ -1,0 +1,22 @@
+Result for large array test:
+Total instructions: 7006
+Total computation instructions: 4004
+Total memory instructions: 1000
+Total branch instructions: 2002
+Total branch taken: 1002
+Total branch not taken: 1000
+Register used as read: 
+r0 r1 r2 r3 r12 pc 
+Register used as written: 
+r0 r2 r3 r12 pc 
+armemu_total_time_usecs = 2121.928107 us
+native_total_time_usecs = 4.193475 us
+native method is: 506 times faster than armemu method
+
+Table for percentage of instructions
+
+Computation      Memory       Branches
+0.571510%        0.142735%    0.285755%
+
+Branch Taken     Branch Not Taken
+0.500499%        0.499501%
