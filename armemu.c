@@ -844,7 +844,12 @@ void write_to_output(struct arm_state *state, int index){
 
 /*test part*/
 void single_sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, int size, int index){
-    print_array_c(p_array, size);
+    if(size != 1000){
+        print_array_c(p_array, size);
+    }
+    else{
+        printf("This is input of 1000 element from 0 to 999\n");
+    }
     init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     int sum;
     sum = sum_array_s(p_array, size);
