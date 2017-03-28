@@ -643,7 +643,9 @@ void print_analysis(struct arm_state *state){
     printf("Register used as written: \n");
     print_written_regs(state);
     printf("armemu_total_time_usecs = %lf us\n", state->armemu_total_time_usecs);  
-    printf("native_total_time_usecs = %lf us\n\n", state->native_total_time_usecs);  
+    printf("native_total_time_usecs = %lf us\n\n", state->native_total_time_usecs); 
+    int times = state->armemu_total_time_usecs / state->native_total_time_usecs;
+    printf("native method is: %d times faster than armemu method\n", times); 
 }
 
 void gettime_array(struct arm_state *state, unsigned int *func, int *p_array, int size, int index){
