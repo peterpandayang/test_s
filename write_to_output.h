@@ -5,8 +5,8 @@
 #include <time.h>
 #include <unistd.h>
 
-#ifndef WRITE_TO_OUTPUT_H_INCLUCED
-#define WRITE_TO_OUTPUT_H_INCLUCED
+#ifndef WRITE_TO_OUTPUT_H_
+#define WRITE_TO_OUTPUT_H_
 
 void write_to_output(struct arm_state *state, int index){
     FILE *f;
