@@ -797,7 +797,22 @@ void write_to_output(struct arm_state *state, int index){
         fprintf(f, "%s\n", title);
     }
     else if(index == 5){
-        f = fopen("find_max.txt", "w");
+        f = fopen("find_max_pos.txt", "w");
+        title = "Result for find max test:";
+        fprintf(f, "%s\n", title);
+    }
+    else if(index == 6){
+        f = fopen("find_max_neg.txt", "w");
+        title = "Result for find max test:";
+        fprintf(f, "%s\n", title);
+    }
+    else if(index == 7){
+        f = fopen("find_max_zero.txt", "w");
+        title = "Result for find max test:";
+        fprintf(f, "%s\n", title);
+    }
+    else if(index == 8){
+        f = fopen("find_max_large.txt", "w");
         title = "Result for find max test:";
         fprintf(f, "%s\n", title);
     }
@@ -871,26 +886,36 @@ void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, i
     single_sum_array_test(state, (unsigned int *) func, p_zero_array, size, 2);
     printf("Test for array with large array: \n");
     single_sum_array_test(state, (unsigned int *) func, p_large_array, 1000, 3);
-    // print_array_c(p_array, size);
-    // init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
-    // int sum;
-    // sum = armemu(state);
-    // printf("Sum is: %d (Armemu)\n", sum);
-    // gettime_array(state, (unsigned int *) func, p_array, size, 1);
-    // print_analysis(state);
-    // write_to_output(state, 1);
-}                  
+}      
+
+void single_find_max_test(struct arm_state *state, unsigned int *func, int *p_array, int size, int index){
+    if(size != 1000){
+        print_array_c(p_array, size);
+    }
+    else{
+        printf("This is input of 1000 element from 0 to 999\n");
+    }
+    init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
+    int max;
+    max = sum_array_s(p_array, size);
+    printf("Max is: %d (Assembly)\n", max);
+    max = armemu(state);
+    printf("Max is: %d (Armemu)\n\n", max);
+    gettime_array(state, (unsigned int *) func, p_array, size, 1);
+    print_analysis(state);
+    write_to_output(state, 5 + index);
+}            
 
 void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, int *p_neg_array, int *p_zero_array, int *p_large_array, int size){
     printf("Start max array test and print input array:\n");
-    print_array_c(p_array, size);
-    init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
-    int max;
-    max = armemu(state);
-    printf("Max is: %d\n", max);
-    gettime_array(state, (unsigned int *) func, p_array, size, 2);
-    print_analysis(state);
-    write_to_output(state, 5);
+    printf("Test for array with positive values: \n");
+    single_find_max_test(state, (unsigned int *) func, p_array, size, 0);
+    printf("Test for array with negative values: \n");
+    single_find_max_test(state, (unsigned int *) func, p_neg_array, size, 1);
+    printf("Test for array with zero values: \n");
+    single_find_max_test(state, (unsigned int *) func, p_zero_array, size, 2);
+    printf("Test for array with large array: \n");
+    single_find_max_test(state, (unsigned int *) func, p_large_array, 1000, 3);
 }
 
 void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
