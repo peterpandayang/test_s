@@ -817,22 +817,22 @@ void write_to_output(struct arm_state *state, int index){
         fprintf(f, "%s\n", title);
     }
     else if(index == 10){
-        f = fopen("fibo_iter_10.txt", "w");
+        f = fopen("fibo_iter_ten.txt", "w");
         title = "Result for fibo iteration test of 10:";
         fprintf(f, "%s\n", title);
     }
     else if(index == 19){
-        f = fopen("fibo_iter_19.txt", "w");
+        f = fopen("fibo_iter_nineteen.txt", "w");
         title = "Result for fibo iteration test of 19:";
         fprintf(f, "%s\n", title);
     }
     else if(index == 11){
-        f = fopen("fibo_rec_10.txt", "w");
+        f = fopen("fibo_rec_ten.txt", "w");
         title = "Result for fibo recursion test of 10:";
         fprintf(f, "%s\n", title);
     }
     else if(index == 20){
-        f = fopen("fibo_rec_19.txt", "w");
+        f = fopen("fibo_rec_nineteen.txt", "w");
         title = "Result for fibo recursion test of 19:";
         fprintf(f, "%s\n", title);
     }
