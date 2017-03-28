@@ -78,7 +78,7 @@ void init_arm_state(struct arm_state *state, unsigned int *func, unsigned int ar
     state->b_not_taken_count = 0;
 }
 
-void init_array_c(int *p_pos, int *p_neg, int *p_wig, int *p_zero, int *p_large, int n, int large_size){
+void init_array_c(int *p_pos, int *p_neg, int *p_zero, int *p_large, int n, int large_size){
     int i = 0;
     for(i = 0; i < n ; i++){
         p_pos[i] = i;
@@ -89,11 +89,6 @@ void init_array_c(int *p_pos, int *p_neg, int *p_wig, int *p_zero, int *p_large,
         p_neg[i] = -i;
     }
     p_neg[i] = '\0';
-    i = 0;
-    for(i = 0; i < n ; i++){
-        p_wig[i] = i % 2 == 0 ? i : -i;
-    }
-    p_wig[i] = '\0';
     i = 0;
     for(i = 0; i < n ; i++){
         p_zero[i] = 0;
@@ -845,19 +840,20 @@ void single_sum_array_test(struct arm_state *state, unsigned int *func, int *p_a
     sum = sum_array_s(p_array, size);
     printf("Sum is: %d (Assembly)\n", sum);
     sum = armemu(state);
-    printf("Sum is: %d (Armemu)\n", sum);
+    printf("Sum is: %d (Armemu)\n\n", sum);
     gettime_array(state, (unsigned int *) func, p_array, size, 1);
     print_analysis(state);
     write_to_output(state, 1 + index);
 }
 
-void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, int *p_neg_array, int *p_wig_array, int *p_zero_array, int *p_large_array, int size){
+void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, int *p_neg_array, int *p_zero_array, int *p_large_array, int size){
     printf("Start sum array test and print input array:\n");
     printf("Test for array with positive values: \n");
     single_sum_array_test(state, (unsigned int *) func, p_array, size, 0);
     printf("Test for array with negative values: \n");
     single_sum_array_test(state, (unsigned int *) func, p_neg_array, size, 1);
-
+    printf("Test for array with zero values: \n");
+    single_sum_array_test(state, (unsigned int *) func, p_zero_array, size, 1);
     // print_array_c(p_array, size);
     // init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     // int sum;
@@ -868,7 +864,7 @@ void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, i
     // write_to_output(state, 1);
 }                  
 
-void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, int *p_neg_array, int *p_wig_array, int *p_zero_array, int *p_large_array, int size){
+void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, int *p_neg_array, int *p_zero_array, int *p_large_array, int size){
     printf("Start max array test and print input array:\n");
     print_array_c(p_array, size);
     init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
@@ -964,9 +960,9 @@ void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, 
     write_to_output(state, 9);
 }
 
-void run_test(struct arm_state *state, int *p_array, int *p_neg_array, int *p_wig_array, int *p_zero_array, int *p_large_array, char *p_s, char *p_sub, int size){
-    sum_array_test(state, (unsigned int *) sum_array_s, p_array, p_neg_array, p_wig_array, p_zero_array, p_large_array, size);
-    find_max_test(state, (unsigned int *) find_max_s, p_array, p_neg_array, p_wig_array, p_zero_array, p_large_array, size);
+void run_test(struct arm_state *state, int *p_array, int *p_neg_array, int *p_zero_array, int *p_large_array, char *p_s, char *p_sub, int size){
+    sum_array_test(state, (unsigned int *) sum_array_s, p_array, p_neg_array, p_zero_array, p_large_array, size);
+    find_max_test(state, (unsigned int *) find_max_s, p_array, p_neg_array, p_zero_array, p_large_array, size);
     fibo_iter_test(state, (unsigned int *) fibo_iter_s, size);
     fibo_rec_test(state, (unsigned int *) fibo_rec_s, size);
     find_sub_in_s_test(state, (unsigned int *) find_sub_in_s_s, p_s, p_sub);
@@ -982,13 +978,13 @@ int main(int argc, char **argv){
     int *p_wig_array = state.wig_array;
     int *p_zero_array = state.zero_array;
     int *p_large_array = state.large_array;
-    init_array_c(p_array, p_neg_array, p_wig_array, p_zero_array, p_large_array, size, 1000);
+    init_array_c(p_array, p_neg_array, p_zero_array, p_large_array, size, 1000);
     strcpy(state.s, "hello");
     strcpy(state.sub, "llo");
     char *p_s = state.s;
     char *p_sub = state.sub;
 
-    run_test(&state, p_array, p_neg_array, p_wig_array, p_zero_array, p_large_array, p_s, p_sub, size);
+    run_test(&state, p_array, p_neg_array, p_zero_array, p_large_array, p_s, p_sub, size);
   
     return 0;
 }
