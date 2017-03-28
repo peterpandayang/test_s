@@ -897,7 +897,7 @@ void single_find_max_test(struct arm_state *state, unsigned int *func, int *p_ar
     }
     init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     int max;
-    max = sum_array_s(p_array, size);
+    max = find_max_s(p_array, size);
     printf("Max is: %d (Assembly)\n", max);
     max = armemu(state);
     printf("Max is: %d (Armemu)\n\n", max);
