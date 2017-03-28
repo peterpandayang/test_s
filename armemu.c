@@ -3,8 +3,8 @@
 #include <string.h>
 #include <sys/times.h>
 #include <time.h>
-#include <test_func.h>
 #include <unistd.h>
+#include <write_to_output.h>
 
 #define NREGS 16
 #define STACK_SIZE 1024
@@ -776,232 +776,232 @@ void write_inst_percentage(FILE *f, struct arm_state *state){
     fprintf(f, "        %f%%\n", branch_not_taken_perc);
 }
 
-void write_to_output(struct arm_state *state, int index){
-    FILE *f;
-    const char *title;
-    if(index == 1){
-        f = fopen("sum_array_pos.txt", "w");
-        title = "Result for sum positive array test:";
-        fprintf(f, "%s\n", title);
-    }
-    else if(index == 2){
-        f = fopen("sum_array_neg.txt", "w");
-        title = "Result for sum negetive array test:";
-        fprintf(f, "%s\n", title);
-    }
-    else if(index == 3){
-        f = fopen("sum_array_zero.txt", "w");
-        title = "Result for sum zero array test:";
-        fprintf(f, "%s\n", title);
-    }
-    else if(index == 4){
-        f = fopen("sum_array_large.txt", "w");
-        title = "Result for large array test:";
-        fprintf(f, "%s\n", title);
-    }
-    else if(index == 5){
-        f = fopen("find_max_pos.txt", "w");
-        title = "Result for find max test:";
-        fprintf(f, "%s\n", title);
-    }
-    else if(index == 6){
-        f = fopen("find_max_neg.txt", "w");
-        title = "Result for find max test:";
-        fprintf(f, "%s\n", title);
-    }
-    else if(index == 7){
-        f = fopen("find_max_zero.txt", "w");
-        title = "Result for find max test:";
-        fprintf(f, "%s\n", title);
-    }
-    else if(index == 8){
-        f = fopen("find_max_large.txt", "w");
-        title = "Result for find max test:";
-        fprintf(f, "%s\n", title);
-    }
-    else if(index == 10){
-        f = fopen("fibo_iter_ten.txt", "w");
-        title = "Result for fibo iteration test of 10:";
-        fprintf(f, "%s\n", title);
-    }
-    else if(index == 19){
-        f = fopen("fibo_iter_nineteen.txt", "w");
-        title = "Result for fibo iteration test of 19:";
-        fprintf(f, "%s\n", title);
-    }
-    else if(index == 11){
-        f = fopen("fibo_rec_ten.txt", "w");
-        title = "Result for fibo recursion test of 10:";
-        fprintf(f, "%s\n", title);
-    }
-    else if(index == 20){
-        f = fopen("fibo_rec_nineteen.txt", "w");
-        title = "Result for fibo recursion test of 19:";
-        fprintf(f, "%s\n", title);
-    }
-    else if(index == 9){
-        f = fopen("find_sub_in_s.txt", "w");
-        title = "Result for find sub in s test:";
-        fprintf(f, "%s\n", title);
-    }
-    fprintf(f, "Total instructions: %d\n", (char *)(state->exec_instr_count));
-    fprintf(f, "Total computation instructions: %d\n", (char *)(state->compu_count));
-    fprintf(f, "Total memory instructions: %d\n", (char *)(state->mem_count));
-    fprintf(f, "Total branch instructions: %d\n", (char *)(state->branch_count));
-    fprintf(f, "Total branch taken: %d\n", (char *)(state->b_taken_count));
-    fprintf(f, "Total branch not taken: %d\n", (char *)(state->b_not_taken_count));
-    write_read_regs_to_file(state, f);
-    write_written_regs_to_file(state, f);
-    fprintf(f, "armemu_total_time_usecs = %f us\n", state->armemu_total_time_usecs);  
-    fprintf(f, "native_total_time_usecs = %f us\n", state->native_total_time_usecs);
-    int times = state->armemu_total_time_usecs / state->native_total_time_usecs;
-    fprintf(f, "native method is: %d times faster than armemu method\n", times);
-    write_inst_percentage(f, state);
-    fclose(f);
-}
+// void write_to_output(struct arm_state *state, int index){
+//     FILE *f;
+//     const char *title;
+//     if(index == 1){
+//         f = fopen("sum_array_pos.txt", "w");
+//         title = "Result for sum positive array test:";
+//         fprintf(f, "%s\n", title);
+//     }
+//     else if(index == 2){
+//         f = fopen("sum_array_neg.txt", "w");
+//         title = "Result for sum negetive array test:";
+//         fprintf(f, "%s\n", title);
+//     }
+//     else if(index == 3){
+//         f = fopen("sum_array_zero.txt", "w");
+//         title = "Result for sum zero array test:";
+//         fprintf(f, "%s\n", title);
+//     }
+//     else if(index == 4){
+//         f = fopen("sum_array_large.txt", "w");
+//         title = "Result for large array test:";
+//         fprintf(f, "%s\n", title);
+//     }
+//     else if(index == 5){
+//         f = fopen("find_max_pos.txt", "w");
+//         title = "Result for find max test:";
+//         fprintf(f, "%s\n", title);
+//     }
+//     else if(index == 6){
+//         f = fopen("find_max_neg.txt", "w");
+//         title = "Result for find max test:";
+//         fprintf(f, "%s\n", title);
+//     }
+//     else if(index == 7){
+//         f = fopen("find_max_zero.txt", "w");
+//         title = "Result for find max test:";
+//         fprintf(f, "%s\n", title);
+//     }
+//     else if(index == 8){
+//         f = fopen("find_max_large.txt", "w");
+//         title = "Result for find max test:";
+//         fprintf(f, "%s\n", title);
+//     }
+//     else if(index == 10){
+//         f = fopen("fibo_iter_ten.txt", "w");
+//         title = "Result for fibo iteration test of 10:";
+//         fprintf(f, "%s\n", title);
+//     }
+//     else if(index == 19){
+//         f = fopen("fibo_iter_nineteen.txt", "w");
+//         title = "Result for fibo iteration test of 19:";
+//         fprintf(f, "%s\n", title);
+//     }
+//     else if(index == 11){
+//         f = fopen("fibo_rec_ten.txt", "w");
+//         title = "Result for fibo recursion test of 10:";
+//         fprintf(f, "%s\n", title);
+//     }
+//     else if(index == 20){
+//         f = fopen("fibo_rec_nineteen.txt", "w");
+//         title = "Result for fibo recursion test of 19:";
+//         fprintf(f, "%s\n", title);
+//     }
+//     else if(index == 9){
+//         f = fopen("find_sub_in_s.txt", "w");
+//         title = "Result for find sub in s test:";
+//         fprintf(f, "%s\n", title);
+//     }
+//     fprintf(f, "Total instructions: %d\n", (char *)(state->exec_instr_count));
+//     fprintf(f, "Total computation instructions: %d\n", (char *)(state->compu_count));
+//     fprintf(f, "Total memory instructions: %d\n", (char *)(state->mem_count));
+//     fprintf(f, "Total branch instructions: %d\n", (char *)(state->branch_count));
+//     fprintf(f, "Total branch taken: %d\n", (char *)(state->b_taken_count));
+//     fprintf(f, "Total branch not taken: %d\n", (char *)(state->b_not_taken_count));
+//     write_read_regs_to_file(state, f);
+//     write_written_regs_to_file(state, f);
+//     fprintf(f, "armemu_total_time_usecs = %f us\n", state->armemu_total_time_usecs);  
+//     fprintf(f, "native_total_time_usecs = %f us\n", state->native_total_time_usecs);
+//     int times = state->armemu_total_time_usecs / state->native_total_time_usecs;
+//     fprintf(f, "native method is: %d times faster than armemu method\n", times);
+//     write_inst_percentage(f, state);
+//     fclose(f);
+// }
 
 /*test part*/
-// void single_sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, int size, int index){
-//     if(size != 1000){
-//         print_array_c(p_array, size);
-//     }
-//     else{
-//         printf("This is input of 1000 element from 0 to 999\n");
-//     }
-//     init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
-//     int sum;
-//     sum = sum_array_s(p_array, size);
-//     printf("Sum is: %d (Assembly)\n", sum);
-//     sum = armemu(state);
-//     printf("Sum is: %d (Armemu)\n\n", sum);
-//     gettime_array(state, (unsigned int *) func, p_array, size, 1);
-//     print_analysis(state);
-//     write_to_output(state, 1 + index);
-// }
+void single_sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, int size, int index){
+    if(size != 1000){
+        print_array_c(p_array, size);
+    }
+    else{
+        printf("This is input of 1000 element from 0 to 999\n");
+    }
+    init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
+    int sum;
+    sum = sum_array_s(p_array, size);
+    printf("Sum is: %d (Assembly)\n", sum);
+    sum = armemu(state);
+    printf("Sum is: %d (Armemu)\n\n", sum);
+    gettime_array(state, (unsigned int *) func, p_array, size, 1);
+    print_analysis(state);
+    write_to_output(state, 1 + index);
+}
 
-// void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, int *p_neg_array, int *p_zero_array, int *p_large_array, int size){
-//     printf("Start sum array test and print input array:\n");
-//     printf("Test for array with positive values: \n");
-//     single_sum_array_test(state, (unsigned int *) func, p_array, size, 0);
-//     printf("Test for array with negative values: \n");
-//     single_sum_array_test(state, (unsigned int *) func, p_neg_array, size, 1);
-//     printf("Test for array with zero values: \n");
-//     single_sum_array_test(state, (unsigned int *) func, p_zero_array, size, 2);
-//     printf("Test for array with large size: \n");
-//     single_sum_array_test(state, (unsigned int *) func, p_large_array, 1000, 3);
-// }      
+void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, int *p_neg_array, int *p_zero_array, int *p_large_array, int size){
+    printf("Start sum array test and print input array:\n");
+    printf("Test for array with positive values: \n");
+    single_sum_array_test(state, (unsigned int *) func, p_array, size, 0);
+    printf("Test for array with negative values: \n");
+    single_sum_array_test(state, (unsigned int *) func, p_neg_array, size, 1);
+    printf("Test for array with zero values: \n");
+    single_sum_array_test(state, (unsigned int *) func, p_zero_array, size, 2);
+    printf("Test for array with large size: \n");
+    single_sum_array_test(state, (unsigned int *) func, p_large_array, 1000, 3);
+}      
 
-// void single_find_max_test(struct arm_state *state, unsigned int *func, int *p_array, int size, int index){
-//     if(size != 1000){
-//         print_array_c(p_array, size);
-//     }
-//     else{
-//         printf("This is input of 1000 element from 0 to 999\n");
-//     }
-//     init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
-//     int max;
-//     max = find_max_s(p_array, size);
-//     printf("Max is: %d (Assembly)\n", max);
-//     max = armemu(state);
-//     printf("Max is: %d (Armemu)\n\n", max);
-//     gettime_array(state, (unsigned int *) func, p_array, size, 1);
-//     print_analysis(state);
-//     write_to_output(state, 5 + index);
-// }            
+void single_find_max_test(struct arm_state *state, unsigned int *func, int *p_array, int size, int index){
+    if(size != 1000){
+        print_array_c(p_array, size);
+    }
+    else{
+        printf("This is input of 1000 element from 0 to 999\n");
+    }
+    init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
+    int max;
+    max = find_max_s(p_array, size);
+    printf("Max is: %d (Assembly)\n", max);
+    max = armemu(state);
+    printf("Max is: %d (Armemu)\n\n", max);
+    gettime_array(state, (unsigned int *) func, p_array, size, 1);
+    print_analysis(state);
+    write_to_output(state, 5 + index);
+}            
 
-// void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, int *p_neg_array, int *p_zero_array, int *p_large_array, int size){
-//     printf("Start max array test and print input array:\n");
-//     printf("Test for array with positive values: \n");
-//     single_find_max_test(state, (unsigned int *) func, p_array, size, 0);
-//     printf("Test for array with negative values: \n");
-//     single_find_max_test(state, (unsigned int *) func, p_neg_array, size, 1);
-//     printf("Test for array with zero values: \n");
-//     single_find_max_test(state, (unsigned int *) func, p_zero_array, size, 2);
-//     printf("Test for array with large size: \n");
-//     single_find_max_test(state, (unsigned int *) func, p_large_array, 1000, 3);
-// }
+void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, int *p_neg_array, int *p_zero_array, int *p_large_array, int size){
+    printf("Start max array test and print input array:\n");
+    printf("Test for array with positive values: \n");
+    single_find_max_test(state, (unsigned int *) func, p_array, size, 0);
+    printf("Test for array with negative values: \n");
+    single_find_max_test(state, (unsigned int *) func, p_neg_array, size, 1);
+    printf("Test for array with zero values: \n");
+    single_find_max_test(state, (unsigned int *) func, p_zero_array, size, 2);
+    printf("Test for array with large size: \n");
+    single_find_max_test(state, (unsigned int *) func, p_large_array, 1000, 3);
+}
 
-// void signle_fibo_iter_test(struct arm_state *state, unsigned int *func, int number, int index){
-//     init_arm_state(state, (unsigned int *) func, number, 0, 0, 0);
-//     int fibo_iter;
-//     fibo_iter = armemu(state);
-//     printf("Fibo iteration result for %d's element is:\n", number);
-//     gettime_fibo(state, (unsigned int *) func, number, 1);
-//     print_analysis(state);
-//     write_to_output(state, index);
-// }
+void signle_fibo_iter_test(struct arm_state *state, unsigned int *func, int number, int index){
+    init_arm_state(state, (unsigned int *) func, number, 0, 0, 0);
+    int fibo_iter;
+    fibo_iter = armemu(state);
+    printf("Fibo iteration result for %d's element is:\n", number);
+    gettime_fibo(state, (unsigned int *) func, number, 1);
+    print_analysis(state);
+    write_to_output(state, index);
+}
 
-// void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
-//     printf("Start iteration fibonacci test:\n");
-//     printf("Test for fibonacci sequence of iteration with size %d: \n", size);
-//     int i;
-//     for(i = 0; i < 20; i++){
-//         int iter_s = fibo_iter_s(i);
-//         printf("%d ", iter_s);
-//     }
-//     printf("(Assembly)\n");
-//     for(i = 0; i < 20; i++){
-//         init_arm_state(state, (unsigned int *) func, i, 0, 0, 0);
-//         int iter_arm = armemu(state);
-//         printf("%d ", iter_arm);
-//     }
-//     printf("(Armemu)\n");
-//     printf("\n");
-//     signle_fibo_iter_test(state, (unsigned int *) func, 10, 10);
-//     signle_fibo_iter_test(state, (unsigned int *) func, 19, 19);
-// }
+void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
+    printf("Start iteration fibonacci test:\n");
+    printf("Test for fibonacci sequence of iteration with size %d: \n", size);
+    int i;
+    for(i = 0; i < 20; i++){
+        int iter_s = fibo_iter_s(i);
+        printf("%d ", iter_s);
+    }
+    printf("(Assembly)\n");
+    for(i = 0; i < 20; i++){
+        init_arm_state(state, (unsigned int *) func, i, 0, 0, 0);
+        int iter_arm = armemu(state);
+        printf("%d ", iter_arm);
+    }
+    printf("(Armemu)\n");
+    printf("\n");
+    signle_fibo_iter_test(state, (unsigned int *) func, 10, 10);
+    signle_fibo_iter_test(state, (unsigned int *) func, 19, 19);
+}
 
-// void signle_fibo_rec_test(struct arm_state *state, unsigned int *func, int number, int index){
-//     init_arm_state(state, (unsigned int *) func, number, 0, 0, 0);
-//     int fibo_rec;
-//     fibo_rec = armemu(state);
-//     printf("Fibo recursion result for %d's element is:\n", number);
-//     gettime_fibo(state, (unsigned int *) func, number, 2);
-//     print_analysis(state);
-//     write_to_output(state, index);
-// }
+void signle_fibo_rec_test(struct arm_state *state, unsigned int *func, int number, int index){
+    init_arm_state(state, (unsigned int *) func, number, 0, 0, 0);
+    int fibo_rec;
+    fibo_rec = armemu(state);
+    printf("Fibo recursion result for %d's element is:\n", number);
+    gettime_fibo(state, (unsigned int *) func, number, 2);
+    print_analysis(state);
+    write_to_output(state, index);
+}
 
-// void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
-//     printf("Start recursion fibonacci test:\n");
-//     printf("Test for fibonacci sequence of recursion with size %d: \n", size);
-//     int i;
-//     for(i = 0; i < 20; i++){
-//         int rec_s = fibo_rec_s(i);
-//         printf("%d ", rec_s);
-//     }
-//     printf("(Assembly)\n");
+void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
+    printf("Start recursion fibonacci test:\n");
+    printf("Test for fibonacci sequence of recursion with size %d: \n", size);
+    int i;
+    for(i = 0; i < 20; i++){
+        int rec_s = fibo_rec_s(i);
+        printf("%d ", rec_s);
+    }
+    printf("(Assembly)\n");
 
-//     for(i = 0; i < 20; i++){
-//         init_arm_state(state, (unsigned int *) func, i, 0, 0, 0);
-//         int rec_arm = armemu(state);
-//         printf("%d ", rec_arm);
-//     }
-//     printf("(Armemu)\n");
-//     printf("\n");
-//     signle_fibo_rec_test(state, (unsigned int *) func, 10, 11);
-//     signle_fibo_rec_test(state, (unsigned int *) func, 19, 20);
-// }
+    for(i = 0; i < 20; i++){
+        init_arm_state(state, (unsigned int *) func, i, 0, 0, 0);
+        int rec_arm = armemu(state);
+        printf("%d ", rec_arm);
+    }
+    printf("(Armemu)\n");
+    printf("\n");
+    signle_fibo_rec_test(state, (unsigned int *) func, 10, 11);
+    signle_fibo_rec_test(state, (unsigned int *) func, 19, 20);
+}
 
-// void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, char *p_sub){
-//     printf("Start strstr test:\n");
-//     printf("Larger string: \n");
-//     print_str(p_s);
-//     printf("Smaller string: \n");
-//     print_str(p_sub);
-//     unsigned int int_p_s = (unsigned int)((unsigned int *)p_s);
-//     unsigned int int_p_sub = (unsigned int)((unsigned int *)p_sub);
-//     int s_len = strlen(p_s);
-//     int s_sub_len = strlen(p_sub);
-//     int pos;
-//     pos = find_sub_in_s_s(p_s, p_sub, s_len, s_sub_len);
-//     printf("Start position is: %d (Assembly)\n", pos);
-//     init_arm_state(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
-//     pos = armemu(state);
-//     printf("Start position is: %d (Armemu)\n\n", pos);
-//     gettime_find_s_in_sub(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
-//     print_analysis(state);
-//     write_to_output(state, 9);
-// }
+void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, char *p_sub){
+    printf("Start strstr test:\n");
+    printf("Larger string: \n");
+    print_str(p_s);
+    printf("Smaller string: \n");
+    print_str(p_sub);
+    unsigned int int_p_s = (unsigned int)((unsigned int *)p_s);
+    unsigned int int_p_sub = (unsigned int)((unsigned int *)p_sub);
+    int s_len = strlen(p_s);
+    int s_sub_len = strlen(p_sub);
+    int pos;
+    pos = find_sub_in_s_s(p_s, p_sub, s_len, s_sub_len);
+    printf("Start position is: %d (Assembly)\n", pos);
+    init_arm_state(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
+    pos = armemu(state);
+    printf("Start position is: %d (Armemu)\n\n", pos);
+    gettime_find_s_in_sub(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
+    print_analysis(state);
+    write_to_output(state, 9);
+}
 
 void run_test(struct arm_state *state, int *p_array, int *p_neg_array, int *p_zero_array, int *p_large_array, char *p_s, char *p_sub, int size){
     sum_array_test(state, (unsigned int *) sum_array_s, p_array, p_neg_array, p_zero_array, p_large_array, size);
