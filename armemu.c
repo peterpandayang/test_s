@@ -791,6 +791,11 @@ void write_to_output(struct arm_state *state, int index){
         title = "Result for sum zero array test:";
         fprintf(f, "%s\n", title);
     }
+    else if(index == 4){
+        f = fopen("sum_array_large.txt", "w");
+        title = "Result for large array test:";
+        fprintf(f, "%s\n", title);
+    }
     else if(index == 5){
         f = fopen("find_max.txt", "w");
         title = "Result for find max test:";
@@ -859,6 +864,8 @@ void sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, i
     single_sum_array_test(state, (unsigned int *) func, p_neg_array, size, 1);
     printf("Test for array with zero values: \n");
     single_sum_array_test(state, (unsigned int *) func, p_zero_array, size, 2);
+    printf("Test for array with large array: \n");
+    single_sum_array_test(state, (unsigned int *) func, p_large_array, 1000, 3);
     // print_array_c(p_array, size);
     // init_arm_state(state, (unsigned int *) func, (unsigned int) p_array, size, 0, 0);
     // int sum;
