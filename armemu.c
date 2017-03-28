@@ -918,6 +918,16 @@ void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, in
     single_find_max_test(state, (unsigned int *) func, p_large_array, 1000, 3);
 }
 
+void signle_fibo_test(struct arm_state *state, unsigned int *func, int number, int index){
+    init_arm_state(state, (unsigned int *) func, number, 0, 0, 0);
+    int fibo_iter;
+    fibo_iter = armemu(state);
+    printf("Fibo iteration result for %d's element is:\n", number);
+    gettime_fibo(state, (unsigned int *) func, number, index);
+    print_analysis(state);
+    write_to_output(state, number);
+}
+
 void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
     printf("Start iteration fibonacci test:\n");
     printf("Test for fibonacci sequence of iteration with size %d: \n", size);
@@ -934,19 +944,22 @@ void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
     }
     printf("(Armemu)\n");
     printf("\n");
-    init_arm_state(state, (unsigned int *) func, 10, 0, 0, 0);
-    int fibo_iter;
-    fibo_iter = armemu(state);
-    printf("Fibo iteration result for %d's element is:\n", 10);
-    gettime_fibo(state, (unsigned int *) func, 10, 1);
-    print_analysis(state);
-    write_to_output(state, 10);
-    init_arm_state(state, (unsigned int *) func, 19, 0, 0, 0);
-    fibo_iter = armemu(state);
-    printf("Fibo iteration result for %d's element is:\n", 19);
-    gettime_fibo(state, (unsigned int *) func, 19, 1);
-    print_analysis(state);
-    write_to_output(state, 19);
+    signle_fibo_test(state, (unsigned int *) func, 10, 1);
+    signle_fibo_test(state, (unsigned int *) func, 19, 1);
+    // init_arm_state(state, (unsigned int *) func, 10, 0, 0, 0);
+    // int fibo_iter;
+    // fibo_iter = armemu(state);
+    // printf("Fibo iteration result for %d's element is:\n", 10);
+    // gettime_fibo(state, (unsigned int *) func, 10, 1);
+    // print_analysis(state);
+    // write_to_output(state, 10);
+
+    // init_arm_state(state, (unsigned int *) func, 19, 0, 0, 0);
+    // fibo_iter = armemu(state);
+    // printf("Fibo iteration result for %d's element is:\n", 19);
+    // gettime_fibo(state, (unsigned int *) func, 19, 1);
+    // print_analysis(state);
+    // write_to_output(state, 19);
 }
 
 void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
