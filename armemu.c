@@ -4,7 +4,7 @@
 #include <sys/times.h>
 #include <time.h>
 #include <unistd.h>
-#include <write_to_output.h>
+#include "write_to_output.h"
 
 #define NREGS 16
 #define STACK_SIZE 1024
