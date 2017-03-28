@@ -1023,8 +1023,8 @@ int main(int argc, char **argv){
     int *p_zero_array = state.zero_array;
     int *p_large_array = state.large_array;
     init_array_c(p_array, p_neg_array, p_zero_array, p_large_array, size, 1000);
-    strcpy(state.s, "helo");
-    strcpy(state.sub, "llo");
+    strcpy(state.s, "hello");
+    strcpy(state.sub, "lo");
     char *p_s = state.s;
     char *p_sub = state.sub;
 
