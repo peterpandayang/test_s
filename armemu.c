@@ -994,8 +994,8 @@ void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, 
     int s_len = strlen(p_s);
     int s_sub_len = strlen(p_sub);
     int pos;
-    // pos = find_sub_in_s_s(p_s, p_sub, s_len, s_sub_len);
-    // printf("Start position is: %d (Assembly)\n", pos);
+    pos = find_sub_in_s_s(p_s, p_sub, s_len, s_sub_len);
+    printf("Start position is: %d (Assembly)\n", pos);
     init_arm_state(state, (unsigned int *) func, int_p_s, int_p_sub, s_len, s_sub_len);
     pos = armemu(state);
     printf("Start position is: %d (Armemu)\n\n", pos);
@@ -1023,8 +1023,8 @@ int main(int argc, char **argv){
     int *p_zero_array = state.zero_array;
     int *p_large_array = state.large_array;
     init_array_c(p_array, p_neg_array, p_zero_array, p_large_array, size, 1000);
-    strcpy(state.s, "hello");
-    strcpy(state.sub, "lo");
+    strcpy(state.s, "helo");
+    strcpy(state.sub, "llo");
     char *p_s = state.s;
     char *p_sub = state.sub;
 
