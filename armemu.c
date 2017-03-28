@@ -923,7 +923,7 @@ void signle_fibo_iter_test(struct arm_state *state, unsigned int *func, int numb
     int fibo_iter;
     fibo_iter = armemu(state);
     printf("Fibo iteration result for %d's element is:\n", number);
-    gettime_fibo(state, (unsigned int *) func, number, index);
+    gettime_fibo(state, (unsigned int *) func, number, 1);
     print_analysis(state);
     write_to_output(state, index);
 }
@@ -977,19 +977,6 @@ void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
     printf("\n");
     signle_fibo_rec_test(state, (unsigned int *) func, 10, 11);
     signle_fibo_rec_test(state, (unsigned int *) func, 19, 20);
-    // init_arm_state(state, (unsigned int *) func, 10, 0, 0, 0);
-    // int fibo_rec;
-    // fibo_rec = armemu(state);
-    // printf("Fibo recursion result for %d's element is:\n", 10);
-    // gettime_fibo(state, (unsigned int *) func, 10, 2);
-    // print_analysis(state);
-    // write_to_output(state, 11);
-    // init_arm_state(state, (unsigned int *) func, 19, 0, 0, 0);
-    // fibo_rec = armemu(state);
-    // printf("Fibo recursion result for %d's element is:\n", 19);
-    // gettime_fibo(state, (unsigned int *) func, 19, 2);
-    // print_analysis(state);
-    // write_to_output(state, 20);
 }
 
 void find_sub_in_s_test(struct arm_state *state, unsigned int *func, char *p_s, char *p_sub){
