@@ -479,9 +479,10 @@ void update_pc_bl(int iw, struct arm_state *state, int offset){
         // update_pc_eq(state->cpsr, state, offset);
     }
     else{ 
-        state->b_taken_count += 1;           
         save_link_addr(state);
-        state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+        update_pc_with_b(state, offset);
+        // state->b_taken_count += 1;           
+        // state->regs[PC] = state->regs[PC] + 8 + offset * 4;
     }
 }
 
