@@ -446,15 +446,25 @@ void update_pc_ne_ge(int check_val, struct arm_state *state, int offset){
     }
 }
 
-void update_pc_eq(int check_val, struct arm_state *state, int offset){
-    if(check_val == 0x40000000){
-        state->b_taken_count += 1;
-        state->regs[PC] = state->regs[PC] + 8 + offset * 4;
-    }
-    else{
-        state->b_not_taken_count += 1;
-        state->regs[PC] = state->regs[PC] + 4;
-    }    
+// void update_pc_eq(int check_val, struct arm_state *state, int offset){
+//     if(check_val == 0x40000000){
+//         state->b_taken_count += 1;
+//         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+//     }
+//     else{
+//         state->b_not_taken_count += 1;
+//         state->regs[PC] = state->regs[PC] + 4;
+//     }    
+// }
+
+void update_pc_with_b(struct arm_state *state, int offset){
+    state->b_taken_count += 1;
+    state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+}
+
+void update_pc_without_b(struct arm_state *state, int offset){
+    state->b_not_taken_count += 1;
+    state->regs[PC] = state->regs[PC] + 4;
 }
 
 void update_pc_bl(int iw, struct arm_state *state, int offset){
@@ -484,8 +494,9 @@ void armemu_b(struct arm_state *state){
     if(is_bl_inst(iw)){
         update_pc_bl(iw, state, offset);
     }
-    else if(is_beq_inst(iw)){
-        update_pc_eq(state->cpsr, state, offset);
+    else if(is_beq_inst(iw) && (state->cpsr == 0x40000000)){
+        // update_pc_eq(state->cpsr, state, offset);
+        update_pc_with_b(state, offset);
     }
     else if(is_bge_inst(iw)){
         update_pc_ne_ge(state->cpsr >> 31, state, offset);
@@ -494,8 +505,12 @@ void armemu_b(struct arm_state *state){
         update_pc_ne_ge(state->cpsr >> 30, state, offset);
     }
     else if(is_b_default_inst(iw)){
-        state->b_taken_count += 1;
-        state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+        update_pc_with_b(state, offset);
+        // state->b_taken_count += 1;
+        // state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+    }
+    else{
+        update_pc_without_b(state, offset);
     }
     state->cpsr = 0;
     update_written_regs(state, PC); 
