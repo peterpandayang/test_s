@@ -301,15 +301,39 @@ bool is_off_addr(unsigned int iw){
     return P == 0b1 && W == 0b0;
 }
 
+unsigned int get_iw(struct arm_state *state){
+    return *((unsigned int *) state->regs[PC]);
+}
+
+unsigned int get_rn(struct arm_state *state, unsigned int iw){
+    return (iw >> 16) & 0xF;
+}
+
+unsigned int get_rd(struct arm_state *state, unsigned int iw){
+    return (iw >> 12) & 0xF;
+}
+
+unsigned int get_offset(struct arm_state *state, unsigned int iw){
+    return iw & 0xFFF;
+}
+
+unsigned int get_i(struct arm_state *state, unsigned int iw){
+    return iw >> 25 & 0b1;
+}
+
 void armemu_ldr(struct arm_state *state){
-    unsigned int iw;
-    unsigned int rd, rn, offset, i;
-    iw = *((unsigned int *) state->regs[PC]);
-    rn = (iw >> 16) & 0xF;
-    rd = (iw >> 12) & 0xF;
-    offset = iw & 0xFFF;
+    unsigned int iw, rd, rn, offset, i;
+    iw = get_iw(state, iw);
+    rn = get_rn(state, iw);
+    rd = get_rd(state, iw);
+    offset = get_offset(state, iw);
+    i = get_i(state, iw);
+    // iw = *((unsigned int *) state->regs[PC]);
+    // rn = (iw >> 16) & 0xF;
+    // rd = (iw >> 12) & 0xF;
+    // offset = iw & 0xFFF;
     if(is_off_addr(iw)){
-        i = iw >> 25 & 0b1;
+        // i = iw >> 25 & 0b1;
         if(i == 0b0){
             // offset = iw & 0xFFF;
             state->regs[rd] = *((unsigned int *)(state->regs[rn] + offset));
@@ -324,19 +348,19 @@ void armemu_ldr(struct arm_state *state){
     // }
 }
 
-unsigned int get_iw(struct arm_state *state){
-    return *((unsigned int *) state->regs[PC]);
-}
-
 void armemu_ldrb(struct arm_state *state){
     unsigned int iw, rd, rn, offset, i;
     // iw = *((unsigned int *) state->regs[PC]);
-    iw = get_iw(state);
-    rn = (iw >> 16) & 0xF;
-    rd = (iw >> 12) & 0xF;
-    offset = iw & 0xFFF;
+    iw = get_iw(state, iw);
+    rn = get_rn(state, iw);
+    rd = get_rd(state, iw);
+    offset = get_offset(state, iw);
+    i = get_i(state, iw);
+    // rn = (iw >> 16) & 0xF;
+    // rd = (iw >> 12) & 0xF;
+    // offset = iw & 0xFFF;
     if(is_off_addr(iw)){
-        i = iw >> 25 & 0b1;
+        // i = iw >> 25 & 0b1;
         if(i == 0b0){
             // offset = iw & 0xFFF;
             state->regs[rd] = *((unsigned int *)(state->regs[rn] + offset)) & 0xFF;
@@ -352,14 +376,18 @@ void armemu_ldrb(struct arm_state *state){
 }
 
 void armemu_str(struct arm_state *state){
-    unsigned int iw;
-    unsigned int rd, rn, offset, i;
-    iw = *((unsigned int *) state->regs[PC]);
-    rn = (iw >> 16) & 0xF;
-    rd = (iw >> 12) & 0xF;
-    offset = iw & 0xFFF;
+    unsigned int iw, rd, rn, offset, i;
+    iw = get_iw(state, iw);
+    rn = get_rn(state, iw);
+    rd = get_rd(state, iw);
+    offset = get_offset(state, iw);
+    i = get_i(state, iw);
+    // iw = *((unsigned int *) state->regs[PC]);
+    // rn = (iw >> 16) & 0xF;
+    // rd = (iw >> 12) & 0xF;
+    // offset = iw & 0xFFF;
     if(is_off_addr(iw)){
-        i = iw >> 25 & 0b1;
+        // i = iw >> 25 & 0b1;
         if(i == 0b0){
             // offset = iw & 0xFFF;
             *((unsigned int *)(state->regs[rn] + offset)) = state->regs[rd];
