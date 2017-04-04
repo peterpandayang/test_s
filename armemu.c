@@ -167,7 +167,7 @@ void armemu_add(struct arm_state *state){
     rn = get_rn(state, iw);
     // iw = *((unsigned int *) state->regs[PC]); 
     // rd = (iw >> 12) & 0xF;
-    // rn = (iw >> 16) & 0xF;
+    rn = (iw >> 16) & 0xF;
     if(is_imme_dp(iw)){
         add_value = iw & 0xFF;
     }
@@ -189,12 +189,9 @@ void armemu_add(struct arm_state *state){
 
 void armemu_sub(struct arm_state *state){
     unsigned int iw, rd, rn, rm, sub_value;
-    // iw = *((unsigned int *) state->regs[PC]);    
-    // rd = (iw >> 12) & 0xF;
-    // rn = (iw >> 16) & 0xF;
-    iw = get_iw(state);
-    rd = get_rd(state, iw);
-    rn = get_rn(state, iw);
+    iw = *((unsigned int *) state->regs[PC]);    
+    rd = (iw >> 12) & 0xF;
+    rn = (iw >> 16) & 0xF;
     if(is_imme_dp(iw)){
         sub_value = iw & 0xFF;
     }
@@ -231,10 +228,8 @@ void update_cpsr_cmp(struct arm_state *state, int val1, int val2){
 
 void armemu_cmp(struct arm_state *state){
     unsigned int iw, rd, rn, rm, cmp_value;
-    // iw = *((unsigned int *) state->regs[PC]);  
-    // rn = (iw >> 16) & 0xF;
-    iw = get_iw(state);
-    rn = get_rn(state, iw);
+    iw = *((unsigned int *) state->regs[PC]);  
+    rn = (iw >> 16) & 0xF;
     state->cpsr = 0;
     if(is_imme_dp(iw)){
         cmp_value = iw & 0xFF;
@@ -260,10 +255,8 @@ bool is_mov_inst(unsigned int iw){
 
 void armemu_mov(struct arm_state *state){
     unsigned int iw, rd, rn, imme;
-    // iw = *((unsigned int *) state->regs[PC]);
-    // rd = (iw >> 12) & 0xF;
-    iw = get_iw(state);
-    rd = get_rd(state, iw);
+    iw = *((unsigned int *) state->regs[PC]);
+    rd = (iw >> 12) & 0xF;
     if(is_imme_dp(iw)){
         unsigned int imme = iw & 0xFF;
         state->regs[rd] = imme;
@@ -290,8 +283,7 @@ bool is_data_pro_inst(unsigned int iw){
 
 void armemu_data_pro(struct arm_state *state){
     unsigned int iw;
-    // iw = *((unsigned int *) state->regs[PC]);
-    iw = get_iw(state);
+    iw = *((unsigned int *) state->regs[PC]);
     if(is_mov_inst(iw)){
         armemu_mov(state);
     }
