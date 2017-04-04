@@ -235,18 +235,6 @@ void update_cpsr_cmp(struct arm_state *state, int val1, int val2){
     }
 }
 
-unsigned int get_add_or_sub_or_cmp_val(struct arm_state *state, unsigned int iw){
-    unsigned int rm;
-    if(is_imme_dp(iw)){
-        return iw & 0xFF;
-    }
-    else{
-        rm = iw & 0xF;
-        update_read_regs(state, rm);
-        return state->regs[rm];
-    }
-}
-
 void armemu_cmp(struct arm_state *state){
     unsigned int iw, rd, rn, rm, cmp_value;
     // iw = *((unsigned int *) state->regs[PC]);  
