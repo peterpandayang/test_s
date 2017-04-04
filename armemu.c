@@ -435,16 +435,16 @@ void save_link_addr(struct arm_state *state){
     update_written_regs(state, LR); 
 }
 
-void update_pc_ne_ge(int check_val, struct arm_state *state, int offset){
-    if(check_val == 0b0){
-        state->b_taken_count += 1;
-        state->regs[PC] = state->regs[PC] + 8 + offset * 4;
-    }
-    else{
-        state->b_not_taken_count += 1;
-        state->regs[PC] = state->regs[PC] + 4;
-    }
-}
+// void update_pc_ne_ge(int check_val, struct arm_state *state, int offset){
+//     if(check_val == 0b0){
+//         state->b_taken_count += 1;
+//         state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+//     }
+//     else{
+//         state->b_not_taken_count += 1;
+//         state->regs[PC] = state->regs[PC] + 4;
+//     }
+// }
 
 // void update_pc_eq(int check_val, struct arm_state *state, int offset){
 //     if(check_val == 0x40000000){
@@ -507,8 +507,9 @@ void armemu_b(struct arm_state *state){
         update_pc_with_b(state, offset);
         // update_pc_ne_ge(state->cpsr >> 31, state, offset);
     }
-    else if(is_bne_inst(iw)){
-        update_pc_ne_ge(state->cpsr >> 30, state, offset);
+    else if(is_bne_inst(iw) && (state->cpsr >> 30 == 0b0)){
+        // update_pc_ne_ge(state->cpsr >> 30, state, offset);
+        update_pc_with_b(state, offset);
     }
     else if(is_b_default_inst(iw)){
         update_pc_with_b(state, offset);
