@@ -499,23 +499,23 @@ void armemu_b(struct arm_state *state){
     if(is_bl_inst(iw)){
         update_pc_bl(iw, state, offset);
     }
-    else if(is_beq_inst(iw) && (state->cpsr == 0x40000000)){
+    else if((is_beq_inst(iw) && (state->cpsr == 0x40000000)) || (is_bge_inst(iw) && ((state->cpsr >> 31 == 0b0))) || (is_bne_inst(iw) && (state->cpsr >> 30 == 0b0)) || (is_b_default_inst(iw))){
         // update_pc_eq(state->cpsr, state, offset);
         update_pc_with_b(state, offset);
     }
-    else if(is_bge_inst(iw) && ((state->cpsr >> 31 == 0b0))){
-        update_pc_with_b(state, offset);
-        // update_pc_ne_ge(state->cpsr >> 31, state, offset);
-    }
-    else if(is_bne_inst(iw) && (state->cpsr >> 30 == 0b0)){
-        // update_pc_ne_ge(state->cpsr >> 30, state, offset);
-        update_pc_with_b(state, offset);
-    }
-    else if(is_b_default_inst(iw)){
-        update_pc_with_b(state, offset);
-        // state->b_taken_count += 1;
-        // state->regs[PC] = state->regs[PC] + 8 + offset * 4;
-    }
+    // else if(is_bge_inst(iw) && ((state->cpsr >> 31 == 0b0))){
+    //     update_pc_with_b(state, offset);
+    //     // update_pc_ne_ge(state->cpsr >> 31, state, offset);
+    // }
+    // else if(is_bne_inst(iw) && (state->cpsr >> 30 == 0b0)){
+    //     // update_pc_ne_ge(state->cpsr >> 30, state, offset);
+    //     update_pc_with_b(state, offset);
+    // }
+    // else if(is_b_default_inst(iw)){
+    //     update_pc_with_b(state, offset);
+    //     // state->b_taken_count += 1;
+    //     // state->regs[PC] = state->regs[PC] + 8 + offset * 4;
+    // }
     else{
         update_pc_without_b(state, offset);
     }
