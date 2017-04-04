@@ -135,6 +135,18 @@ void update_pc_general(struct arm_state *state, unsigned int rd){
     }
 }
 
+unsigned int get_iw(struct arm_state *state){
+    return *((unsigned int *) state->regs[PC]);
+}
+
+unsigned int get_rn(struct arm_state *state, unsigned int iw){
+    return (iw >> 16) & 0xF;
+}
+
+unsigned int get_rd(struct arm_state *state, unsigned int iw){
+    return (iw >> 12) & 0xF;
+}
+
 void armemu_add(struct arm_state *state){
     unsigned int iw, rd, rn, rm, add_value;
     iw = *((unsigned int *) state->regs[PC]); 
@@ -295,18 +307,6 @@ bool is_off_addr(unsigned int iw){
     P = (iw >> 24) & 0b1;
     W = (iw >> 21) & 0b1;
     return P == 0b1 && W == 0b0;
-}
-
-unsigned int get_iw(struct arm_state *state){
-    return *((unsigned int *) state->regs[PC]);
-}
-
-unsigned int get_rn(struct arm_state *state, unsigned int iw){
-    return (iw >> 16) & 0xF;
-}
-
-unsigned int get_rd(struct arm_state *state, unsigned int iw){
-    return (iw >> 12) & 0xF;
 }
 
 unsigned int get_offset(struct arm_state *state, unsigned int iw){
