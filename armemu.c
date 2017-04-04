@@ -323,7 +323,7 @@ unsigned int get_i(struct arm_state *state, unsigned int iw){
 
 void armemu_ldr(struct arm_state *state){
     unsigned int iw, rd, rn, offset, i;
-    iw = get_iw(state, iw);
+    iw = get_iw(state);
     rn = get_rn(state, iw);
     rd = get_rd(state, iw);
     offset = get_offset(state, iw);
@@ -351,7 +351,7 @@ void armemu_ldr(struct arm_state *state){
 void armemu_ldrb(struct arm_state *state){
     unsigned int iw, rd, rn, offset, i;
     // iw = *((unsigned int *) state->regs[PC]);
-    iw = get_iw(state, iw);
+    iw = get_iw(state);
     rn = get_rn(state, iw);
     rd = get_rd(state, iw);
     offset = get_offset(state, iw);
@@ -377,7 +377,7 @@ void armemu_ldrb(struct arm_state *state){
 
 void armemu_str(struct arm_state *state){
     unsigned int iw, rd, rn, offset, i;
-    iw = get_iw(state, iw);
+    iw = get_iw(state);
     rn = get_rn(state, iw);
     rd = get_rd(state, iw);
     offset = get_offset(state, iw);
