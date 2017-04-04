@@ -152,7 +152,7 @@ void update_rd_rn(struct arm_state *state, unsigned int rd, unsigned int rn){
     update_read_regs(state, rn);  
 }
 
-unsigned int get_add_or_sub_val(struct arm_state *state, unsigned int iw){
+unsigned int get_add_or_sub_or_cmp_val(struct arm_state *state, unsigned int iw){
     unsigned int rm;
     if(is_imme_dp(iw)){
         return iw & 0xFF;
@@ -180,7 +180,7 @@ void armemu_add(struct arm_state *state){
     //     add_value = state->regs[rm];
     //     update_read_regs(state, rm);
     // }
-    add_value = get_add_or_sub_val(state, iw);
+    add_value = get_add_or_sub_or_cmp_val(state, iw);
     state->regs[rd] = state->regs[rn] + add_value; 
     update_rd_rn(state, rd, rn);
     // update_read_regs(state, rn);
@@ -208,7 +208,7 @@ void armemu_sub(struct arm_state *state){
     //     sub_value = state->regs[rm];
     //     update_read_regs(state, rm);
     // }  
-    sub_value = get_add_or_sub_val(state, iw);
+    sub_value = get_add_or_sub_or_cmp_val(state, iw);
     state->regs[rd] = state->regs[rn] - sub_value;
     update_written_regs(state, rd);
     update_pc_general(state, rd);
@@ -235,6 +235,18 @@ void update_cpsr_cmp(struct arm_state *state, int val1, int val2){
     }
 }
 
+unsigned int get_add_or_sub_or_cmp_val(struct arm_state *state, unsigned int iw){
+    unsigned int rm;
+    if(is_imme_dp(iw)){
+        return iw & 0xFF;
+    }
+    else{
+        rm = iw & 0xF;
+        update_read_regs(state, rm);
+        return state->regs[rm];
+    }
+}
+
 void armemu_cmp(struct arm_state *state){
     unsigned int iw, rd, rn, rm, cmp_value;
     // iw = *((unsigned int *) state->regs[PC]);  
@@ -243,14 +255,15 @@ void armemu_cmp(struct arm_state *state){
     // rd = get_rd(state, iw);
     rn = get_rn(state, iw);
     state->cpsr = 0;
-    if(is_imme_dp(iw)){
-        cmp_value = iw & 0xFF;
-    }
-    else{
-        rm = iw & 0xF;
-        cmp_value = state->regs[rm];
-        update_read_regs(state, rm);
-    }
+    cmp_value = get_add_or_sub_or_cmp_val(state, iw);
+    // if(is_imme_dp(iw)){
+    //     cmp_value = iw & 0xFF;
+    // }
+    // else{
+    //     rm = iw & 0xF;
+    //     cmp_value = state->regs[rm];
+    //     update_read_regs(state, rm);
+    // }
     update_cpsr_cmp(state, state->regs[rn], cmp_value);
     update_pc_general(state, rd);
     // if (rd != PC) {
