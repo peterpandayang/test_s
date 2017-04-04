@@ -128,6 +128,13 @@ bool is_imme_dp(unsigned int iw){
     return i == 0b1;
 }
 
+void update_pc_general(struct arm_state *state, unsigned int rd){
+    if (rd != PC) {
+        state->regs[PC] = state->regs[PC] + 4;
+        update_written_regs(state, PC);
+    }
+}
+
 void armemu_add(struct arm_state *state){
     unsigned int iw;
     unsigned int rd, rn, rm, add_value;
@@ -145,10 +152,11 @@ void armemu_add(struct arm_state *state){
     state->regs[rd] = state->regs[rn] + add_value; 
     update_read_regs(state, rn);
     update_written_regs(state, rd); 
-    if (rd != PC) {
-        state->regs[PC] = state->regs[PC] + 4;
-        update_written_regs(state, PC);
-    }
+    update_pc_general(state, rd);
+    // if (rd != PC) {
+    //     state->regs[PC] = state->regs[PC] + 4;
+    //     update_written_regs(state, PC);
+    // }
 }
 
 void armemu_sub(struct arm_state *state){
@@ -167,10 +175,11 @@ void armemu_sub(struct arm_state *state){
     }  
     state->regs[rd] = state->regs[rn] - sub_value;
     update_written_regs(state, rd);
-    if (rd != PC) {
-        state->regs[PC] = state->regs[PC] + 4;
-        update_written_regs(state, PC);
-    }
+    update_pc_general(state, rd);
+    // if (rd != PC) {
+    //     state->regs[PC] = state->regs[PC] + 4;
+    //     update_written_regs(state, PC);
+    // }
 }
 
 bool is_cmp_inst(unsigned int iw){
@@ -205,10 +214,11 @@ void armemu_cmp(struct arm_state *state){
         update_read_regs(state, rm);
     }
     update_cpsr_cmp(state, state->regs[rn], cmp_value);
-    if (rd != PC) {
-        update_written_regs(state, PC);
-        state->regs[PC] = state->regs[PC] + 4;
-    }
+    update_pc_general(state, rd);
+    // if (rd != PC) {
+    //     update_written_regs(state, PC);
+    //     state->regs[PC] = state->regs[PC] + 4;
+    // }
 }
 
 bool is_mov_inst(unsigned int iw){
@@ -232,10 +242,11 @@ void armemu_mov(struct arm_state *state){
         update_read_regs(state, rn);
     }
     update_written_regs(state, rd);
-    if (rd != PC) {
-        update_written_regs(state, PC);
-        state->regs[PC] = state->regs[PC] + 4;
-    }
+    update_pc_general(state, rd);
+    // if (rd != PC) {
+    //     update_written_regs(state, PC);
+    //     state->regs[PC] = state->regs[PC] + 4;
+    // }
 }
 
 bool is_data_pro_inst(unsigned int iw){
@@ -305,10 +316,11 @@ void armemu_ldr(struct arm_state *state){
             update_read_regs(state, rn);  
         }        
     }
-    if (rd != PC) {
-        update_written_regs(state, PC);
-        state->regs[PC] = state->regs[PC] + 4;
-    }
+    update_pc_general(state, rd);
+    // if (rd != PC) {
+    //     update_written_regs(state, PC);
+    //     state->regs[PC] = state->regs[PC] + 4;
+    // }
 }
 
 void armemu_ldrb(struct arm_state *state){
@@ -326,10 +338,11 @@ void armemu_ldrb(struct arm_state *state){
             update_read_regs(state, rn);  
         }        
     }
-    if (rd != PC) {
-        state->regs[PC] = state->regs[PC] + 4;
-        update_written_regs(state, PC);
-    }
+    update_pc_general(state, rd);
+    // if (rd != PC) {
+    //     state->regs[PC] = state->regs[PC] + 4;
+    //     update_written_regs(state, PC);
+    // }
 }
 
 void armemu_str(struct arm_state *state){
@@ -347,10 +360,11 @@ void armemu_str(struct arm_state *state){
             update_read_regs(state, rd);  
         }        
     }
-    if (rd != PC) {
-        state->regs[PC] = state->regs[PC] + 4;
-        update_written_regs(state, PC);
-    }
+    update_pc_general(state, rd);
+    // if (rd != PC) {
+    //     state->regs[PC] = state->regs[PC] + 4;
+    //     update_written_regs(state, PC);
+    // }
 }
 
 bool is_mem_inst(unsigned int iw){
