@@ -152,7 +152,17 @@ void update_rd_rn(struct arm_state *state, unsigned int rd, unsigned int rn){
     update_read_regs(state, rn);  
 }
 
-// void update_add_sub()
+unsigned int get_add_or_sub_val(struct arm_state *state, unsigned int iw){
+    unsigned int rm;
+    if(is_imme_dp(iw)){
+        return iw & 0xFF;
+    }
+    else{
+        rm = iw & 0xF;
+        update_read_regs(state, rm);
+        return state->regs[rm];
+    }
+}
 
 void armemu_add(struct arm_state *state){
     unsigned int iw, rd, rn, rm, add_value;
@@ -162,14 +172,15 @@ void armemu_add(struct arm_state *state){
     // iw = *((unsigned int *) state->regs[PC]); 
     // rd = (iw >> 12) & 0xF;
     // rn = (iw >> 16) & 0xF;
-    if(is_imme_dp(iw)){
-        add_value = iw & 0xFF;
-    }
-    else{
-        rm = iw & 0xF;
-        add_value = state->regs[rm];
-        update_read_regs(state, rm);
-    }
+    // if(is_imme_dp(iw)){
+    //     add_value = iw & 0xFF;
+    // }
+    // else{
+    //     rm = iw & 0xF;
+    //     add_value = state->regs[rm];
+    //     update_read_regs(state, rm);
+    // }
+    add_value = get_add_or_sub_val(state, iw);
     state->regs[rd] = state->regs[rn] + add_value; 
     update_rd_rn(state, rd, rn);
     // update_read_regs(state, rn);
@@ -189,14 +200,15 @@ void armemu_sub(struct arm_state *state){
     iw = get_iw(state);
     rd = get_rd(state, iw);
     rn = get_rn(state, iw);
-    if(is_imme_dp(iw)){
-        sub_value = iw & 0xFF;
-    }
-    else{
-        rm = iw & 0xF;
-        sub_value = state->regs[rm];
-        update_read_regs(state, rm);
-    }  
+    // if(is_imme_dp(iw)){
+    //     sub_value = iw & 0xFF;
+    // }
+    // else{
+    //     rm = iw & 0xF;
+    //     sub_value = state->regs[rm];
+    //     update_read_regs(state, rm);
+    // }  
+    add_value = get_add_or_sub_val(state, iw);
     state->regs[rd] = state->regs[rn] - sub_value;
     update_written_regs(state, rd);
     update_pc_general(state, rd);
