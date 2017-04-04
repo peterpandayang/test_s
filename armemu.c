@@ -171,8 +171,9 @@ void armemu_add(struct arm_state *state){
         update_read_regs(state, rm);
     }
     state->regs[rd] = state->regs[rn] + add_value; 
-    update_read_regs(state, rn);
-    update_written_regs(state, rd); 
+    update_rd_rn(state, rd, rn);
+    // update_read_regs(state, rn);
+    // update_written_regs(state, rd); 
     update_pc_general(state, rd);
     // if (rd != PC) {
     //     state->regs[PC] = state->regs[PC] + 4;
