@@ -471,8 +471,12 @@ void update_pc_bl(int iw, struct arm_state *state, int offset){
     if(is_beq_inst(iw)){
         if(state->cpsr == 0x40000000){
             save_link_addr(state);
+            update_pc_with_b(state, offset);
         }
-        update_pc_eq(state->cpsr, state, offset);
+        else {
+            update_pc_without_b(state, offset);
+        }
+        // update_pc_eq(state->cpsr, state, offset);
     }
     else{ 
         state->b_taken_count += 1;           
