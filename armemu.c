@@ -135,11 +135,6 @@ void update_pc_general(struct arm_state *state, unsigned int rd){
     }
 }
 
-void update_rd_rn(struct arm_state *state, unsigned int rd, unsigned int rn){
-    update_written_regs(state, rd);  
-    update_read_regs(state, rn);  
-}
-
 void armemu_add(struct arm_state *state){
     unsigned int iw, rd, rn, rm, add_value;
     iw = *((unsigned int *) state->regs[PC]); 
@@ -154,9 +149,8 @@ void armemu_add(struct arm_state *state){
         update_read_regs(state, rm);
     }
     state->regs[rd] = state->regs[rn] + add_value; 
-    update_rd_rn(state, rd, rn);
-    // update_read_regs(state, rn);
-    // update_written_regs(state, rd); 
+    update_read_regs(state, rn);
+    update_written_regs(state, rd); 
     update_pc_general(state, rd);
     // if (rd != PC) {
     //     state->regs[PC] = state->regs[PC] + 4;
@@ -243,9 +237,8 @@ void armemu_mov(struct arm_state *state){
         state->regs[rd] = state->regs[rn];
         update_read_regs(state, rn);
     }
-    update_rd_rn(state, rd, rd);
-    // update_written_regs(state, rd);
-    // update_pc_general(state, rd);
+    update_written_regs(state, rd);
+    update_pc_general(state, rd);
     // if (rd != PC) {
     //     update_written_regs(state, PC);
     //     state->regs[PC] = state->regs[PC] + 4;
@@ -324,6 +317,11 @@ unsigned int get_i(struct arm_state *state, unsigned int iw){
     return iw >> 25 & 0b1;
 }
 
+void update_rd_rn(struct arm_state *state, unsigned int rd, unsigned int rn){
+    update_written_regs(state, rd);  
+    update_read_regs(state, rn);  
+}
+
 void armemu_ldr(struct arm_state *state){
     unsigned int iw, rd, rn, offset, i;
     iw = get_iw(state);
@@ -396,7 +394,7 @@ void armemu_str(struct arm_state *state){
         // if(i == 0b0){
             // offset = iw & 0xFFF;
         *((unsigned int *)(state->regs[rn] + offset)) = state->regs[rd];
-        update_rd_rn(state, rn, rd);
+        update_rd_rn(state, rd, rn);
         // update_written_regs(state, rn);  
         // update_read_regs(state, rd);  
         // }        
