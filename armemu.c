@@ -135,38 +135,10 @@ void update_pc_general(struct arm_state *state, unsigned int rd){
     }
 }
 
-unsigned int get_iw(struct arm_state *state){
-    return *((unsigned int *) state->regs[PC]);
-}
-
-unsigned int get_rn(struct arm_state *state, unsigned int iw){
-    return (iw >> 16) & 0xF;
-}
-
-unsigned int get_rd(struct arm_state *state, unsigned int iw){
-    return (iw >> 12) & 0xF;
-}
-
-unsigned int get_offset(struct arm_state *state, unsigned int iw){
-    return iw & 0xFFF;
-}
-
-unsigned int get_i(struct arm_state *state, unsigned int iw){
-    return iw >> 25 & 0b1;
-}
-
-void update_rd_rn(struct arm_state *state, unsigned int rd, unsigned int rn){
-    update_written_regs(state, rd);  
-    update_read_regs(state, rn);  
-}
-
 void armemu_add(struct arm_state *state){
     unsigned int iw, rd, rn, rm, add_value;
-    iw = get_iw(state);
-    rd = get_rd(state, iw);
-    rn = get_rn(state, iw);
-    // iw = *((unsigned int *) state->regs[PC]); 
-    // rd = (iw >> 12) & 0xF;
+    iw = *((unsigned int *) state->regs[PC]); 
+    rd = (iw >> 12) & 0xF;
     rn = (iw >> 16) & 0xF;
     if(is_imme_dp(iw)){
         add_value = iw & 0xFF;
@@ -325,6 +297,31 @@ bool is_off_addr(unsigned int iw){
     P = (iw >> 24) & 0b1;
     W = (iw >> 21) & 0b1;
     return P == 0b1 && W == 0b0;
+}
+
+unsigned int get_iw(struct arm_state *state){
+    return *((unsigned int *) state->regs[PC]);
+}
+
+unsigned int get_rn(struct arm_state *state, unsigned int iw){
+    return (iw >> 16) & 0xF;
+}
+
+unsigned int get_rd(struct arm_state *state, unsigned int iw){
+    return (iw >> 12) & 0xF;
+}
+
+unsigned int get_offset(struct arm_state *state, unsigned int iw){
+    return iw & 0xFFF;
+}
+
+unsigned int get_i(struct arm_state *state, unsigned int iw){
+    return iw >> 25 & 0b1;
+}
+
+void update_rd_rn(struct arm_state *state, unsigned int rd, unsigned int rn){
+    update_written_regs(state, rd);  
+    update_read_regs(state, rn);  
 }
 
 void armemu_ldr(struct arm_state *state){
