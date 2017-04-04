@@ -205,8 +205,10 @@ void armemu_cmp(struct arm_state *state){
         update_read_regs(state, rm);
     }
     update_cpsr_cmp(state, state->regs[rn], cmp_value);
-    update_written_regs(state, PC);
-    state->regs[PC] = state->regs[PC] + 4;
+    if (rd != PC) {
+        update_written_regs(state, PC);
+        state->regs[PC] = state->regs[PC] + 4;
+    }
 }
 
 bool is_mov_inst(unsigned int iw){
