@@ -503,8 +503,9 @@ void armemu_b(struct arm_state *state){
         // update_pc_eq(state->cpsr, state, offset);
         update_pc_with_b(state, offset);
     }
-    else if(is_bge_inst(iw)){
-        update_pc_ne_ge(state->cpsr >> 31, state, offset);
+    else if(is_bge_inst(iw) && ((state->cpsr >> 31 == 0b0)){
+        update_pc_with_b(state, offset);
+        // update_pc_ne_ge(state->cpsr >> 31, state, offset);
     }
     else if(is_bne_inst(iw)){
         update_pc_ne_ge(state->cpsr >> 30, state, offset);
