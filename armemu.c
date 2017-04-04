@@ -135,6 +135,11 @@ void update_pc_general(struct arm_state *state, unsigned int rd){
     }
 }
 
+void update_rd_rn(struct arm_state *state, unsigned int rd, unsigned int rn){
+    update_written_regs(state, rd);  
+    update_read_regs(state, rn);  
+}
+
 void armemu_add(struct arm_state *state){
     unsigned int iw, rd, rn, rm, add_value;
     iw = *((unsigned int *) state->regs[PC]); 
@@ -317,11 +322,6 @@ unsigned int get_offset(struct arm_state *state, unsigned int iw){
 
 unsigned int get_i(struct arm_state *state, unsigned int iw){
     return iw >> 25 & 0b1;
-}
-
-void update_rd_rn(struct arm_state *state, unsigned int rd, unsigned int rn){
-    update_written_regs(state, rd);  
-    update_read_regs(state, rn);  
 }
 
 void armemu_ldr(struct arm_state *state){
