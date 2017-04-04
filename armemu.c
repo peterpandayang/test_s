@@ -208,7 +208,7 @@ void armemu_sub(struct arm_state *state){
     //     sub_value = state->regs[rm];
     //     update_read_regs(state, rm);
     // }  
-    add_value = get_add_or_sub_val(state, iw);
+    sub_value = get_add_or_sub_val(state, iw);
     state->regs[rd] = state->regs[rn] - sub_value;
     update_written_regs(state, rd);
     update_pc_general(state, rd);
