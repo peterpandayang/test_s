@@ -298,7 +298,7 @@ void armemu_ldr(struct arm_state *state){
         i = iw >> 25 & 0b1;
         if(i == 0b0){
             offset = iw & 0xFFF;
-            state->regs[rd] = *((unsigned int *)(state->regs[rn] + offset));
+            state->regs[rd] = *((unsigned int *)(state->regs[rn] + offset)) &0xFF;
             update_written_regs(state, rd);  
             update_read_regs(state, rn);  
         }        
