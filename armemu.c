@@ -135,11 +135,39 @@ void update_pc_general(struct arm_state *state, unsigned int rd){
     }
 }
 
+unsigned int get_iw(struct arm_state *state){
+    return *((unsigned int *) state->regs[PC]);
+}
+
+unsigned int get_rn(struct arm_state *state, unsigned int iw){
+    return (iw >> 16) & 0xF;
+}
+
+unsigned int get_rd(struct arm_state *state, unsigned int iw){
+    return (iw >> 12) & 0xF;
+}
+
+unsigned int get_offset(struct arm_state *state, unsigned int iw){
+    return iw & 0xFFF;
+}
+
+unsigned int get_i(struct arm_state *state, unsigned int iw){
+    return iw >> 25 & 0b1;
+}
+
+void update_rd_rn(struct arm_state *state, unsigned int rd, unsigned int rn){
+    update_written_regs(state, rd);  
+    update_read_regs(state, rn);  
+}
+
 void armemu_add(struct arm_state *state){
     unsigned int iw, rd, rn, rm, add_value;
-    iw = *((unsigned int *) state->regs[PC]); 
-    rd = (iw >> 12) & 0xF;
-    rn = (iw >> 16) & 0xF;
+    iw = get_iw(state);
+    rd = get_rd(state, iw);
+    rn = get_rn(state, iw);
+    // iw = *((unsigned int *) state->regs[PC]); 
+    // rd = (iw >> 12) & 0xF;
+    // rn = (iw >> 16) & 0xF;
     if(is_imme_dp(iw)){
         add_value = iw & 0xFF;
     }
@@ -149,8 +177,9 @@ void armemu_add(struct arm_state *state){
         update_read_regs(state, rm);
     }
     state->regs[rd] = state->regs[rn] + add_value; 
-    update_read_regs(state, rn);
-    update_written_regs(state, rd); 
+    update_rd_rn(state, rd, rn);
+    // update_read_regs(state, rn);
+    // update_written_regs(state, rd); 
     update_pc_general(state, rd);
     // if (rd != PC) {
     //     state->regs[PC] = state->regs[PC] + 4;
@@ -160,9 +189,12 @@ void armemu_add(struct arm_state *state){
 
 void armemu_sub(struct arm_state *state){
     unsigned int iw, rd, rn, rm, sub_value;
-    iw = *((unsigned int *) state->regs[PC]);    
-    rd = (iw >> 12) & 0xF;
-    rn = (iw >> 16) & 0xF;
+    // iw = *((unsigned int *) state->regs[PC]);    
+    // rd = (iw >> 12) & 0xF;
+    // rn = (iw >> 16) & 0xF;
+    iw = get_iw(state);
+    rd = get_rd(state, iw);
+    rn = get_rn(state, iw);
     if(is_imme_dp(iw)){
         sub_value = iw & 0xFF;
     }
@@ -199,8 +231,10 @@ void update_cpsr_cmp(struct arm_state *state, int val1, int val2){
 
 void armemu_cmp(struct arm_state *state){
     unsigned int iw, rd, rn, rm, cmp_value;
-    iw = *((unsigned int *) state->regs[PC]);  
-    rn = (iw >> 16) & 0xF;
+    // iw = *((unsigned int *) state->regs[PC]);  
+    // rn = (iw >> 16) & 0xF;
+    iw = get_iw(state);
+    rn = get_rn(state, iw);
     state->cpsr = 0;
     if(is_imme_dp(iw)){
         cmp_value = iw & 0xFF;
@@ -226,8 +260,10 @@ bool is_mov_inst(unsigned int iw){
 
 void armemu_mov(struct arm_state *state){
     unsigned int iw, rd, rn, imme;
-    iw = *((unsigned int *) state->regs[PC]);
-    rd = (iw >> 12) & 0xF;
+    // iw = *((unsigned int *) state->regs[PC]);
+    // rd = (iw >> 12) & 0xF;
+    iw = get_iw(state);
+    rd = get_rd(state, iw);
     if(is_imme_dp(iw)){
         unsigned int imme = iw & 0xFF;
         state->regs[rd] = imme;
@@ -237,8 +273,9 @@ void armemu_mov(struct arm_state *state){
         state->regs[rd] = state->regs[rn];
         update_read_regs(state, rn);
     }
-    update_written_regs(state, rd);
-    update_pc_general(state, rd);
+    update_rd_rn(state, rd, rd);
+    // update_written_regs(state, rd);
+    // update_pc_general(state, rd);
     // if (rd != PC) {
     //     update_written_regs(state, PC);
     //     state->regs[PC] = state->regs[PC] + 4;
@@ -253,7 +290,8 @@ bool is_data_pro_inst(unsigned int iw){
 
 void armemu_data_pro(struct arm_state *state){
     unsigned int iw;
-    iw = *((unsigned int *) state->regs[PC]);
+    // iw = *((unsigned int *) state->regs[PC]);
+    iw = get_iw(state);
     if(is_mov_inst(iw)){
         armemu_mov(state);
     }
@@ -295,31 +333,6 @@ bool is_off_addr(unsigned int iw){
     P = (iw >> 24) & 0b1;
     W = (iw >> 21) & 0b1;
     return P == 0b1 && W == 0b0;
-}
-
-unsigned int get_iw(struct arm_state *state){
-    return *((unsigned int *) state->regs[PC]);
-}
-
-unsigned int get_rn(struct arm_state *state, unsigned int iw){
-    return (iw >> 16) & 0xF;
-}
-
-unsigned int get_rd(struct arm_state *state, unsigned int iw){
-    return (iw >> 12) & 0xF;
-}
-
-unsigned int get_offset(struct arm_state *state, unsigned int iw){
-    return iw & 0xFFF;
-}
-
-unsigned int get_i(struct arm_state *state, unsigned int iw){
-    return iw >> 25 & 0b1;
-}
-
-void update_rd_rn(struct arm_state *state, unsigned int rd, unsigned int rn){
-    update_written_regs(state, rd);  
-    update_read_regs(state, rn);  
 }
 
 void armemu_ldr(struct arm_state *state){
