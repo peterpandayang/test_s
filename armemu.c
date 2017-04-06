@@ -888,7 +888,7 @@ void find_max_test(struct arm_state *state, unsigned int *func, int *p_array, in
     single_find_max_test(state, (unsigned int *) func, p_large_array, 1000, 3);
 }
 
-void print_fibo(struct arm_state *state, (unsigned int *) func, int index){
+void print_fibo(struct arm_state *state, unsigned int *func, int index){
     int i, result, arm;
     for(i = 0; i < 20; i++){
         if(index == 1){
