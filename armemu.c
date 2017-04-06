@@ -892,7 +892,7 @@ void print_fibo(struct arm_state *state, unsigned int *func, int index){
     int i, result, arm;
     for(i = 0; i < 20; i++){
         if(index == 1){
-            result = = fibo_iter_s(i);
+            result = fibo_iter_s(i);
         }
         else {
             result = fibo_rec_s(i);
