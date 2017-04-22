@@ -1,22 +1,22 @@
 Result for find sub in s test:
-Total instructions: 122
-Total computation instructions: 41
-Total memory instructions: 58
-Total branch instructions: 23
-Total branch taken: 10
-Total branch not taken: 13
+Total instructions: 107
+Total computation instructions: 36
+Total memory instructions: 51
+Total branch instructions: 20
+Total branch taken: 9
+Total branch not taken: 11
 Register used as read: 
-r0 r1 r2 r3 r12 sp lr pc 
+r0 r1 r2 r3 r12 sp pc 
 Register used as written: 
 r0 r1 r2 r3 r12 sp lr pc 
-armemu_total_time_usecs = 51.614855 us
-native_total_time_usecs = 0.217005 us
-native method is: 237 times faster than armemu method
+armemu_total_time_usecs = 53.247896 us
+native_total_time_usecs = 0.247489 us
+native method is: 215 times faster than armemu method
 
 Table for percentage of instructions
 
 Computation      Memory       Branches
-0.336066%        0.475410%    0.188525%
+0.336449%        0.476636%    0.186916%
 
 Branch Taken     Branch Not Taken
-0.434783%        0.565217%
+0.450000%        0.550000%

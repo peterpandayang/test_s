@@ -6,12 +6,12 @@ Total branch instructions: 22
 Total branch taken: 12
 Total branch not taken: 10
 Register used as read: 
-r0 r1 r2 r3 r12 sp pc 
+r1 r2 r3 r12 sp pc 
 Register used as written: 
 r0 r1 r2 r3 r12 sp pc 
-armemu_total_time_usecs = 62.250000 us
-native_total_time_usecs = 0.161240 us
-native method is: 386 times faster than armemu method
+armemu_total_time_usecs = 72.239400 us
+native_total_time_usecs = 0.160666 us
+native method is: 449 times faster than armemu method
 
 Table for percentage of instructions
 
