@@ -826,8 +826,6 @@ void write_to_output(struct arm_state *state, int index){
 }
 
 /*test part*/
-// void print_result()
-
 void single_sum_array_test(struct arm_state *state, unsigned int *func, int *p_array, int size, int index){
     if(size != 1000){
         print_array_c(p_array, size);
@@ -923,19 +921,6 @@ void fibo_iter_test(struct arm_state *state, unsigned int *func, int size){
     printf("Start iteration fibonacci test:\n");
     printf("Test for fibonacci sequence of iteration with size %d: \n", size);
     print_fibo(state, (unsigned int *) func, 1);
-    // int i;
-    // for(i = 0; i < 20; i++){
-    //     int iter_s = fibo_iter_s(i);
-    //     printf("%d ", iter_s);
-    // }
-    // printf("(Assembly)\n");
-    // for(i = 0; i < 20; i++){
-    //     init_arm_state(state, (unsigned int *) func, i, 0, 0, 0);
-    //     int iter_arm = armemu(state);
-    //     printf("%d ", iter_arm);
-    // }
-    // printf("(Armemu)\n");
-    // printf("\n");
     signle_fibo_iter_test(state, (unsigned int *) func, 10, 10);
     signle_fibo_iter_test(state, (unsigned int *) func, 19, 19);
 }
@@ -954,20 +939,6 @@ void fibo_rec_test(struct arm_state *state, unsigned int *func, int size){
     printf("Start recursion fibonacci test:\n");
     printf("Test for fibonacci sequence of recursion with size %d: \n", size);
     print_fibo(state, (unsigned int *) func, 2);
-    // int i;
-    // for(i = 0; i < 20; i++){
-    //     int rec_s = fibo_rec_s(i);
-    //     printf("%d ", rec_s);
-    // }
-    // printf("(Assembly)\n");
-
-    // for(i = 0; i < 20; i++){
-    //     init_arm_state(state, (unsigned int *) func, i, 0, 0, 0);
-    //     int rec_arm = armemu(state);
-    //     printf("%d ", rec_arm);
-    // }
-    // printf("(Armemu)\n");
-    // printf("\n");
     signle_fibo_rec_test(state, (unsigned int *) func, 10, 11);
     signle_fibo_rec_test(state, (unsigned int *) func, 19, 20);
 }
