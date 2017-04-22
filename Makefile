@@ -22,8 +22,8 @@ fibo_rec_s.o : fibo_rec_s.s
 find_sub_in_s_s.o : find_sub_in_s_s.s
 	as -o find_sub_in_s_s.o find_sub_in_s_s.s
 
-armemu : armemu.c sum_array_s.o find_max_s.o fibo_iter_s.o fibo_rec_s.o find_sub_in_s_s.o
-	gcc -o armemu armemu.c sum_array_s.o find_max_s.o fibo_iter_s.o fibo_rec_s.o find_sub_in_s_s.o
+armemu : armemu.c sum_array_s.o find_max_s.o fibo_iter_s.o fibo_rec_s.o find_sub_in_s_s.o add.o
+	gcc -o armemu armemu.c sum_array_s.o find_max_s.o fibo_iter_s.o fibo_rec_s.o find_sub_in_s_s.o add.o
 
 
 
