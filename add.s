@@ -1,10 +1,39 @@
-.globl add
+.func main
+main:
+		mov sp, #256
+		add sp, sp, sp
+		add sp, sp, sp
+		add sp, sp, sp
+		add sp, sp, sp
+		add sp, sp, sp
+        add sp, sp, sp
+        sub sp, sp, #4
+        mov r0, #0
+        str r0, [sp]
+        sub sp, sp, #4
+        mov r0, #1
+        str r0, [sp]
+        sub sp, sp, #4
+        mov r0, #2
+        str r0, [sp]
+        sub sp, sp, #4
+        mov r0, #3
+        str r0, [sp]
+        sub sp, sp, #4
+        mov r0, #4
+        str r0, [sp]        
+        mov r0, sp
+        mov r1, #5
+        bl add
+end:
+        b end
+.endfunc
+
 .func add
 
 add:
 	mov r2, #0
-	mov r3, #0
-	
+	mov r3, #0	
 loop:
 	cmp r2, r1
 	beq done
@@ -17,5 +46,5 @@ loop:
 done:
 	mov r0, r3
 	bx lr
-	
+.endfunc
 
