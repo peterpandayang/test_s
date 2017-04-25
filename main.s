@@ -1,6 +1,7 @@
 .func main
 main:
-		mov sp, #256
+		mov sp, #128
+		add sp, sp, sp
 		add sp, sp, sp
 		add sp, sp, sp
 		add sp, sp, sp
