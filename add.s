@@ -25,8 +25,7 @@ main:
         mov r0, sp
         mov r1, #5
         bl add
-end:
-        b end
+        bx lr
 .endfunc
 
 .func add
