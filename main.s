@@ -34,12 +34,20 @@ end:
 
 add:
 	mov r2, #0
-	mov r3, #0	
+	mov r3, #0
+
 loop:
 	cmp r2, r1
 	beq done
-	ldr r12, [r0]
-	add r3, r3, r12
+	ldr r4, [r0]
+	cmp r4, r3
+	bge update
+	add r0, r0, #4
+	add r2, r2, #1
+	b loop
+
+update:
+	mov r3, r4
 	add r0, r0, #4
 	add r2, r2, #1
 	b loop
