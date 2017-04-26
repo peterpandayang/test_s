@@ -9,9 +9,6 @@ main:
 		add sp, sp, sp
         add sp, sp, sp
         sub sp, sp, #4
-        mov r0, #0
-        str r0, [sp]
-        sub sp, sp, #4
         mov r0, #1
         str r0, [sp]
         sub sp, sp, #4
@@ -22,6 +19,9 @@ main:
         str r0, [sp]
         sub sp, sp, #4
         mov r0, #4
+        str r0, [sp]
+        sub sp, sp, #4
+        mov r0, #5
         str r0, [sp]        
         mov r0, sp
         mov r1, #5
