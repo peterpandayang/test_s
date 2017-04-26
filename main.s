@@ -8,52 +8,42 @@ main:
 		add sp, sp, sp
 		add sp, sp, sp
         add sp, sp, sp
-        sub sp, sp, #4
-        mov r0, #1
-        str r0, [sp]
-        sub sp, sp, #4
-        mov r0, #2
-        str r0, [sp]
-        sub sp, sp, #4
-        mov r0, #3
-        str r0, [sp]
-        sub sp, sp, #4
-        mov r0, #4
-        str r0, [sp]
-        sub sp, sp, #4
-        mov r0, #5
-        str r0, [sp]        
-        mov r0, sp
-        mov r1, #5
-        bl add
+        mov r0, #10
+        bl fibo_iter_s
 end:
         b end
 .endfunc
 
-.func add
+.func fibo_iter_s
 
-add:
-	mov r2, #0
-	mov r3, #0
+fibo_iter_s:
+	sub sp, sp, #16
+	str r0, [sp, #16]
+	mov r0, #0
+	str r0, [sp, #12]
+	str r0, [sp]
+	mov r0, #1
+	str r0, [sp, #8]
+	str r0, [sp, #4]
 
 loop:
-	cmp r2, r1
+	ldr r3, [sp, #12]
+	ldr r12, [sp, #16]
+	cmp r3, r12
 	beq done
-	ldr r4, [r0]
-	cmp r4, r3
-	bge update
-	add r0, r0, #4
-	add r2, r2, #1
-	b loop
-
-update:
-	mov r3, r4
-	add r0, r0, #4
-	add r2, r2, #1
+	ldr r0, [sp]
+	ldr r1, [sp, #4]
+	ldr r2, [sp, #8]
+	str r1, [sp]
+	str r2, [sp, #4]
+	add r2, r2, r1
+	str r2, [sp, #8]
+	add r3, r3, #1
+	str r3, [sp, #12]
 	b loop
 
 done:
-	mov r0, r3
+	ldr r0, [sp]
 	bx lr
 .endfunc
 
