@@ -8,7 +8,7 @@ main:
 		add sp, sp, sp
 		add sp, sp, sp
         add sp, sp, sp
-        mov r0, #10
+        mov r0, #4
         bl fibo_rec_s
 end:
         b end
